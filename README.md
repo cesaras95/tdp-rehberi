@@ -72,3 +72,7 @@ Virgüllere dikkat et: her `}` bloğundan sonra `,` olmalı.
 | mütekabiliyet / agreman | reciprocity / agrément |
 | mutabakat zaptı | memorandum of understanding |
 | hava sahasının ihlali | violation of airspace |
+
+## Haftalık içerik güncellemesi
+
+Her pazartesi sabahı bir Claude zamanlanmış görevi son haftanın önemli gelişmelerini araştırır; `veri/duyurular.js` ve `veri/dunya.js` dosyalarına iki dilli özet, sınav notu ve kaynak linkiyle ekler ve doğrudan yayınlar. Görevin kuralları `robot/HAFTALIK_GOREV.md` dosyasında, kullandığı terim karşılıkları `robot/terminoloji.md` dosyasındadır. Görevin davranışını değiştirmek için bu dosyaları düzenlemek yeterlidir.
