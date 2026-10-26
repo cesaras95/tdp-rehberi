@@ -1,0 +1,63 @@
+# TDP Rehberi / TFP Guide
+
+Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya gündemi. Dışişleri sınavlarına hazırlananlar için quiz, bilgi kartları ve mülakat soruları içerir. Site Türkçe ve İngilizcedir; sağ üstteki **EN / TR** butonuyla dil değiştirilir.
+
+> Bu site resmî değildir; T.C. Dışişleri Bakanlığı ile bağlantısı yoktur.
+
+## Dosyalar
+
+| Dosya | Ne işe yarar |
+|---|---|
+| `index.html` | Sitenin iskeleti (odalar) |
+| `style.css` | Görünüm (boya, mobilya) |
+| `app.js` | Çalışma mantığı (elektrik tesisatı) |
+| `veri/arayuz.js` | Butonlar, menü, başlıklar (iki dilli tabelalar) |
+| `veri/tarih.js` | Dönemler ve olaylar |
+| `veri/politikalar.js` | Politika kartları |
+| `veri/duyurular.js` | Türkiye gündemi (sık güncellenir) |
+| `veri/dunya.js` | Dünya gündemi (sık güncellenir) |
+| `veri/sorular.js` | Quiz, bilgi kartları, mülakat soruları |
+
+## İki dilli metin nasıl yazılır?
+
+Her metin iki dilli bir kutudur:
+
+```js
+baslik: { tr: "Türkçe başlık", en: "English title" }
+```
+
+İngilizce kısmı boş bırakma. Boş kalırsa İngilizce sayfada Türkçe metin görünür.
+
+## Yeni haber nasıl eklenir?
+
+1. `veri/duyurular.js` (Türkiye) ya da `veri/dunya.js` (dünya) dosyasını aç.
+2. Listenin en üstüne mevcut bir `{ ... },` bloğunu kopyala.
+3. Tarihi, başlığı, özeti, notu ve kaynak linkini **iki dilde** değiştir.
+4. En üstteki güncelleme tarihini değiştir.
+5. Kaydet ve GitHub'a yükle.
+
+Virgüllere dikkat et: her `}` bloğundan sonra `,` olmalı.
+
+## Çeviri esasları
+
+İngilizce terimler T.C. Dışişleri Bakanlığı Tercüme Dairesi terminoloji listelerine göre seçilmiştir (Uluslararası İlişkiler, Uluslararası Hukuk, Deniz Hukuku, Göç, Askerî, Ekonomi ve Maliye, Kolluk ve Sınır Yönetimi, Nüfus ve Vatandaşlık, Kültürel Miras). İngiliz yazımı kullanılır (defence, organisation, liberalisation).
+
+Örnekler:
+
+| Türkçe | English |
+|---|---|
+| deniz yetki alanlarının sınırlandırılması | delimitation of maritime jurisdiction areas |
+| hakkaniyet ilkesi | principle of equity |
+| kıta sahanlığı / karasuları | continental shelf / territorial waters |
+| zararsız geçiş | innocent passage |
+| garantör ülke | guarantor state |
+| güven artırıcı önlemler | confidence building measures |
+| katılım müzakereleri | accession negotiations |
+| vize serbestisi diyaloğu | visa liberalisation dialogue |
+| geçici koruma / sığınmacı | temporary protection / asylum seeker |
+| düzensiz göç / gönüllü geri dönüş | irregular migration / voluntary return |
+| statüko politikası / çevreleme | status quo policy / containment |
+| caydırıcılık / ilhak / yaptırım | deterrence / annexation / sanction |
+| mütekabiliyet / agreman | reciprocity / agrément |
+| mutabakat zaptı | memorandum of understanding |
+| hava sahasının ihlali | violation of airspace |

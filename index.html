@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- =============================================================
+     index.html — Sitenin iskeleti (HTML)
+     Benzetme: Bu dosya binanın odalarını çizer. Renkler style.css'te,
+     butonların çalışması app.js'te, içerikler veri/ klasöründe.
+     data-t="..." yazan yerlerdeki metinler veri/arayuz.js'den gelir
+     (dil butonuna basınca Türkçe ↔ İngilizce değişir).
+     ============================================================= -->
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TDP Rehberi · Türk Dış Politikası</title>
+  <meta name="description" content="Türk Dış Politikası tarihi, güncel gelişmeler ve politika başlıkları; Dışişleri sınavlarına hazırlananlar için quiz, bilgi kartları ve mülakat soruları. Turkish foreign policy study guide in Turkish and English.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ÜST BAŞLIK -->
+  <header class="ust">
+    <div class="kap ust-satir">
+      <a href="#ana" class="logo">
+        <span class="logo-isaret" aria-hidden="true">◈</span>
+        <span>
+          <strong data-t="logoAd">TDP Rehberi</strong>
+          <small data-t="logoAlt">Türk Dış Politikası · sınav hazırlık</small>
+        </span>
+      </a>
+      <!-- DİL BUTONU: Türkçe ↔ İngilizce -->
+      <button id="dil-dugme" class="dil-dugme" type="button"></button>
+    </div>
+    <!-- MENÜ: her link bir sekmeyi açar (data-sekme ile eşleşir) -->
+    <nav class="menu kap" aria-label="Menu">
+      <a href="#ana" data-sekme="ana" data-t="menuAna"></a>
+      <a href="#tarih" data-sekme="tarih" data-t="menuTarih"></a>
+      <a href="#politikalar" data-sekme="politikalar" data-t="menuPolitikalar"></a>
+      <a href="#guncel" data-sekme="guncel" data-t="menuGuncel"></a>
+      <a href="#dunya" data-sekme="dunya" data-t="menuDunya"></a>
+      <a href="#quiz" data-sekme="quiz" data-t="menuQuiz"></a>
+      <a href="#kartlar" data-sekme="kartlar" data-t="menuKartlar"></a>
+      <a href="#mulakat" data-sekme="mulakat" data-t="menuMulakat"></a>
+    </nav>
+  </header>
+
+  <main class="kap">
+
+    <!-- ANA SAYFA -->
+    <section id="ana" class="sekme">
+      <div class="karsilama">
+        <p class="ust-etiket" data-t="anaUstEtiket"></p>
+        <h1 data-t-html="anaBaslik"></h1>
+        <p class="giris" data-t-html="anaGiris"></p>
+      </div>
+      <div class="ozet-izgara" id="ana-ozet"></div>
+      <div class="iki-sutun">
+        <div class="kutu son-gelisme">
+          <h2 data-t="anaSonTr"></h2>
+          <div id="ana-son"></div>
+          <a class="dugme ikincil" href="#guncel" data-t="tumunuGor"></a>
+        </div>
+        <div class="kutu son-gelisme">
+          <h2 data-t="anaSonDunya"></h2>
+          <div id="ana-dunya"></div>
+          <a class="dugme ikincil" href="#dunya" data-t="tumunuGor"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARİH -->
+    <section id="tarih" class="sekme" hidden>
+      <h1 data-t="tarihBaslik"></h1>
+      <p class="giris" data-t="tarihGiris"></p>
+      <div id="tarih-liste" class="zaman-cizelgesi"></div>
+    </section>
+
+    <!-- POLİTİKALAR -->
+    <section id="politikalar" class="sekme" hidden>
+      <h1 data-t="polBaslik"></h1>
+      <p class="giris" data-t="polGiris"></p>
+      <div class="filtre" id="politika-filtre">
+        <button class="cip aktif" data-oncelik="hepsi" data-t="filtreHepsi"></button>
+        <button class="cip" data-oncelik="yuksek" data-t="filtreYuksek"></button>
+        <button class="cip" data-oncelik="orta" data-t="filtreOrta"></button>
+        <button class="cip" data-oncelik="dusuk" data-t="filtreDusuk"></button>
+      </div>
+      <div id="politika-liste" class="kart-izgara"></div>
+    </section>
+
+    <!-- TÜRKİYE GÜNDEMİ -->
+    <section id="guncel" class="sekme" hidden>
+      <h1 data-t="guncelBaslik"></h1>
+      <p class="giris" id="guncel-giris"></p>
+      <div class="kutu yaklasan">
+        <h2 data-t="yaklasan"></h2>
+        <ul id="yaklasan-liste"></ul>
+      </div>
+      <div id="duyuru-liste"></div>
+    </section>
+
+    <!-- DÜNYA GÜNDEMİ (yeni sekme) -->
+    <section id="dunya" class="sekme" hidden>
+      <h1 data-t="dunyaBaslik"></h1>
+      <p class="giris" id="dunya-giris"></p>
+      <div class="kutu yaklasan">
+        <h2 data-t="dunyaTakvim"></h2>
+        <ul id="dunya-takvim"></ul>
+      </div>
+      <div class="filtre" id="dunya-filtre"></div>
+      <div id="dunya-liste"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" class="sekme" hidden>
+      <h1 data-t="quizBaslik"></h1>
+      <div class="filtre" id="quiz-filtre"></div>
+      <div id="quiz-alan" class="kutu quiz-kutu"></div>
+    </section>
+
+    <!-- BİLGİ KARTLARI -->
+    <section id="kartlar" class="sekme" hidden>
+      <h1 data-t="kartBaslik"></h1>
+      <p class="giris" data-t="kartGiris"></p>
+      <div class="cevir-kap">
+        <button id="kart" class="cevir-kart" aria-live="polite">
+          <span class="yuz on" id="kart-on"></span>
+          <span class="yuz arka" id="kart-arka"></span>
+        </button>
+      </div>
+      <div class="kart-kontrol">
+        <button class="dugme ikincil" id="kart-geri" data-t="onceki"></button>
+        <span id="kart-sayac"></span>
+        <button class="dugme ikincil" id="kart-ileri" data-t="sonraki"></button>
+      </div>
+      <div class="ortala"><button class="dugme metin" id="kart-karistir" data-t="karistir"></button></div>
+    </section>
+
+    <!-- MÜLAKAT -->
+    <section id="mulakat" class="sekme" hidden>
+      <h1 data-t="mulakatBaslik"></h1>
+      <p class="giris" data-t="mulakatGiris"></p>
+      <div class="filtre" id="mulakat-filtre"></div>
+      <div class="kutu mulakat-kutu">
+        <p class="mulakat-tur" id="mulakat-tur"></p>
+        <p class="mulakat-soru" id="mulakat-soru"></p>
+        <div class="sayac" id="mulakat-sayac">1:30</div>
+        <div class="dugmeler">
+          <button class="dugme" id="mulakat-basla"></button>
+          <button class="dugme ikincil" id="mulakat-ipucu-btn"></button>
+          <button class="dugme ikincil" id="mulakat-yeni" data-t="yeniSoru"></button>
+        </div>
+        <p class="ipucu" id="mulakat-ipucu" hidden></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ALT BİLGİ: sitenin resmî olmadığını açıkça belirtiyoruz -->
+  <footer class="alt">
+    <div class="kap"><p data-t-html="altBilgi"></p></div>
+  </footer>
+
+  <!-- ÖNCE VERİLER, SONRA UYGULAMA (sıra önemli!) -->
+  <script src="veri/arayuz.js"></script>
+  <script src="veri/tarih.js"></script>
+  <script src="veri/politikalar.js"></script>
+  <script src="veri/duyurular.js"></script>
+  <script src="veri/dunya.js"></script>
+  <script src="veri/sorular.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
