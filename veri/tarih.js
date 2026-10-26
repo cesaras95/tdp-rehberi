@@ -28,6 +28,12 @@ const TARIH = [
       tr: "\"Yurtta sulh, cihanda sulh\" ilkesiyle revizyonist olmayan, Lozan'ın açık bıraktığı sorunları barışçıl yollarla çözen ve bölgesel paktlarla güvenlik arayan bir dış politika.",
       en: "Guided by \"Peace at home, peace in the world\", a non-revisionist foreign policy that settled the issues left open at Lausanne by peaceful means and sought security through regional pacts."
     },
+    // İsteğe bağlı görsel: dönem açıldığında olayların üstünde görünür
+    gorsel: {
+      src: "gorseller/atamiz-var-tak.webp",
+      alt: { tr: "Bayraklarla süslenmiş, yeşillikten bir takın önünde toplanmış kalabalık; pankartta 'Atamız var, öksüz değiliz' yazıyor", en: "A crowd gathered in front of a greenery arch decorated with flags; the banner reads 'Atamız var, öksüz değiliz'" },
+      aciklama: { tr: "1930'lar: Bir Anadolu kasabasında halkın kurduğu tak. Pankart: \"Atamız var, öksüz değiliz.\"", en: "1930s: An arch built by townspeople in Anatolia. The banner reads \"We have our Ata, we are not orphans.\"" }
+    },
     olaylar: [
       { yil: "1926", olay: { tr: "Ankara Antlaşması ile Musul meselesinin İngiltere lehine sonuçlanması", en: "The Mosul question settled in Britain's favour by the Treaty of Ankara" }, onem: { tr: "Barışçıl çözüm tercihi; Türkiye'nin yeni çatışma yerine istikrarı seçmesi.", en: "A preference for peaceful settlement; Türkiye chose stability over a new conflict." } },
       { yil: "1932", olay: { tr: "Milletler Cemiyeti'ne üyelik", en: "Membership of the League of Nations" }, onem: { tr: "Uluslararası sisteme ve kolektif güvenliğe katılım.", en: "Participation in the international system and collective security." } },
