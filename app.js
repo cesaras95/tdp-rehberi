@@ -484,3 +484,7 @@ quizBaslat("hepsi");
 yeniMulakatSorusu();
 hepsiniCiz();
 sekmeGoster();
+
+// Sayfa #tarih gibi bir adresle açıldığında tarayıcı o bölüme kendiliğinden kaydırır;
+// üstteki menü başlığı örtmesin diye açılışta en üste dönüyoruz.
+window.addEventListener("load", () => window.scrollTo({ top: 0, behavior: "instant" }));
