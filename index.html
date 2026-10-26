@@ -19,6 +19,30 @@
 </head>
 <body>
 
+  <!-- ÇİZİM KÜTÜPHANESİ: sitede tekrar kullanılan, bu proje için çizilmiş küre (dünya) simgesi.
+       <use href="#kure"/> yazılan her yerde bu çizim görünür. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="kure" viewBox="0 0 200 200">
+      <g fill="none" stroke="currentColor" stroke-linecap="round">
+        <circle cx="100" cy="100" r="62" stroke-width="2"/>
+        <ellipse cx="100" cy="100" rx="24" ry="62" stroke-width="1.2" opacity=".75"/>
+        <ellipse cx="100" cy="100" rx="46" ry="62" stroke-width="1.2" opacity=".55"/>
+        <line x1="100" y1="38" x2="100" y2="162" stroke-width="1.2" opacity=".75"/>
+        <line x1="38" y1="100" x2="162" y2="100" stroke-width="1.2" opacity=".75"/>
+        <path d="M47 70 Q100 82 153 70 M47 130 Q100 118 153 130" stroke-width="1.2" opacity=".55"/>
+        <!-- Diplomasi hatları: başkentleri bağlayan kesik yaylar -->
+        <path d="M22 128 Q70 20 150 46" stroke-width="1.4" stroke-dasharray="3 5" opacity=".9"/>
+        <path d="M60 176 Q150 150 184 78" stroke-width="1.4" stroke-dasharray="3 5" opacity=".9"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="22" cy="128" r="4"/><circle cx="150" cy="46" r="4"/>
+        <circle cx="60" cy="176" r="4"/><circle cx="184" cy="78" r="4"/>
+        <circle cx="113" cy="88" r="5.5"/>
+      </g>
+      <circle cx="113" cy="88" r="11" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/>
+    </symbol>
+  </svg>
+
   <!-- ÜST BAŞLIK -->
   <header class="ust">
     <div class="kap ust-satir">
@@ -49,12 +73,41 @@
 
     <!-- ANA SAYFA -->
     <section id="ana" class="sekme">
-      <div class="karsilama">
-        <p class="ust-etiket" data-t="anaUstEtiket"></p>
-        <h1 data-t-html="anaBaslik"></h1>
-        <p class="giris" data-t-html="anaGiris"></p>
+      <!-- KARŞILAMA (hero): solda metin, sağda 1930'lardan bir dergi kapağı -->
+      <div class="hero">
+        <div class="gunes" aria-hidden="true"></div>
+        <div class="hero-metin">
+          <p class="ust-etiket" data-t="anaUstEtiket"></p>
+          <h1 data-t-html="anaBaslik"></h1>
+          <p class="giris" data-t-html="anaGiris"></p>
+          <div class="dugmeler">
+            <a class="dugme" href="#tarih" data-t="heroDugme1"></a>
+            <a class="dugme ikincil" href="#quiz" data-t="heroDugme2"></a>
+          </div>
+        </div>
+        <figure class="cerceve hero-gorsel">
+          <img src="gorseller/turquie-kamaliste-afis.webp" width="702" height="956" data-alt="altAfis" alt="">
+          <figcaption data-t="capAfis"></figcaption>
+        </figure>
       </div>
+
       <div class="ozet-izgara" id="ana-ozet"></div>
+
+      <!-- KAPILAR: bölümlere görselli girişler -->
+      <div class="kapilar">
+        <a class="kapi" href="#tarih">
+          <span class="kapi-gorsel"><img src="gorseller/turquie-kemaliste-bust.webp" width="960" height="1280" loading="lazy" data-alt="altBust" alt=""></span>
+          <span class="kapi-metin"><b data-t="menuTarih"></b><small data-t="kapiTarih"></small></span>
+        </a>
+        <a class="kapi" href="#guncel">
+          <span class="kapi-gorsel bayrakli"><img src="gorseller/bayrak.webp" width="960" height="640" loading="lazy" data-alt="altBayrak" alt=""></span>
+          <span class="kapi-metin"><b data-t="menuGuncel"></b><small data-t="kapiGuncel"></small></span>
+        </a>
+        <a class="kapi" href="#dunya">
+          <span class="kapi-gorsel kureli"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#kure"/></svg></span>
+          <span class="kapi-metin"><b data-t="menuDunya"></b><small data-t="kapiDunya"></small></span>
+        </a>
+      </div>
       <div class="iki-sutun">
         <div class="kutu son-gelisme">
           <h2 data-t="anaSonTr"></h2>
@@ -71,8 +124,16 @@
 
     <!-- TARİH -->
     <section id="tarih" class="sekme" hidden>
-      <h1 data-t="tarihBaslik"></h1>
-      <p class="giris" data-t="tarihGiris"></p>
+      <!-- BANT: görselli bölüm başlığı -->
+      <header class="bant">
+        <img class="bant-gorsel" src="gorseller/turquie-kemaliste-bust.webp" width="960" height="1280" data-alt="altBust" alt="">
+        <div class="bant-metin">
+          <p class="ust-etiket" data-t="tarihUst"></p>
+          <h1 data-t="tarihBaslik"></h1>
+          <p data-t="tarihGiris"></p>
+        </div>
+      </header>
+      <p class="kunye" data-t="capBust"></p>
       <div id="tarih-liste" class="zaman-cizelgesi"></div>
     </section>
 
@@ -91,8 +152,14 @@
 
     <!-- TÜRKİYE GÜNDEMİ -->
     <section id="guncel" class="sekme" hidden>
-      <h1 data-t="guncelBaslik"></h1>
-      <p class="giris" id="guncel-giris"></p>
+      <header class="bant bant-bayrak">
+        <img class="bant-gorsel" src="gorseller/bayrak.webp" width="960" height="640" data-alt="altBayrak" alt="">
+        <div class="bant-metin">
+          <p class="ust-etiket" data-t="guncelUst"></p>
+          <h1 data-t="guncelBaslik"></h1>
+          <p id="guncel-giris"></p>
+        </div>
+      </header>
       <!-- Robotun her gün doldurduğu kutu (veri/otomatik.js) -->
       <div class="kutu otomatik" id="otomatik-turkiye" hidden></div>
       <div class="kutu yaklasan">
@@ -104,8 +171,14 @@
 
     <!-- DÜNYA GÜNDEMİ (yeni sekme) -->
     <section id="dunya" class="sekme" hidden>
-      <h1 data-t="dunyaBaslik"></h1>
-      <p class="giris" id="dunya-giris"></p>
+      <header class="bant bant-kure">
+        <svg class="bant-svg" viewBox="0 0 200 200" aria-hidden="true"><use href="#kure"/></svg>
+        <div class="bant-metin">
+          <p class="ust-etiket" data-t="dunyaUst"></p>
+          <h1 data-t="dunyaBaslik"></h1>
+          <p id="dunya-giris"></p>
+        </div>
+      </header>
       <div class="kutu otomatik" id="otomatik-dunya" hidden></div>
       <div class="kutu yaklasan">
         <h2 data-t="dunyaTakvim"></h2>
@@ -162,7 +235,7 @@
 
   <!-- ALT BİLGİ: sitenin resmî olmadığını açıkça belirtiyoruz -->
   <footer class="alt">
-    <div class="kap"><p data-t-html="altBilgi"></p></div>
+    <div class="kap"><p data-t-html="altBilgi"></p><p class="kunye" data-t="altKunye"></p></div>
   </footer>
 
   <!-- ÖNCE VERİLER, SONRA UYGULAMA (sıra önemli!) -->

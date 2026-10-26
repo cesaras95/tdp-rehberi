@@ -154,10 +154,87 @@ main { padding-top: 32px; padding-bottom: 48px; min-height: 70vh; }
 .baglanti b { color: var(--resmi); }
 
 /* ---------- ANA SAYFA ---------- */
-.karsilama { padding: 16px 0 28px; }
 .ust-etiket { color: var(--vurgu); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; margin: 0 0 8px; }
-.karsilama h1 { max-width: 760px; }
-.karsilama em { font-style: normal; color: var(--vurgu); }
+
+/* Karşılama (hero): metin + dergi kapağı, arkada art deco güneş ışınları */
+.hero {
+  position: relative; display: grid; gap: 40px; align-items: center;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  padding: 8px 0 36px; isolation: isolate;
+  overflow-x: clip; overflow-y: visible; /* ışınlar sayfayı yana taşırmasın */
+}
+.hero h1 { font-size: clamp(2rem, 4.6vw, 3.2rem); letter-spacing: -.01em; }
+.hero em { font-style: normal; color: var(--vurgu); }
+.hero .dugmeler { margin-top: 22px; }
+.gunes {
+  /* 1930'ların afişlerindeki ışın motifi: CSS ile çizilmiş */
+  position: absolute; z-index: -1; right: -10%; top: -40px; width: 75%; aspect-ratio: 1;
+  background: repeating-conic-gradient(from 0deg at 50% 50%,
+    color-mix(in srgb, var(--vurgu) 9%, transparent) 0deg 3deg, transparent 3deg 10deg);
+  -webkit-mask: radial-gradient(circle, #000 18%, transparent 68%);
+          mask: radial-gradient(circle, #000 18%, transparent 68%);
+  pointer-events: none;
+}
+.hero-gorsel { max-width: 380px; justify-self: center; transform: rotate(1.2deg); }
+
+/* Çerçeve: görselleri eski bir paspartu gibi sunar, köşelerde art deco köşebentler */
+.cerceve {
+  position: relative; margin: 0; background: var(--yuzey); padding: 12px 12px 10px;
+  border: 1px solid var(--cizgi); box-shadow: 0 10px 30px rgba(29,36,51,.14);
+}
+.cerceve img { display: block; width: 100%; height: auto; }
+.cerceve figcaption { font-size: .8rem; color: var(--soluk); padding-top: 9px; line-height: 1.45; font-style: italic; }
+.cerceve::before, .cerceve::after {
+  content: ""; position: absolute; width: 22px; height: 22px; border: 2px solid var(--vurgu);
+}
+.cerceve::before { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
+.cerceve::after { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
+
+/* Kapılar: görselli bölüm girişleri */
+.kapilar { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); margin: 4px 0 24px; }
+.kapi {
+  display: flex; flex-direction: column; text-decoration: none; color: var(--metin);
+  background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: var(--yuvarlak);
+  overflow: hidden; box-shadow: var(--golge); transition: transform .2s, border-color .2s;
+}
+.kapi:hover { transform: translateY(-3px); border-color: var(--vurgu); }
+.kapi-gorsel { display: block; height: 150px; overflow: hidden; background: #1d2433; position: relative; }
+.kapi-gorsel img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%;
+  filter: grayscale(1) contrast(1.1) brightness(.9); transition: transform .5s, filter .5s; }
+.kapi:hover .kapi-gorsel img { transform: scale(1.05); filter: grayscale(.2) contrast(1.05); }
+.kapi-gorsel.bayrakli img { filter: none; object-position: 20% center; }
+.kapi-gorsel.kureli { display: grid; place-items: center; color: #f3e7c9;
+  background: radial-gradient(circle at 30% 30%, #2a3550, #141a28); }
+.kapi-gorsel.kureli svg { width: 130px; height: 130px; }
+.kapi-metin { padding: 14px 16px 16px; }
+.kapi-metin b { display: block; font-family: var(--baslik-font); font-size: 1.2rem; }
+.kapi-metin small { color: var(--soluk); font-size: .9rem; }
+
+/* Bant: görselli bölüm başlığı (Tarih, Türkiye Gündemi, Dünya Gündemi) */
+.bant {
+  position: relative; overflow: hidden; border-radius: var(--yuvarlak); min-height: 240px;
+  background: #141a28; color: #f6f2ea; display: flex; align-items: flex-end; margin-bottom: 20px;
+}
+.bant-gorsel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%;
+  filter: grayscale(1) contrast(1.15); opacity: .55; }
+.bant::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(20,26,40,.96) 0%, rgba(20,26,40,.75) 45%, rgba(155,28,44,.35) 100%); }
+.bant-metin { position: relative; z-index: 1; padding: 28px; max-width: 640px; }
+.bant-metin h1 { color: #fff; margin-bottom: .25em; }
+.bant-metin p { margin: 0; color: rgba(246,242,234,.85); }
+.bant-metin .ust-etiket { color: #f0b3bb; }
+.bant-metin strong { color: #fff; }
+.bant-bayrak .bant-gorsel { filter: none; opacity: 1; object-position: 15% center; }
+.bant-bayrak::after { background: linear-gradient(90deg, rgba(20,26,40,.15) 0%, rgba(20,26,40,.85) 38%, rgba(20,26,40,.96) 100%); }
+.bant-bayrak .bant-metin { margin-left: auto; }
+.bant-kure { background: radial-gradient(circle at 85% 40%, #2a3550, #141a28 70%); }
+.bant-kure::after { background: none; }
+.bant-svg { position: absolute; right: 4%; top: 50%; transform: translateY(-50%); width: 260px; height: 260px; color: #f3e7c9; opacity: .9; }
+.bant + .kunye { margin-top: -14px; }
+.kunye { font-size: .78rem; color: var(--soluk); font-style: italic; margin: 6px 2px 18px; }
+
+/* Tarih sekmesinde dönem görseli */
+.donem-gorsel { margin: 4px 0 18px; max-width: 560px; }
 .ozet-izgara {
   display: grid; gap: 14px; margin-bottom: 24px;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -293,8 +370,37 @@ main { padding-top: 32px; padding-bottom: 48px; min-height: 70vh; }
 .alt { border-top: 1px solid var(--cizgi); background: var(--yuzey); padding: 20px 0; color: var(--soluk); font-size: .9rem; }
 .alt p { margin: 0; }
 
+/* ---------- ART DECO DOKUNUŞLAR ---------- */
+/* Bölüm başlıklarının altına çift çizgi ve elmas süs */
+.sekme > h1::after {
+  content: "◆"; display: block; width: 104px; margin-top: .3em;
+  font-size: .42em; line-height: 1; text-align: center; color: var(--vurgu);
+  background:
+    linear-gradient(var(--vurgu), var(--vurgu)) left center / 42px 1px no-repeat,
+    linear-gradient(var(--vurgu), var(--vurgu)) right center / 42px 1px no-repeat;
+}
+/* Kâğıt dokusu: çok hafif bir gren (eski baskı hissi) */
+body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+}
+
+/* ---------- TABLET ---------- */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 28px; }
+  .hero-gorsel { max-width: 300px; }
+  .kapilar { grid-template-columns: 1fr; }
+  .kapi { flex-direction: row; }
+  .kapi-gorsel { width: 120px; height: auto; min-height: 110px; flex: none; }
+  .kapi-gorsel.kureli svg { width: 90px; height: 90px; }
+  .bant-svg { width: 170px; height: 170px; right: -20px; opacity: .45; }
+  .bant-bayrak::after { background: linear-gradient(90deg, rgba(20,26,40,.55) 0%, rgba(20,26,40,.92) 45%); }
+}
+
 /* ---------- TELEFON EKRANI ---------- */
 @media (max-width: 600px) {
+  .bant { min-height: 200px; }
+  .bant-metin { padding: 20px; }
+  .gunes { width: 120%; right: -40%; }
   body { font-size: 16px; }
   .olay { grid-template-columns: 1fr; gap: 2px; }
   .duyuru { grid-template-columns: 1fr; gap: 6px; }

@@ -75,6 +75,8 @@ function tabelalariYaz() {
   document.title = a("sayfaBasligi");
   document.querySelectorAll("[data-t]").forEach(el => { el.textContent = a(el.dataset.t); });
   document.querySelectorAll("[data-t-html]").forEach(el => { el.innerHTML = a(el.dataset.tHtml); });
+  // Görsellerin açıklama metinleri (alt): görme engelli kullanıcılar ve arama motorları için
+  document.querySelectorAll("[data-alt]").forEach(el => { el.alt = a(el.dataset.alt); });
   const dd = document.getElementById("dil-dugme");
   dd.textContent = a("dilButon");
   dd.setAttribute("aria-label", a("dilButonAciklama"));
@@ -120,6 +122,11 @@ function tarihCiz() {
           <p>${guvenli(t(d.ozet))}</p>
         </summary>
         <div class="olaylar">
+          ${d.gorsel ? `
+            <figure class="cerceve donem-gorsel">
+              <img src="${guvenli(d.gorsel.src)}" alt="${guvenli(t(d.gorsel.alt))}" loading="lazy">
+              <figcaption>${guvenli(t(d.gorsel.aciklama))}</figcaption>
+            </figure>` : ""}
           ${d.olaylar.map(o => `
             <div class="olay">
               <div class="olay-yil">${guvenli(yilYaz(o.yil))}</div>
