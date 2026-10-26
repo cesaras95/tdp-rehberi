@@ -228,6 +228,21 @@ main { padding-top: 32px; padding-bottom: 48px; min-height: 70vh; }
 .son-gelisme .mini:first-child { border-top: none; }
 .son-gelisme .mini small { color: var(--soluk); }
 
+/* ---------- OTOMATİK BAŞLIKLAR ---------- */
+.otomatik { border-left: 4px solid var(--analiz); }
+.oto-ust { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.oto-ust h2 { margin: 0; }
+.oto-izgara { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 8px; }
+.oto-kaynak h3 { font-size: 1rem; margin-bottom: 6px; }
+.oto-kaynak h3 .kaynak { font-family: var(--govde-font); font-size: .8rem; margin-left: 6px; }
+.oto-kaynak ul { list-style: none; margin: 0; padding: 0; }
+.oto-kaynak li { padding: 7px 0; border-top: 1px dashed var(--cizgi); font-size: .95rem; line-height: 1.4; }
+.oto-kaynak li small { display: block; color: var(--soluk); font-size: .8rem; }
+.oto-kaynak li a { color: var(--metin); text-decoration: none; }
+.oto-kaynak li a:hover { color: var(--vurgu); text-decoration: underline; }
+.oto-diger { margin-top: 14px; }
+.oto-diger summary { cursor: pointer; color: var(--vurgu); font-weight: 600; font-size: .95rem; }
+
 /* ---------- QUIZ ---------- */
 .quiz-kutu { max-width: 720px; }
 .quiz-ilerleme { height: 6px; background: var(--zemin); border-radius: 999px; overflow: hidden; margin-bottom: 16px; }

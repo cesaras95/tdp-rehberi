@@ -243,6 +243,42 @@ document.getElementById("dunya-filtre").addEventListener("click", e => {
   dunyaCiz();
 });
 
+// ---------- OTOMATİK BAŞLIKLAR (robotun her gün doldurduğu kutu) ----------
+// veri/otomatik.js dosyası GitHub'daki robot tarafından her sabah yeniden yazılır.
+// Bilgisayarında açtığında boştur; o zaman kutu hiç görünmez.
+function otomatikCiz(kategori, kutuId) {
+  const kutu = document.getElementById(kutuId);
+  const veri = (typeof OTOMATIK !== "undefined") ? OTOMATIK : null;
+  const kaynaklar = veri ? veri.kaynaklar.filter(k => k.kategori === kategori && k.haberler.length) : [];
+  if (!kaynaklar.length) { kutu.hidden = true; return; }
+
+  const zaman = new Date(veri.guncelleme.replace("Z", ":00Z"));
+  const zamanYazi = isNaN(zaman) ? veri.guncelleme : zaman.toLocaleString(dil === "tr" ? "tr-TR" : "en-GB",
+    { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Istanbul" });
+
+  const kaynakCiz = k => `
+    <div class="oto-kaynak">
+      <h3>${guvenli(t(k.ad))} <a class="kaynak" href="${guvenli(k.site)}" target="_blank" rel="noopener">${a("otoKaynakSite")}</a></h3>
+      <ul>${k.haberler.map(h => `
+        <li><small>${h.tarih ? tarihYazisi(h) : ""}</small>
+        <a href="${guvenli(h.link)}" target="_blank" rel="noopener">${guvenli(h.baslik)}</a></li>`).join("")}
+      </ul>
+    </div>`;
+
+  // Önce seçili dildeki kaynaklar; diğer dildekiler açılır bir bölümde
+  const ayniDil = kaynaklar.filter(k => k.dil === dil);
+  const digerDil = kaynaklar.filter(k => k.dil !== dil);
+  const ana = ayniDil.length ? ayniDil : digerDil;
+  const ek = ayniDil.length ? digerDil : [];
+
+  kutu.innerHTML = `
+    <div class="oto-ust"><h2>${a("otoBaslik")}</h2><span class="etiket analiz">${a("otoEtiket")}</span></div>
+    <p class="pol-bolge">${a("otoAciklama").replace("{zaman}", guvenli(zamanYazi))}</p>
+    <div class="oto-izgara">${ana.map(kaynakCiz).join("")}</div>
+    ${ek.length ? `<details class="oto-diger"><summary>${a("otoDigerDil")}</summary><div class="oto-izgara">${ek.map(kaynakCiz).join("")}</div></details>` : ""}`;
+  kutu.hidden = false;
+}
+
 // ---------- QUIZ ----------
 // "Durum" (state): quiz'in o anki hâlini tutan kutu. Hangi sorudayız, kaç doğru var...
 const quiz = { sorular: [], sira: 0, dogru: 0, cevaplandi: false, konu: "hepsi" };
@@ -418,6 +454,8 @@ function hepsiniCiz() {
   politikaCiz();
   guncelCiz();
   dunyaCiz();
+  otomatikCiz("turkiye", "otomatik-turkiye");
+  otomatikCiz("dunya", "otomatik-dunya");
   quizFiltreCiz();
   if (quiz.sorular.length) {
     // Cevaplanmış bir soru varsa aynı soruyu yeni dilde baştan göster

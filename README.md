@@ -17,6 +17,17 @@ Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya günd
 | `veri/duyurular.js` | Türkiye gündemi (sık güncellenir) |
 | `veri/dunya.js` | Dünya gündemi (sık güncellenir) |
 | `veri/sorular.js` | Quiz, bilgi kartları, mülakat soruları |
+| `veri/otomatik.js` | Robotun her gün yazdığı başlıklar (elle düzenleme) |
+| `robot/basliklari_cek.py` | Başlıkları toplayan robot |
+| `.github/workflows/guncelle.yml` | Robotun çalar saati ve yayın adımları |
+
+## Günlük robot
+
+`robot/basliklari_cek.py` her gün 07:17'de (İstanbul) Dışişleri Bakanlığı, BM ve Anadolu Ajansı'nın RSS akışlarından son başlıkları toplar ve `veri/otomatik.js` dosyasını yazar. Zamanlayıcı `.github/workflows/guncelle.yml` dosyasındadır. Robot sadece başlık, tarih ve link alır; haber metinlerini kopyalamaz.
+
+- Elle çalıştırmak için: GitHub → **Actions** → **Günlük güncelleme ve yayın** → **Run workflow**
+- Kaynak eklemek için: `robot/basliklari_cek.py` içindeki `KAYNAKLAR` listesine yeni bir blok ekle.
+- Bir kaynak çalışmazsa robot durmaz; o kaynak sitede görünmez, diğerleri görünür.
 
 ## İki dilli metin nasıl yazılır?
 

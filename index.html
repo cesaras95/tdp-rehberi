@@ -93,6 +93,8 @@
     <section id="guncel" class="sekme" hidden>
       <h1 data-t="guncelBaslik"></h1>
       <p class="giris" id="guncel-giris"></p>
+      <!-- Robotun her gün doldurduğu kutu (veri/otomatik.js) -->
+      <div class="kutu otomatik" id="otomatik-turkiye" hidden></div>
       <div class="kutu yaklasan">
         <h2 data-t="yaklasan"></h2>
         <ul id="yaklasan-liste"></ul>
@@ -104,6 +106,7 @@
     <section id="dunya" class="sekme" hidden>
       <h1 data-t="dunyaBaslik"></h1>
       <p class="giris" id="dunya-giris"></p>
+      <div class="kutu otomatik" id="otomatik-dunya" hidden></div>
       <div class="kutu yaklasan">
         <h2 data-t="dunyaTakvim"></h2>
         <ul id="dunya-takvim"></ul>
@@ -169,6 +172,7 @@
   <script src="veri/duyurular.js"></script>
   <script src="veri/dunya.js"></script>
   <script src="veri/sorular.js"></script>
+  <script src="veri/otomatik.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
