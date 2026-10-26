@@ -1,0 +1,54 @@
+# =============================================================
+# guncelle.yml — Robotun çalışma takvimi (GitHub Actions)
+# Benzetme: Robotun çalar saati. Her sabah çalar, robot başlıkları
+# toplar, sonra site yeni hâliyle yayına alınır.
+# Ayrıca depoya her dosya yüklediğinde de çalışır, böylece senin
+# elle yaptığın güncellemeler de hemen yayına çıkar.
+# =============================================================
+
+name: Günlük güncelleme ve yayın
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # Her gün 04:17 UTC = 07:17 İstanbul saati
+  push:
+    branches: [main]       # main dalına her yüklemede
+  workflow_dispatch:       # Actions sekmesinden elle "Run workflow" ile
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu indir
+        uses: actions/checkout@v6
+
+      - name: Haber başlıklarını topla
+        run: python3 robot/basliklari_cek.py
+
+      - name: Pages ayarlarını hazırla
+        uses: actions/configure-pages@v5
+
+      - name: Siteyi paketle
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Siteyi yayına al
+        id: deployment
+        uses: actions/deploy-pages@v4
