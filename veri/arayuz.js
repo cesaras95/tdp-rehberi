@@ -282,3 +282,13 @@ Object.assign(ARAYUZ.en, {
   sozlukEksik: "incomplete in source", sozlukEksikAcik: "This term was printed truncated in the Ministry's PDF and its exact equivalent could not be verified.",
   sozlukNot: "Note: some long terms are printed truncated in the Ministry's PDFs. Those detected have been completed and marked. Please report any wrong or incomplete term you see."
 });
+
+// ---------- SÖZLÜK: ALFABETİK LİSTE ----------
+Object.assign(ARAYUZ.tr, {
+  sozlukListe: "{sayi} terim, alfabetik sırayla. Aramak için yazmaya başla ya da bir harf seç.",
+  sozlukHarfHepsi: "Tümü", sozlukDahaFazla: "Daha fazla göster", sozlukGosterilen: "{sayi} terimden {n} tanesi gösteriliyor"
+});
+Object.assign(ARAYUZ.en, {
+  sozlukListe: "{sayi} terms in alphabetical order (by Turkish term). Start typing to search or pick a letter.",
+  sozlukHarfHepsi: "All", sozlukDahaFazla: "Show more", sozlukGosterilen: "Showing {n} of {sayi} terms"
+});

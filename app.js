@@ -1116,7 +1116,8 @@ document.getElementById("yazili").addEventListener("change", e => {
 
 // ---------- SÖZLÜK ----------
 // Büyük dosya (veri/sozluk.js) sadece bu sekme açılınca yüklenir: sayfa hızlı açılsın diye.
-const sozluk = { yuklendi: false, alan: "hepsi", sorgu: "" };
+const SOZLUK_SAYFA = 100; // bir seferde gösterilen terim sayısı
+const sozluk = { yuklendi: false, alan: "hepsi", sorgu: "", harf: null, goster: SOZLUK_SAYFA };
 function sozlukYukle() {
   if (sozluk.yuklendi || document.getElementById("sozluk-betik")) { sozlukCiz(); return; }
   document.getElementById("sozluk-durum").textContent = a("sozlukYukleniyor");
@@ -1127,41 +1128,72 @@ function sozlukYukle() {
 }
 // Türkçe karakterleri sadeleştirerek arama (ı/i, ş/s gibi farklar sonuç kaçırmasın)
 const sade = v => v.toLocaleLowerCase("tr").replace(/[ıi̇]/g, "i").replace(/ş/g, "s").replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ö/g, "o").replace(/ç/g, "c").replace(/[âà]/g, "a").replace(/[îí]/g, "i").replace(/[ûú]/g, "u");
+// Terimin baş harfi (parantez, tırnak gibi işaretler atlanır): "(deniz) geçiş" → "D"
+const basHarf = metin => { const m = metin.match(/[A-Za-zÇĞİÖŞÜçğıöşüÂÎÛâîû]/); return m ? m[0].toLocaleUpperCase("tr").replace("Â", "A").replace("Î", "İ").replace("Û", "U") : "#"; };
+const HARF_SIRA = "ABCÇDEFGĞHIİJKLMNOÖPQRSŞTUÜVWXYZ#";
 function sozlukCiz() {
   const giris = document.querySelector("#sozluk .giris");
   if (!sozluk.yuklendi) return;
-  if (!sozluk.sadeListe) sozluk.sadeListe = SOZLUK.map(r => sade(r[0]) + "|" + sade(r[1]));
-  giris.textContent = a("sozlukGiris").replace("{sayi}", SOZLUK.length.toLocaleString(dil === "tr" ? "tr-TR" : "en-GB"));
+  if (!sozluk.harfler) {
+    // Bir kez Türk alfabesine göre sırala (ç, ğ, ı, ö, ş, ü doğru yerde dursun)
+    SOZLUK.sort((x, y) => x[0].localeCompare(y[0], "tr", { sensitivity: "base" }));
+    sozluk.sadeListe = SOZLUK.map(r => sade(r[0]) + "|" + sade(r[1]));
+    sozluk.harfler = SOZLUK.map(r => basHarf(r[0]));
+  }
+  const sayiYaz = n => n.toLocaleString(dil === "tr" ? "tr-TR" : "en-GB");
+  giris.textContent = a("sozlukGiris").replace("{sayi}", sayiYaz(SOZLUK.length));
   const alanlar = ["hepsi", "ui", "hukuk", "deniz", "goc", "ekonomi", "askeri", "kolluk", "vatandaslik", "kultur"];
   document.getElementById("sozluk-filtre").innerHTML = alanlar.map(x =>
     `<button class="cip ${x === sozluk.alan ? "aktif" : ""}" data-alan="${x}">${x === "hepsi" ? a("tumAlanlar") : a("alan_" + x)}</button>`).join("");
   const q = sade(sozluk.sorgu.trim());
   const durum = document.getElementById("sozluk-durum");
   const sonucEl = document.getElementById("sozluk-sonuc");
-  if (q.length < 2) { durum.textContent = a("sozlukBos"); sonucEl.innerHTML = ""; return; }
-  const bulunan = [];
-  for (let i = 0; i < SOZLUK.length; i++) {
-    if (sozluk.alan !== "hepsi" && SOZLUK[i][2] !== sozluk.alan) continue;
-    if (sozluk.sadeListe[i].includes(q)) bulunan.push(SOZLUK[i]);
+  const harfEl = document.getElementById("sozluk-harfler");
+  const alanUygun = i => sozluk.alan === "hepsi" || SOZLUK[i][2] === sozluk.alan;
+  let bulunan = [];
+
+  if (q.length < 2) {
+    // GÖZ ATMA MODU: arama yokken terimler alfabetik listelenir; harf çubuğuyla atlanır
+    const mevcut = new Set();
+    for (let i = 0; i < SOZLUK.length; i++) if (alanUygun(i)) mevcut.add(sozluk.harfler[i]);
+    if (sozluk.harf && !mevcut.has(sozluk.harf)) sozluk.harf = null;
+    harfEl.hidden = false;
+    harfEl.innerHTML = `<button class="${!sozluk.harf ? "aktif" : ""}" data-harf="">${a("sozlukHarfHepsi")}</button>` +
+      [...HARF_SIRA].filter(h => mevcut.has(h)).map(h => `<button class="${sozluk.harf === h ? "aktif" : ""}" data-harf="${h}">${h}</button>`).join("");
+    for (let i = 0; i < SOZLUK.length; i++) if (alanUygun(i) && (!sozluk.harf || sozluk.harfler[i] === sozluk.harf)) bulunan.push(SOZLUK[i]);
+    durum.textContent = a("sozlukListe").replace("{sayi}", sayiYaz(bulunan.length));
+  } else {
+    harfEl.hidden = true;
+    for (let i = 0; i < SOZLUK.length; i++) if (alanUygun(i) && sozluk.sadeListe[i].includes(q)) bulunan.push(SOZLUK[i]);
+    // Tam eşleşme ve baştan eşleşme üstte
+    const puan = r => { const tr = sade(r[0]), en = sade(r[1]); return (tr === q || en === q) ? 0 : (tr.startsWith(q) || en.startsWith(q)) ? 1 : 2; };
+    bulunan.sort((x, y) => puan(x) - puan(y) || x[0].length - y[0].length);
+    durum.textContent = a("sozlukSonuc").replace("{sayi}", sayiYaz(bulunan.length));
   }
-  // Tam eşleşme ve baştan eşleşme üstte
-  const puan = r => { const tr = sade(r[0]), en = sade(r[1]); return (tr === q || en === q) ? 0 : (tr.startsWith(q) || en.startsWith(q)) ? 1 : 2; };
-  bulunan.sort((x, y) => puan(x) - puan(y) || x[0].length - y[0].length);
-  const SINIR = 150;
-  durum.textContent = bulunan.length > SINIR ? a("sozlukFazla").replace("{sayi}", SINIR) : a("sozlukSonuc").replace("{sayi}", bulunan.length);
   const vurgula = metin => {
+    if (q.length < 2) return guvenli(metin);
     const sm = sade(metin); const i = sm.indexOf(q);
     if (i < 0) return guvenli(metin);
     return guvenli(metin.slice(0, i)) + "<mark>" + guvenli(metin.slice(i, i + q.length)) + "</mark>" + guvenli(metin.slice(i + q.length));
   };
-  sonucEl.innerHTML = bulunan.slice(0, SINIR).map(r =>
+  const gosterilen = bulunan.slice(0, sozluk.goster);
+  sonucEl.innerHTML = gosterilen.map(r =>
     `<div class="sozluk-satir"><span class="tr">${vurgula(r[0])}</span><span class="en">${vurgula(r[1])}${r[3] ? ` <em class="soz-isaret" title="${guvenli(a(r[3] === 1 ? "sozlukTamamAcik" : "sozlukEksikAcik"))}">${a(r[3] === 1 ? "sozlukTamam" : "sozlukEksik")}</em>` : ""}</span><small>${a("alan_" + r[2])}</small></div>`).join("") +
-    `<p class="kunye sozluk-not">${a("sozlukNot")}</p>`;
+    (bulunan.length > gosterilen.length
+      ? `<div class="sozluk-daha"><span class="pol-bolge">${a("sozlukGosterilen").replace("{n}", sayiYaz(gosterilen.length)).replace("{sayi}", sayiYaz(bulunan.length))}</span><button class="dugme ikincil" id="sozluk-daha">${a("sozlukDahaFazla")}</button></div>` : "") +
+    (bulunan.length ? `<p class="kunye sozluk-not">${a("sozlukNot")}</p>` : `<p class="pol-bolge sozluk-not">${a("araYok")}</p>`);
 }
-document.getElementById("sozluk-ara").addEventListener("input", e => { sozluk.sorgu = e.target.value; sozlukCiz(); });
+document.getElementById("sozluk-ara").addEventListener("input", e => { sozluk.sorgu = e.target.value; sozluk.goster = SOZLUK_SAYFA; sozlukCiz(); });
 document.getElementById("sozluk-filtre").addEventListener("click", e => {
   const b = e.target.closest("[data-alan]"); if (!b) return;
-  sozluk.alan = b.dataset.alan; sozlukCiz();
+  sozluk.alan = b.dataset.alan; sozluk.goster = SOZLUK_SAYFA; sozlukCiz();
+});
+document.getElementById("sozluk-harfler").addEventListener("click", e => {
+  const b = e.target.closest("[data-harf]"); if (!b) return;
+  sozluk.harf = b.dataset.harf || null; sozluk.goster = SOZLUK_SAYFA; sozlukCiz();
+});
+document.getElementById("sozluk-sonuc").addEventListener("click", e => {
+  if (e.target.id === "sozluk-daha") { sozluk.goster += SOZLUK_SAYFA; sozlukCiz(); }
 });
 
 // ---------- SINAV REHBERİ ----------

@@ -770,3 +770,13 @@ body.panel-acik { overflow: hidden; }
 /* Sözlük: kaynakta kesik olup tamamlanan terimler */
 .soz-isaret { font-style: normal; font-size: .72rem; font-weight: 700; color: var(--analiz); background: var(--analiz-acik); border-radius: 6px; padding: 1px 6px; margin-left: 4px; white-space: nowrap; cursor: help; }
 .sozluk-not { margin: 10px 16px; }
+
+/* Sözlük harf çubuğu */
+.harf-cubugu { display: flex; flex-wrap: wrap; gap: 4px; margin: -6px 0 14px; }
+.harf-cubugu button {
+  font: inherit; font-size: .88rem; font-weight: 600; min-width: 34px; height: 34px; padding: 0 8px; cursor: pointer;
+  border: 1px solid var(--cizgi); border-radius: 8px; background: var(--yuzey); color: var(--soluk);
+}
+.harf-cubugu button:hover { color: var(--metin); border-color: var(--soluk); }
+.harf-cubugu button.aktif { background: var(--vurgu); border-color: var(--vurgu); color: #fff; }
+.sozluk-daha { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; padding: 14px; border-top: 1px solid var(--cizgi); }
