@@ -12,5 +12,6 @@
 // UYARI: Bu gerçek bir güvenlik değildir. Sayfa kaynağını açan biri içeriği görebilir.
 // =============================================================
 const ERISIM = [
+  "fa7099f6cee94dac6880edf7f60172dd567b5eeedf56ced46d3604764271889e", // Sezer
   // "parmak-izi", // kimin olduğu (not)
 ];
