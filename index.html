@@ -15,7 +15,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
+  <!-- UYGULAMA (PWA): telefona yüklenebilir sürüm için kimlik kartı ve simgeler -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#9b1c2c">
+  <link rel="icon" href="gorseller/ikon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="gorseller/ikon-apple.png">
+  <meta name="apple-mobile-web-app-title" content="TDP Rehberi">
 </head>
 <body>
 
@@ -53,8 +59,15 @@
           <small data-t="logoAlt">Türk Dış Politikası · sınav hazırlık</small>
         </span>
       </a>
-      <!-- DİL BUTONU: Türkçe ↔ İngilizce -->
-      <button id="dil-dugme" class="dil-dugme" type="button"></button>
+      <div class="ust-araclar">
+        <!-- ARAMA BUTONU: tüm sitede arar (kısayol: /) -->
+        <button id="ara-dugme" class="ara-dugme" type="button" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span data-t="araDugme"></span>
+        </button>
+        <!-- DİL BUTONU: Türkçe ↔ İngilizce -->
+        <button id="dil-dugme" class="dil-dugme" type="button"></button>
+      </div>
     </div>
     <!-- MENÜ: her link bir sekmeyi açar (data-sekme ile eşleşir) -->
     <nav class="menu kap" aria-label="Menu">
@@ -68,6 +81,7 @@
       <a href="#mulakat" data-sekme="mulakat" data-t="menuMulakat"></a>
       <a href="#yazili" data-sekme="yazili" data-t="menuYazili"></a>
       <a href="#sozluk" data-sekme="sozluk" data-t="menuSozluk"></a>
+      <a href="#arsiv" data-sekme="arsiv" data-t="menuArsiv"></a>
       <a href="#sinav" data-sekme="sinav" data-t="menuSinav"></a>
     </nav>
   </header>
@@ -147,6 +161,8 @@
     <section id="politikalar" class="sekme" hidden>
       <h1 data-t="polBaslik"></h1>
       <p class="giris" data-t="polGiris"></p>
+      <!-- HARİTA: ülkeye tıklayınca ilgili politika dosyası açılır -->
+      <div class="kutu harita-kutu" id="harita-kutu"></div>
       <div class="filtre" id="politika-filtre">
         <button class="cip aktif" data-oncelik="hepsi" data-t="filtreHepsi"></button>
         <button class="cip" data-oncelik="yuksek" data-t="filtreYuksek"></button>
@@ -269,6 +285,18 @@
       <div id="sozluk-sonuc" class="sozluk-liste"></div>
     </section>
 
+    <!-- ÇIKMIŞ SORULAR: konu düzeyinde arşiv ve tema sıklığı grafiği -->
+    <section id="arsiv" class="sekme" hidden>
+      <h1 data-t="arsivBaslik"></h1>
+      <p class="giris" data-t="arsivGiris"></p>
+      <div class="filtre" id="arsiv-sinav"></div>
+      <div class="filtre" id="arsiv-bolum"></div>
+      <div class="kutu arsiv-grafik" id="arsiv-grafik"></div>
+      <div class="arsiv-ust"><label class="secim-satir"><span data-t="arsivTema"></span>: <select id="arsiv-tema"></select></label><span class="pol-bolge" id="arsiv-sayi"></span></div>
+      <div id="arsiv-liste"></div>
+      <p class="kunye" id="arsiv-kaynak"></p>
+    </section>
+
     <!-- SINAV REHBERİ -->
     <section id="sinav" class="sekme" hidden>
       <h1 data-t="sinavBaslik"></h1>
@@ -277,9 +305,26 @@
 
   </main>
 
+  <!-- ARAMA PANELİ: üstteki Ara butonuyla açılır -->
+  <div class="ara-panel" id="ara-panel" role="dialog" aria-modal="true" aria-labelledby="ara-baslik" hidden>
+    <div class="ara-ic">
+      <div class="ara-satir">
+        <h2 id="ara-baslik" class="gizli-baslik" data-t="araBaslik"></h2>
+        <input type="search" id="ara-girdi" autocomplete="off" data-ph="araPh">
+        <button class="dugme metin" id="ara-kapat" type="button" data-t="araKapat"></button>
+      </div>
+      <p class="pol-bolge" id="ara-durum"></p>
+      <div id="ara-sonuc" class="ara-sonuc"></div>
+    </div>
+  </div>
+
+  <!-- Harita ve grafik için ortak açıklama balonu (tooltip) -->
+  <div class="balon" id="balon" role="tooltip" hidden></div>
+
   <!-- ALT BİLGİ: sitenin resmî olmadığını açıkça belirtiyoruz -->
   <footer class="alt">
-    <div class="kap"><p data-t-html="altBilgi"></p><p class="kunye" data-t="altKunye"></p></div>
+    <div class="kap"><p data-t-html="altBilgi"></p>
+    <div class="kur-kutu" id="kur-kutu" hidden><p data-t="kurAcik"></p><button class="dugme" id="kur-dugme" type="button" data-t="kurDugme"></button><p class="pol-bolge" id="kur-ios" data-t="kurIos" hidden></p></div><p class="kunye" data-t="altKunye"></p></div>
   </footer>
 
   <!-- ÖNCE VERİLER, SONRA UYGULAMA (sıra önemli!) -->
@@ -289,8 +334,11 @@
   <script src="veri/duyurular.js"></script>
   <script src="veri/dunya.js"></script>
   <script src="veri/sorular.js"></script>
+  <script src="veri/quiz_ek.js"></script>
+  <script src="veri/arsiv.js"></script>
+  <script src="veri/harita.js"></script>
   <script src="veri/sinav.js"></script>
   <script src="veri/otomatik.js"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

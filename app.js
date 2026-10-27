@@ -97,6 +97,8 @@ function sekmeGoster() {
   if (aktif) aktif.scrollIntoView({ block: "nearest", inline: "center" });
   if (ad === "sozluk") sozlukYukle();
   window.scrollTo({ top: 0, behavior: "instant" });
+  // Aramadan gelindiyse: sekme açıldıktan sonra ilgili öğeye git
+  if (bekleyenIs) { const is = bekleyenIs; bekleyenIs = null; is(); }
 }
 window.addEventListener("hashchange", sekmeGoster);
 
@@ -110,6 +112,7 @@ function anaSayfa() {
     <a href="#quiz"><b>${QUIZ.length}</b><span>${a("ozetQuiz")}</span></a>
     <a href="#kartlar"><b>${KARTLAR.length}</b><span>${a("ozetKart")}</span></a>
     <a href="#mulakat"><b>${MULAKAT.length}</b><span>${a("ozetMulakat")}</span></a>
+    <a href="#arsiv"><b>${ARSIV.length}</b><span>${a("ozetArsiv")}</span></a>
   `;
   const mini = d => `<div class="mini"><small>${tarihYazisi(d)}</small><br><strong>${guvenli(t(d.baslik))}</strong></div>`;
   document.getElementById("ana-son").innerHTML = yeniden(DUYURULAR).slice(0, 3).map(mini).join("");
@@ -165,10 +168,12 @@ function politikaCiz() {
   if (acikDosya) {
     const p = POLITIKALAR.find(x => x.id === acikDosya);
     listeEl.hidden = true; filtreEl.hidden = true; dosyaEl.hidden = false;
+    document.getElementById("harita-kutu").hidden = true;
     dosyaEl.innerHTML = dosyaCiz(p);
     return;
   }
   listeEl.hidden = false; filtreEl.hidden = false; dosyaEl.hidden = true;
+  document.getElementById("harita-kutu").hidden = typeof HARITA === "undefined";
   listeEl.innerHTML = liste.map(p => `
     <article class="kutu pol-kart" id="pol-${p.id}">
       <div class="pol-ust">
@@ -238,10 +243,10 @@ document.getElementById("politika-filtre").addEventListener("click", e => {
 });
 
 // ---------- TÜRKİYE GÜNDEMİ ----------
-function haberKarti(d, ekBlok) {
+function haberKarti(d, ekBlok, kimlik) {
   const p = tarihParcala(d.tarih);
   return `
-    <article class="kutu duyuru">
+    <article class="kutu duyuru" id="${kimlik}">
       <div class="duyuru-tarih"><b>${p.gun}</b><span>${p.ay}</span></div>
       <div>
         ${ekBlok.ust}
@@ -268,7 +273,7 @@ function guncelCiz() {
     return haberKarti(d, {
       ust: `${turEtiket} <span class="pol-bolge">· <a href="#politikalar" data-pol="${d.konu}">${guvenli(konuAdi(d.konu))}</a></span>`,
       not: `<p class="sinav-notu"><b>${a("sinavNotu")}</b> ${guvenli(t(d.sinavNotu))}</p>`
-    });
+    }, "duyuru-" + DUYURULAR.indexOf(d));
   }).join("");
 }
 
@@ -297,7 +302,7 @@ function dunyaCiz() {
   document.getElementById("dunya-liste").innerHTML = yeniden(liste).map(d => haberKarti(d, {
     ust: `<span class="etiket haber">${guvenli(t(d.bolge))}</span>`,
     not: `<p class="baglanti"><b>${a("turkiyeBaglantisi")}</b> ${guvenli(t(d.baglanti))}</p>`
-  })).join("");
+  }, "dunya-" + DUNYA.indexOf(d))).join("");
 }
 
 document.getElementById("dunya-filtre").addEventListener("click", e => {
@@ -578,8 +583,24 @@ function ilerlemeCiz() {
 }
 
 // ---------- YAZILI PRATİK ----------
-const yazili = { mod: "kompozisyon", komp: 0, cev: 0, kalan: 0, saat: null, sureDk: 45, ipucu: false, kontrol: false };
-const taslakAnahtar = () => `tdp-taslak-${yazili.mod}-${yazili.mod === "kompozisyon" ? yazili.komp : yazili.cev}`;
+// ozel: Çıkmış Sorular arşivinden açılan sorunun sırası (yoksa null)
+const yazili = { mod: "kompozisyon", komp: 0, cev: 0, ozel: null, kalan: 0, saat: null, sureDk: 45, ipucu: false, kontrol: false };
+const taslakAnahtar = () => yazili.mod === "kompozisyon" && yazili.ozel !== null
+  ? `tdp-taslak-arsiv-${ARSIV[yazili.ozel].yil}-${sade(ARSIV[yazili.ozel].konu.tr).slice(0, 40)}`
+  : `tdp-taslak-${yazili.mod}-${yazili.mod === "kompozisyon" ? yazili.komp : yazili.cev}`;
+// Arşivdeki bir soruyu kompozisyon görevine çevirir
+function ozelKompozisyon(i) {
+  const s = ARSIV[i];
+  const pol = s.politika ? POLITIKALAR.find(p => p.id === s.politika) : null;
+  const ipucu = d => [ARAYUZ[d].arsivOzelIpucu,
+    ARAYUZ[d].arsivTemaIpucu + ": " + s.temalar.map(k => ARSIV_TEMALAR[k][d]).join(", "),
+    ...(pol ? [pol.sinavIpucu[d]] : [])];
+  return {
+    konu: s.politika || "",
+    soru: { tr: s.konu.tr + ". " + ARAYUZ.tr.arsivOzelGorev, en: s.konu.en + ". " + ARAYUZ.en.arsivOzelGorev },
+    ipuclari: { tr: ipucu("tr"), en: ipucu("en") }
+  };
+}
 function taslakOku() { try { return localStorage.getItem(taslakAnahtar()) || ""; } catch (e) { return ""; } }
 function taslakYaz(v) { try { localStorage.setItem(taslakAnahtar(), v); } catch (e) { /* yoksay */ } }
 const kelimeSay = v => (v.trim().match(/\S+/g) || []).length;
@@ -596,10 +617,12 @@ function yaziliCiz() {
       <span class="pol-bolge" id="yazi-kelime"></span>
     </div>`;
   if (yazili.mod === "kompozisyon") {
-    const k = KOMPOZISYON[yazili.komp];
+    const k = yazili.ozel !== null ? ozelKompozisyon(yazili.ozel) : KOMPOZISYON[yazili.komp];
     const pol = POLITIKALAR.find(p => p.id === k.konu);
+    const ozelSecenek = yazili.ozel !== null
+      ? `<option value="ozel" selected>★ ${a("arsivOzelSecenek")} (${guvenli(arsivYil(ARSIV[yazili.ozel].yil))} · ${a("arsiv_" + ARSIV[yazili.ozel].sinav)})</option>` : "";
     alan.innerHTML = `
-      <label class="secim-satir">${a("kompSec")}: <select id="komp-sec">${KOMPOZISYON.map((x, i) => `<option value="${i}" ${i === yazili.komp ? "selected" : ""}>${i + 1}. ${guvenli(t(POLITIKALAR.find(p => p.id === x.konu).baslik))}</option>`).join("")}</select></label>
+      <label class="secim-satir">${a("kompSec")}: <select id="komp-sec">${ozelSecenek}${KOMPOZISYON.map((x, i) => `<option value="${i}" ${yazili.ozel === null && i === yazili.komp ? "selected" : ""}>${i + 1}. ${guvenli(t(POLITIKALAR.find(p => p.id === x.konu).baslik))}</option>`).join("")}</select></label>
       <div class="yazi-izgara">
         <div class="kutu">
           <p class="quiz-soru">${guvenli(t(k.soru))}</p>
@@ -610,7 +633,7 @@ function yaziliCiz() {
           <div class="kutu"><h3>${a("kompCerceve")}</h3><ol class="cerceve-liste">${CERCEVE.map(c => `<li>${guvenli(t(c))}</li>`).join("")}</ol></div>
           <div class="kutu ipucu-kutu"><h3>${a("kompIpuclari")}</h3>
             ${yazili.ipucu ? `<ul>${k.ipuclari[dil].map(x => `<li>${guvenli(x)}</li>`).join("")}</ul>` : `<button class="dugme ikincil" id="komp-ipucu">${a("kompIpucuGoster")}</button>`}
-            <p><a class="kaynak" href="#politikalar" data-dosya-ac="${pol.id}">${a("ilgiliDosya")}</a></p></div>
+            ${pol ? `<p><a class="kaynak" href="#politikalar" data-dosya-ac="${pol.id}">${a("ilgiliDosya")}</a></p>` : ""}</div>
         </aside>
       </div>`;
   } else {
@@ -661,7 +684,7 @@ document.getElementById("yazili").addEventListener("click", e => {
   }
 });
 document.getElementById("yazili").addEventListener("change", e => {
-  if (e.target.id === "komp-sec") { yazili.komp = Number(e.target.value); yazili.ipucu = false; yaziliCiz(); }
+  if (e.target.id === "komp-sec" && e.target.value !== "ozel") { yazili.komp = Number(e.target.value); yazili.ozel = null; yazili.ipucu = false; yaziliCiz(); }
   if (e.target.id === "cev-sec") { yazili.cev = Number(e.target.value); yazili.kontrol = false; yaziliCiz(); }
   if (e.target.id === "yazi-sure") { yazili.sureDk = Number(e.target.value); yaziSaatDurdur(); yazili.kalan = 0; yaziliCiz(); }
 });
@@ -732,6 +755,358 @@ function sinavCiz() {
       <p class="pol-bolge">${a("sinavUyari")}</p></div>`;
 }
 
+// ---------- ORTAK: sekmeye git, sonra bir iş yap ----------
+// Benzetme: Asansöre binip kata çıkınca ilgili odanın kapısını açmak.
+// Sekme değişince sayfa en üste kayar; "sonra" işi bu kaydırmadan sonra çalışır.
+let bekleyenIs = null;
+function sekmeyeGit(ad, sonra) {
+  if (location.hash === "#" + ad) { sekmeGoster(); if (sonra) sonra(); return; }
+  bekleyenIs = sonra || null;
+  location.hash = ad;
+}
+// Bir öğeyi görünür yapıp kısa süre parlatır (aramadan gelince nereye bakacağını gösterir)
+function isikla(el) {
+  if (!el) return;
+  el.scrollIntoView({ block: "center", behavior: "instant" });
+  el.classList.remove("isik"); void el.offsetWidth; el.classList.add("isik");
+}
+
+// Ortak açıklama balonu (tooltip): harita ve grafik kullanır
+const balon = document.getElementById("balon");
+function balonGoster(html, x, y) {
+  balon.innerHTML = html; balon.hidden = false;
+  const g = balon.offsetWidth, y2 = balon.offsetHeight;
+  const sol = Math.min(window.innerWidth - g - 8, Math.max(8, x + 14));
+  const ust = y - y2 - 12 < 8 ? y + 18 : y - y2 - 12;
+  balon.style.left = sol + "px"; balon.style.top = ust + "px";
+}
+function balonGizle() { balon.hidden = true; }
+
+// ---------- HARİTA (Politikalar sekmesinin üstü) ----------
+// Benzetme: Bir büyükelçiliğin duvarındaki harita; her renkli ülkenin üstünde bir klasör numarası var.
+// Veri: veri/harita.js (Natural Earth sınırlarından otomatik üretildi).
+function haritaCiz() {
+  const kutu = document.getElementById("harita-kutu");
+  if (typeof HARITA === "undefined") { kutu.hidden = true; return; }
+  const ulkeAdi = u => dil === "tr" ? u[1] : u[2];
+  const yollar = HARITA.ulkeler.map(u => {
+    const [kod, , , pol, d] = u;
+    const sinif = pol === "tr" ? "ulke tr" : pol ? "ulke bagli" : "ulke";
+    const ek = pol && pol !== "tr" ? ` data-dosya="${pol}" data-pol="${pol}"` : "";
+    return `<path d="${d}" class="${sinif}" data-kod="${kod}"${ek}><title>${guvenli(ulkeAdi(u))}</title></path>`;
+  }).join("");
+  // Türkiye'nin etiketi
+  const tr = HARITA.ulkeler.find(u => u[3] === "tr");
+  const trEtiket = tr ? `<text x="${tr[5]}" y="${tr[6] + 5}" class="harita-tr-yazi" text-anchor="middle">${guvenli(a("haritaTurkiye"))}</text>` : "";
+  kutu.innerHTML = `
+    <div class="harita-ust"><h2>${a("haritaBaslik")}</h2><p class="pol-bolge">${a("haritaAcik")}</p></div>
+    <div class="harita-izgara">
+      <svg class="harita" viewBox="0 0 ${HARITA.genislik} ${HARITA.yukseklik}" role="img" aria-label="${guvenli(a("haritaBaslik"))}">
+        <g>${yollar}</g>${trEtiket}
+      </svg>
+      <ul class="harita-liste">${POLITIKALAR.map(p => {
+        const n = HARITA.ulkeler.filter(u => u[3] === p.id).length;
+        return `<li><button class="harita-pol" data-dosya="${p.id}" data-harita-pol="${p.id}"><span>${guvenli(t(p.baslik))}</span>${n ? `<small>${n}</small>` : ""}</button></li>`;
+      }).join("")}</ul>
+    </div>
+    <p class="kunye">${a("haritaKunye")}</p>`;
+}
+
+const haritaKutu = document.getElementById("harita-kutu");
+haritaKutu.addEventListener("mousemove", e => {
+  const yol = e.target.closest(".ulke");
+  if (!yol) { balonGizle(); return; }
+  const u = HARITA.ulkeler.find(x => x[0] === yol.dataset.kod);
+  const ad = guvenli(dil === "tr" ? u[1] : u[2]);
+  const pol = u[3] && u[3] !== "tr" ? POLITIKALAR.find(p => p.id === u[3]) : null;
+  const alt = u[3] === "tr" ? "" : pol ? `${guvenli(t(pol.baslik))}<br><small>${a("haritaDosya")} →</small>` : `<small>${a("haritaBagsiz")}</small>`;
+  balonGoster(`<b>${ad}</b>${alt ? "<br>" + alt : ""}`, e.clientX, e.clientY);
+});
+haritaKutu.addEventListener("mouseleave", balonGizle);
+// Listedeki bir politikanın üzerine gelince (ya da klavyeyle odaklanınca) ülkeleri parlat
+function haritaParlat(id) {
+  haritaKutu.querySelectorAll(".ulke").forEach(p => p.classList.toggle("parla", !!id && p.dataset.pol === id));
+  haritaKutu.classList.toggle("parlatiyor", !!id);
+}
+haritaKutu.addEventListener("mouseover", e => { const b = e.target.closest("[data-harita-pol]"); haritaParlat(b ? b.dataset.haritaPol : null); });
+haritaKutu.addEventListener("focusin", e => { const b = e.target.closest("[data-harita-pol]"); haritaParlat(b ? b.dataset.haritaPol : null); });
+haritaKutu.addEventListener("focusout", () => haritaParlat(null));
+
+// ---------- ÇIKMIŞ SORULAR ARŞİVİ ----------
+// Benzetme: Eski sınav kâğıtlarının konu fişleri. Hangi konunun kaç kez geldiğini sayınca
+// sınavı hazırlayanların neye önem verdiği görünür.
+const arsiv = { sinav: "hepsi", bolum: "hepsi", tema: "hepsi" };
+const SINAV_SIRA = { kim: 0, mm: 1 };
+
+// "2025-08" → "Ağu 2025", "2014" → "2014"
+function arsivYil(y) {
+  const [yil, ay] = y.split("-");
+  return ay ? a("aylar")[Number(ay) - 1] + " " + yil : yil;
+}
+
+function arsivSecili() {
+  return ARSIV.map((s, i) => ({ s, i })).filter(({ s }) =>
+    (arsiv.sinav === "hepsi" || s.sinav === arsiv.sinav) &&
+    (arsiv.bolum === "hepsi" || s.bolum === arsiv.bolum));
+}
+
+function arsivCiz() {
+  const cip = (deger, secili, veri, metin) =>
+    `<button class="cip ${deger === secili ? "aktif" : ""}" data-${veri}="${deger}">${metin}</button>`;
+  document.getElementById("arsiv-sinav").innerHTML =
+    cip("hepsi", arsiv.sinav, "sinav", a("arsivSinavHepsi")) +
+    cip("kim", arsiv.sinav, "sinav", `${a("arsiv_kim")} <small>· ${a("arsivKimUzun")}</small>`) +
+    cip("mm", arsiv.sinav, "sinav", `${a("arsiv_mm")} <small>· ${a("arsivMmUzun")}</small>`);
+  const bolumler = ["yd", "tr", "cev"].filter(b => ARSIV.some(s => s.bolum === b && (arsiv.sinav === "hepsi" || s.sinav === arsiv.sinav)));
+  if (arsiv.bolum !== "hepsi" && !bolumler.includes(arsiv.bolum)) arsiv.bolum = "hepsi";
+  document.getElementById("arsiv-bolum").innerHTML =
+    cip("hepsi", arsiv.bolum, "bolum", a("bolumHepsi")) + bolumler.map(b => cip(b, arsiv.bolum, "bolum", a("bolum_" + b))).join("");
+
+  const secili = arsivSecili();
+  arsivGrafikCiz(secili);
+
+  // Tema seçimi (açılır liste)
+  document.getElementById("arsiv-tema").innerHTML =
+    `<option value="hepsi">${a("temaHepsi")}</option>` +
+    Object.keys(ARSIV_TEMALAR).map(k => `<option value="${k}" ${k === arsiv.tema ? "selected" : ""}>${guvenli(t(ARSIV_TEMALAR[k]))}</option>`).join("");
+
+  const liste = secili.filter(({ s }) => arsiv.tema === "hepsi" || s.temalar.includes(arsiv.tema))
+    .sort((x, y) => y.s.yil.localeCompare(x.s.yil) || SINAV_SIRA[x.s.sinav] - SINAV_SIRA[y.s.sinav]);
+  document.getElementById("arsiv-sayi").textContent = a("arsivSonuc").replace("{sayi}", liste.length);
+  document.getElementById("arsiv-liste").innerHTML = liste.length ? `<div class="kutu arsiv-tablo">${liste.map(({ s, i }) => `
+    <article class="arsiv-satir" id="arsiv-${i}">
+      <div class="arsiv-yil"><b>${guvenli(arsivYil(s.yil))}</b><span class="etiket ${s.sinav === "kim" ? "resmi" : "yuksek"}">${a("arsiv_" + s.sinav)}</span></div>
+      <div>
+        <p class="arsiv-konu">${guvenli(t(s.konu))}</p>
+        <p class="arsiv-meta">${a("bolum_" + s.bolum)} · ${s.temalar.map(k => `<button class="tema-etiket" data-tema-sec="${k}">${guvenli(t(ARSIV_TEMALAR[k]))}</button>`).join(" ")}
+          ${s.kaynak === "aday" ? `<span class="etiket analiz" title="${guvenli(a("arsivAdayAcik"))}">${a("arsivAday")}</span>` : ""}</p>
+        <p class="arsiv-dugmeler">
+          <button class="dugme ikincil kucuk" data-arsiv-pratik="${i}">${a("arsivPratik")}</button>
+          ${s.politika ? `<a class="kaynak" href="#politikalar" data-dosya-ac="${s.politika}">${a("arsivDosya")}: ${guvenli(konuAdi(s.politika))}</a>` : ""}
+        </p>
+      </div>
+    </article>`).join("")}</div>` : `<p class="pol-bolge">${a("arsivYok")}</p>`;
+
+  document.getElementById("arsiv-kaynak").innerHTML = a("arsivKaynakNot")
+    .replace("{kim}", guvenli(ARSIV_KAYNAK.kim)).replace("{mm}", guvenli(ARSIV_KAYNAK.mm)).replace("{ornek}", guvenli(ARSIV_KAYNAK.ornek));
+}
+
+// Tema sıklığı grafiği: yatay yığılmış çubuklar (KİM + MM), toplamı en yüksek tema en üstte
+function arsivGrafikCiz(secili) {
+  const sayim = {};
+  Object.keys(ARSIV_TEMALAR).forEach(k => { sayim[k] = { kim: 0, mm: 0 }; });
+  secili.forEach(({ s }) => s.temalar.forEach(k => { sayim[k][s.sinav]++; }));
+  const satirlar = Object.entries(sayim).map(([k, v]) => ({ k, ...v, top: v.kim + v.mm }))
+    .filter(r => r.top > 0).sort((x, y) => y.top - x.top || x.k.localeCompare(y.k));
+  const enCok = Math.max(1, ...satirlar.map(r => r.top));
+  const goster = { kim: arsiv.sinav !== "mm", mm: arsiv.sinav !== "kim" };
+  const lejant = ["kim", "mm"].filter(s => goster[s]).map(s =>
+    `<span class="lejant-oge"><i class="renk-${s}"></i>${a("arsiv_" + s)} · ${a(s === "kim" ? "arsivKimUzun" : "arsivMmUzun")}</span>`).join("");
+  const kutu = document.getElementById("arsiv-grafik");
+  kutu.innerHTML = `
+    <div class="oto-ust"><h2>${a("arsivGrafik")}</h2><div class="lejant">${lejant}</div></div>
+    <p class="pol-bolge">${a("arsivGrafikNot")}</p>
+    <div class="grafik ${arsiv.tema !== "hepsi" ? "secimli" : ""}">${satirlar.map(r => `
+      <button class="g-satir ${r.k === arsiv.tema ? "aktif" : ""}" data-tema-sec="${r.k}" aria-label="${guvenli(t(ARSIV_TEMALAR[r.k]))}: ${r.top}">
+        <span class="g-ad">${guvenli(t(ARSIV_TEMALAR[r.k]))}</span>
+        <span class="g-cubuk">
+          ${goster.kim && r.kim ? `<span class="g-kim" style="width:${r.kim / enCok * 100}%" data-balon="${a("arsiv_kim")}: ${r.kim}"></span>` : ""}
+          ${goster.mm && r.mm ? `<span class="g-mm" style="width:${r.mm / enCok * 100}%" data-balon="${a("arsiv_mm")}: ${r.mm}"></span>` : ""}
+          <b class="g-sayi">${r.top}</b>
+        </span>
+      </button>`).join("")}</div>
+    <details class="g-tablo"><summary>${a("arsivTablo")}</summary>
+      <table><thead><tr><th>${a("arsivTema")}</th>${goster.kim ? `<th>${a("arsiv_kim")}</th>` : ""}${goster.mm ? `<th>${a("arsiv_mm")}</th>` : ""}<th>${a("arsivToplam")}</th></tr></thead>
+      <tbody>${satirlar.map(r => `<tr><td>${guvenli(t(ARSIV_TEMALAR[r.k]))}</td>${goster.kim ? `<td>${r.kim}</td>` : ""}${goster.mm ? `<td>${r.mm}</td>` : ""}<td><b>${r.top}</b></td></tr>`).join("")}</tbody></table>
+    </details>`;
+}
+
+const arsivBolum = document.getElementById("arsiv");
+arsivBolum.addEventListener("click", e => {
+  const s = e.target.closest("[data-sinav]");
+  if (s) { arsiv.sinav = s.dataset.sinav; arsivCiz(); return; }
+  const b = e.target.closest("[data-bolum]");
+  if (b) { arsiv.bolum = b.dataset.bolum; arsivCiz(); return; }
+  const tm = e.target.closest("[data-tema-sec]");
+  if (tm) { arsiv.tema = arsiv.tema === tm.dataset.temaSec ? "hepsi" : tm.dataset.temaSec; arsivCiz(); return; }
+  const d = e.target.closest("[data-dosya-ac]");
+  if (d) { e.preventDefault(); dosyaAc(d.dataset.dosyaAc); return; }
+  const p = e.target.closest("[data-arsiv-pratik]");
+  if (p) arsivPratik(Number(p.dataset.arsivPratik));
+});
+arsivBolum.addEventListener("change", e => { if (e.target.id === "arsiv-tema") { arsiv.tema = e.target.value; arsivCiz(); } });
+arsivBolum.addEventListener("mousemove", e => {
+  const seg = e.target.closest("[data-balon]");
+  if (!seg) { balonGizle(); return; }
+  const satir = seg.closest(".g-satir");
+  balonGoster(`<b>${guvenli(satir.querySelector(".g-ad").textContent)}</b><br>${guvenli(seg.dataset.balon)}`, e.clientX, e.clientY);
+});
+arsivBolum.addEventListener("mouseleave", balonGizle);
+
+// Arşivdeki bir soruyla Yazılı Pratik'i aç
+function arsivPratik(i) {
+  const s = ARSIV[i];
+  yaziSaatDurdur(); yazili.kalan = 0; yazili.ipucu = false; yazili.kontrol = false;
+  if (s.bolum === "cev") { yazili.mod = "ceviri"; yazili.ozel = null; }
+  else { yazili.mod = "kompozisyon"; yazili.ozel = i; }
+  yaziliCiz();
+  sekmeyeGit("yazili");
+}
+
+// ---------- SİTE GENELİ ARAMA ----------
+// Benzetme: Kütüphanenin kart kataloğu. Kitapları tek tek gezmek yerine kataloğa bakıp rafı bulursun.
+// Dizin (index) arama paneli ilk açıldığında ve dil değişince yeniden kurulur.
+let aramaDizini = null;
+function aramaDiziniKur() {
+  const iki = x => (x && typeof x === "object" && !Array.isArray(x)) ? (x.tr || "") + " " + (x.en || "") : (x || "");
+  const d = [];
+  const ekle = (grup, baslik, ozet, metin, ac) => d.push({ grup, baslik, ozet, sade: sade(metin), sadeBaslik: sade(iki(baslik)), ac });
+  TARIH.forEach((don, di) => don.olaylar.forEach(o =>
+    ekle("menuTarih", yilYaz(o.yil) + " · " + t(o.olay), t(don.baslik), [o.yil, iki(o.olay), iki(o.onem), iki(don.baslik)].join(" "),
+      () => sekmeyeGit("tarih", () => { const el = document.querySelectorAll("#tarih-liste details")[di]; if (el) { el.open = true; isikla(el.closest(".donem")); } }))));
+  POLITIKALAR.forEach(p =>
+    ekle("menuPolitikalar", t(p.baslik), t(p.bolge), [iki(p.baslik), iki(p.resmi), iki(p.analiz), ...p.olgular.map(iki), ...p.kavramlar.map(iki)].join(" "), () => dosyaAc(p.id)));
+  DUYURULAR.forEach((h, i) =>
+    ekle("menuGuncel", t(h.baslik), tarihYazisi(h), iki(h.baslik) + " " + iki(h.ozet), () => sekmeyeGit("guncel", () => isikla(document.getElementById("duyuru-" + i)))));
+  DUNYA.forEach((h, i) =>
+    ekle("menuDunya", t(h.baslik), tarihYazisi(h), iki(h.baslik) + " " + iki(h.ozet), () => { dunyaBolge = "hepsi"; dunyaCiz(); sekmeyeGit("dunya", () => isikla(document.getElementById("dunya-" + i))); }));
+  QUIZ.forEach(q =>
+    ekle("menuQuiz", t(q.soru), t(KONULAR[q.konu]), iki(q.soru) + " " + iki(q.aciklama), () => {
+      quizBaslat(q.konu);
+      quiz.sorular = [q, ...quiz.sorular.filter(x => x !== q)].slice(0, 10); soruCiz();
+      sekmeyeGit("quiz");
+    }));
+  KARTLAR.forEach((k, i) =>
+    ekle("menuKartlar", t(k.on), t(k.arka).slice(0, 90) + "…", iki(k.on) + " " + iki(k.arka), () => {
+      kartDurum.liste = [...KARTLAR]; kartDurum.sadece = false; kartDurum.sira = i;
+      document.getElementById("kart-sadece").checked = false; kartCiz(); sekmeyeGit("kartlar");
+    }));
+  MULAKAT.forEach(m =>
+    ekle("menuMulakat", t(m.soru), t(MULAKAT_TURLERI[m.tur]), iki(m.soru) + " " + iki(m.ipucu), () => {
+      mulakat.tur = "hepsi"; mulakatFiltreCiz(); mulakat.soru = m; sayacDurdur(); mulakat.kalan = 90; sayacYaz();
+      document.getElementById("mulakat-ipucu").hidden = true; mulakatSoruYaz(); sekmeyeGit("mulakat");
+    }));
+  ARSIV.forEach((s, i) =>
+    ekle("menuArsiv", t(s.konu), arsivYil(s.yil) + " · " + a("arsiv_" + s.sinav) + " · " + a("bolum_" + s.bolum), iki(s.konu) + " " + s.temalar.map(k => iki(ARSIV_TEMALAR[k])).join(" "), () => {
+      arsiv.sinav = "hepsi"; arsiv.bolum = "hepsi"; arsiv.tema = "hepsi"; arsivCiz();
+      sekmeyeGit("arsiv", () => isikla(document.getElementById("arsiv-" + i)));
+    }));
+  KOMPOZISYON.forEach((k, i) =>
+    ekle("menuYazili", t(k.soru), a("modKompozisyon"), iki(k.soru), () => {
+      yazili.mod = "kompozisyon"; yazili.komp = i; yazili.ozel = null; yazili.ipucu = false; yaziliCiz(); sekmeyeGit("yazili");
+    }));
+  CEVIRI.forEach((c, i) =>
+    ekle("menuYazili", t(c.baslik), a("modCeviri"), iki(c.baslik) + " " + c.tr + " " + c.model, () => {
+      yazili.mod = "ceviri"; yazili.cev = i; yazili.kontrol = false; yaziliCiz(); sekmeyeGit("yazili");
+    }));
+  aramaDizini = d;
+}
+
+const araPanel = document.getElementById("ara-panel");
+const araGirdi = document.getElementById("ara-girdi");
+let araSonAc = [];
+function aramaAc() {
+  if (!aramaDizini) aramaDiziniKur();
+  araPanel.hidden = false;
+  document.body.classList.add("panel-acik");
+  araGirdi.focus(); araGirdi.select();
+  aramaCiz();
+}
+function aramaKapat() {
+  araPanel.hidden = true;
+  document.body.classList.remove("panel-acik");
+  document.getElementById("ara-dugme").focus({ preventScroll: true });
+}
+function aramaCiz() {
+  const q = sade(araGirdi.value.trim());
+  const durum = document.getElementById("ara-durum");
+  const sonucEl = document.getElementById("ara-sonuc");
+  araSonAc = [];
+  if (q.length < 2) { durum.textContent = a("araIpucu"); sonucEl.innerHTML = ""; return; }
+  // Birden çok kelime yazılırsa hepsi geçmeli (ör. "kıbrıs 1974")
+  const kelimeler = q.split(/\s+/);
+  const bulunan = aramaDizini.filter(x => kelimeler.every(k => x.sade.includes(k)))
+    .map(x => ({ x, p: x.sadeBaslik.includes(q) ? 0 : kelimeler.every(k => x.sadeBaslik.includes(k)) ? 1 : 2 }))
+    .sort((m, n) => m.p - n.p).slice(0, 60).map(m => m.x);
+  // Sözlük yüklüyse orada kaç terim var, onu da söyle
+  let sozlukSatir = "";
+  if (sozluk.yuklendi) {
+    if (!sozluk.sadeListe) sozluk.sadeListe = SOZLUK.map(r => sade(r[0]) + "|" + sade(r[1]));
+    const n = sozluk.sadeListe.reduce((t2, s) => t2 + (s.includes(q) ? 1 : 0), 0);
+    if (n) sozlukSatir = `<button class="ara-oge sozluk-git" data-sozluk-git>${a("araSozluk").replace("{sayi}", n.toLocaleString(dil === "tr" ? "tr-TR" : "en-GB"))}</button>`;
+  } else {
+    sozlukSatir = `<button class="ara-oge sozluk-git" data-sozluk-git>${a("araSozlukYukle")}</button>`;
+  }
+  durum.textContent = bulunan.length ? a("araSonuc").replace("{sayi}", bulunan.length) : a("araYok");
+  // Sonuçları bölümlere göre grupla
+  const gruplar = new Map();
+  bulunan.forEach(x => { if (!gruplar.has(x.grup)) gruplar.set(x.grup, []); gruplar.get(x.grup).push(x); });
+  let html = "";
+  gruplar.forEach((liste, grup) => {
+    html += `<h3 class="ara-grup">${a(grup)}</h3>` + liste.map(x => {
+      araSonAc.push(x.ac);
+      return `<button class="ara-oge" data-ara-i="${araSonAc.length - 1}"><b>${guvenli(x.baslik)}</b><small>${guvenli(x.ozet)}</small></button>`;
+    }).join("");
+  });
+  sonucEl.innerHTML = html + sozlukSatir;
+}
+document.getElementById("ara-dugme").onclick = aramaAc;
+document.getElementById("ara-kapat").onclick = aramaKapat;
+araGirdi.addEventListener("input", aramaCiz);
+araPanel.addEventListener("click", e => {
+  if (e.target === araPanel) { aramaKapat(); return; } // panelin dışına tıklanınca kapan
+  const oge = e.target.closest("[data-ara-i]");
+  if (oge) { const is = araSonAc[Number(oge.dataset.araI)]; aramaKapat(); is(); return; }
+  if (e.target.closest("[data-sozluk-git]")) {
+    sozluk.sorgu = araGirdi.value.trim();
+    document.getElementById("sozluk-ara").value = sozluk.sorgu;
+    aramaKapat(); sekmeyeGit("sozluk");
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !araPanel.hidden) { aramaKapat(); return; }
+  const yaziyor = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+  if (e.key === "/" && !yaziyor && araPanel.hidden) { e.preventDefault(); aramaAc(); }
+  // Enter: ilk sonucu aç
+  if (e.key === "Enter" && document.activeElement === araGirdi && araSonAc.length) { const is = araSonAc[0]; aramaKapat(); is(); }
+});
+
+// ---------- UYGULAMA OLARAK YÜKLE (PWA) ----------
+// Benzetme: Siteyi telefonun ana ekranına "kısayol" değil, kendi kapısı olan bir oda olarak koymak.
+// sw.js (service worker) bir "kapıcı" gibi çalışır: açılan sayfaları saklar, internet yoksa onları verir.
+let kurulumOlayi = null;
+const kurKutu = document.getElementById("kur-kutu");
+const bagimsiz = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => { /* kurulamazsa site yine çalışır */ }));
+}
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault(); kurulumOlayi = e;
+  kurKutu.hidden = false; document.getElementById("kur-dugme").hidden = false;
+});
+document.getElementById("kur-dugme").onclick = async () => {
+  if (!kurulumOlayi) return;
+  kurulumOlayi.prompt();
+  await kurulumOlayi.userChoice.catch(() => null);
+  kurulumOlayi = null; kurKutu.hidden = true;
+};
+window.addEventListener("appinstalled", () => { kurKutu.hidden = true; });
+// iPhone/iPad'de "yükle" olayı yoktur; elle nasıl ekleneceğini gösteririz
+if (!bagimsiz && /iphone|ipad|ipod/i.test(navigator.userAgent)) {
+  kurKutu.hidden = false;
+  document.getElementById("kur-dugme").hidden = true;
+  document.getElementById("kur-ios").hidden = false;
+}
+// İnternet kesilince küçük bir uyarı
+function baglantiDurumu() {
+  let uyari = document.getElementById("cevrimdisi");
+  if (navigator.onLine) { if (uyari) uyari.remove(); return; }
+  if (!uyari) { uyari = document.createElement("p"); uyari.id = "cevrimdisi"; uyari.className = "cevrimdisi"; document.querySelector("main").prepend(uyari); }
+  uyari.textContent = a("cevrimdisi");
+}
+window.addEventListener("online", baglantiDurumu);
+window.addEventListener("offline", baglantiDurumu);
+
 // ---------- HER ŞEYİ ÇİZ ----------
 // Dil değişince bu fonksiyon tüm sayfayı yeni dilde yeniden yazar.
 // Quiz'deki ilerleme, kart sırası ve mülakat sorusu korunur.
@@ -755,7 +1130,13 @@ function hepsiniCiz() {
   ilerlemeCiz();
   yaziliCiz();
   sinavCiz();
+  arsivCiz();
+  haritaCiz();
   if (sozluk.yuklendi) sozlukCiz();
+  // Arama dizini dile bağlı; dil değişince yeniden kurulur
+  aramaDizini = null;
+  if (!araPanel.hidden) { aramaDiziniKur(); aramaCiz(); }
+  baglantiDurumu();
 }
 
 document.getElementById("dil-dugme").onclick = () => {

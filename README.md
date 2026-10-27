@@ -17,9 +17,14 @@ Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya günd
 | `veri/duyurular.js` | Türkiye gündemi (sık güncellenir) |
 | `veri/dunya.js` | Dünya gündemi (sık güncellenir) |
 | `veri/sorular.js` | Quiz, bilgi kartları, mülakat soruları |
+| `veri/quiz_ek.js` | Ek quiz soruları (toplam 111 soru; sorular.js'ten sonra yüklenir) |
+| `veri/arsiv.js` | Çıkmış sorular arşivi: KİM ve MM sınavlarında sorulan konular (konu düzeyinde, soru metni kopyalanmadan) |
+| `veri/harita.js` | Politikalar sekmesindeki harita (otomatik üretilir; `robot/harita_uret.mjs`) |
 | `veri/sinav.js` | Sınav rehberi, kompozisyon soruları ve çeviri metinleri |
 | `veri/sozluk.js` | 10.750 terimlik sözlük (Bakanlık terminoloji listelerinden; Sözlük sekmesi açılınca yüklenir) |
 | `veri/otomatik.js` | Robotun her gün yazdığı başlıklar (elle düzenleme) |
+| `sw.js` | Service worker: siteyi telefona yüklenebilir ve çevrimdışı açılır yapar |
+| `manifest.webmanifest` | Uygulamanın adı, rengi ve simgeleri (`gorseller/ikon-*.png`) |
 | `robot/basliklari_cek.py` | Başlıkları toplayan robot |
 | `.github/workflows/guncelle.yml` | Robotun çalar saati ve yayın adımları |
 
@@ -82,3 +87,17 @@ Virgüllere dikkat et: her `}` bloğundan sonra `,` olmalı.
 ## Haftalık içerik güncellemesi
 
 Her pazartesi sabahı bir Claude zamanlanmış görevi son haftanın önemli gelişmelerini araştırır; `veri/duyurular.js` ve `veri/dunya.js` dosyalarına iki dilli özet, sınav notu ve kaynak linkiyle ekler ve doğrudan yayınlar. Görevin kuralları `robot/HAFTALIK_GOREV.md` dosyasında, kullandığı terim karşılıkları `robot/terminoloji.md` dosyasındadır. Görevin davranışını değiştirmek için bu dosyaları düzenlemek yeterlidir.
+
+## Çıkmış sorular nasıl eklenir?
+
+`veri/arsiv.js` içindeki `ARSIV` listesine bir satır ekle:
+
+```js
+{ yil: "2027-01", sinav: "kim", bolum: "yd", temalar: ["tdp-genel"], konu: { tr: "Kısa konu başlığı", en: "Short topic line" }, politika: "ab" },
+```
+
+`sinav`: `kim` ya da `mm`. `bolum`: `yd` (yabancı dilde kompozisyon), `tr` (Türkçe kompozisyon), `cev` (çeviri). Resmî olarak yayımlanmamış, adaylardan duyulan sorulara `kaynak: "aday"` ekle. Soru metnini olduğu gibi kopyalama; kısa bir konu başlığı yaz. Grafik kendiliğinden güncellenir.
+
+## Uygulama sürümü (PWA)
+
+Site telefona uygulama gibi yüklenebilir ve bir kez açılan sayfalar internetsiz de açılır. `index.html`'deki `?v=` numarasını artırdığında `sw.js` içindeki `SURUM` değerini de artır; böylece telefonlardaki eski kopyalar silinir.
