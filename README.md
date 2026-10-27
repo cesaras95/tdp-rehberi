@@ -16,7 +16,8 @@ Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya günd
 | `veri/politikalar.js` | Politika kartları |
 | `veri/duyurular.js` | Türkiye gündemi (sık güncellenir) |
 | `veri/dunya.js` | Dünya gündemi (sık güncellenir) |
-| `veri/sorular.js` | Quiz, bilgi kartları, mülakat soruları |
+| `veri/sorular.js` | Quiz ve bilgi kartları |
+| `veri/mulakat.js` | Mülakat antrenmanı: cevap iskeletleri, kurtarıcı cümleler, kontrol listesi, ek sorulu ve örnek cevaplı mülakat soruları, jüri seviyeleri |
 | `veri/quiz_ek.js` | Ek quiz soruları (toplam 111 soru; sorular.js'ten sonra yüklenir) |
 | `veri/arsiv.js` | Çıkmış sorular arşivi: KİM ve MM sınavlarında sorulan konular (konu düzeyinde, soru metni kopyalanmadan) |
 | `veri/harita.js` | Politikalar sekmesindeki harita (otomatik üretilir; `robot/harita_uret.mjs`) |

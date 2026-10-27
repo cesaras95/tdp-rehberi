@@ -6,14 +6,14 @@
 //
 // Siteyi güncelledikten sonra eski kopyalar silinsin diye SURUM'u değiştir.
 // =============================================================
-const SURUM = "tdp-v5";
+const SURUM = "tdp-v6";
 
 // İlk kurulumda depoya konacak temel dosyalar (büyük sözlük dosyası hariç;
 // o, Sözlük sekmesi ilk açıldığında depoya girer)
 const TEMEL = [
   "./", "index.html", "style.css", "app.js", "manifest.webmanifest",
   "veri/arayuz.js", "veri/erisim.js", "veri/tarih.js", "veri/politikalar.js", "veri/duyurular.js", "veri/dunya.js",
-  "veri/sorular.js", "veri/quiz_ek.js", "veri/arsiv.js", "veri/harita.js", "veri/sinav.js", "veri/otomatik.js",
+  "veri/sorular.js", "veri/mulakat.js", "veri/quiz_ek.js", "veri/arsiv.js", "veri/harita.js", "veri/sinav.js", "veri/otomatik.js",
   "gorseller/ikon-192.png", "gorseller/turquie-kamaliste-afis.webp", "gorseller/turquie-kemaliste-bust.webp", "gorseller/bayrak.webp"
 ];
 

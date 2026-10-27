@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
   <!-- UYGULAMA (PWA): telefona yüklenebilir sürüm için kimlik kartı ve simgeler -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#9b1c2c">
@@ -275,22 +275,17 @@
       </div>
     </section>
 
-    <!-- MÜLAKAT -->
+    <!-- MÜLAKAT ANTRENMANI: hazırlık, tek soru, jüri simülasyonu, gelişim -->
     <section id="mulakat" class="sekme" hidden>
       <h1 data-t="mulakatBaslik"></h1>
       <p class="giris" data-t="mulakatGiris"></p>
-      <div class="filtre" id="mulakat-filtre"></div>
-      <div class="kutu mulakat-kutu">
-        <p class="mulakat-tur" id="mulakat-tur"></p>
-        <p class="mulakat-soru" id="mulakat-soru"></p>
-        <div class="sayac" id="mulakat-sayac">1:30</div>
-        <div class="dugmeler">
-          <button class="dugme" id="mulakat-basla"></button>
-          <button class="dugme ikincil" id="mulakat-ipucu-btn"></button>
-          <button class="dugme ikincil" id="mulakat-yeni" data-t="yeniSoru"></button>
-        </div>
-        <p class="ipucu" id="mulakat-ipucu" hidden></p>
+      <div class="filtre" id="mulakat-mod">
+        <button class="cip aktif" data-m-mod="hazirlik" data-t="mModHazirlik"></button>
+        <button class="cip" data-m-mod="tek" data-t="mModTek"></button>
+        <button class="cip" data-m-mod="juri" data-t="mModJuri"></button>
+        <button class="cip" data-m-mod="gelisim" data-t="mModGelisim"></button>
       </div>
+      <div id="mulakat-alan"></div>
     </section>
 
     <!-- YAZILI PRATİK: kompozisyon ve çeviri -->
@@ -365,11 +360,12 @@
   <script src="veri/duyurular.js"></script>
   <script src="veri/dunya.js"></script>
   <script src="veri/sorular.js"></script>
+  <script src="veri/mulakat.js"></script>
   <script src="veri/quiz_ek.js"></script>
   <script src="veri/arsiv.js"></script>
   <script src="veri/harita.js"></script>
   <script src="veri/sinav.js"></script>
   <script src="veri/otomatik.js"></script>
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

@@ -478,76 +478,499 @@ document.getElementById("kart-bildim").onclick = () => kartIsaretle(true);
 document.getElementById("kart-tekrar").onclick = () => kartIsaretle(false);
 document.getElementById("kart-sadece").onchange = e => { kartDurum.sadece = e.target.checked; kartDurum.sira = 0; kartCiz(); };
 
-// ---------- MÜLAKAT ----------
-const mulakat = { tur: "hepsi", soru: null, zamanlayici: null, kalan: 90 };
+// ---------- MÜLAKAT ANTRENMANI ----------
+// Benzetme: Sürüş kursu. Önce kuralları ve el frenini öğrenirsin (Hazırlık), sonra boş
+// bir otoparkta tek tek manevra yaparsın (Tek soru), en sonunda trafiğe çıkarsın (Jüri).
+// Kayıtlar (ses/görüntü) sadece bu cihazda kalır; hiçbir yere gönderilmez.
+const mulakat = {
+  mod: "hazirlik",          // hazirlik | tek | juri | gelisim
+  tur: "hepsi",
+  soru: null,               // tek soru modundaki soru
+  asama: "hazir",           // hazir | dusunme | cevap | degerlendir
+  kalan: 0, zamanlayici: null, cevapSuresi: 90, dusunme: 15,
+  ingilizce: false, kayitTuru: "yok", sesTanima: false, iskeletGoster: true,
+  medya: null, kaydedici: null, parcalar: [], kayitUrl: null, kayitVideo: false,
+  tanima: null, metin: "", cevapBas: 0, cevapSn: 0,
+  modelAcik: false, ipucuAcik: false, puanlar: {},
+  juri: null                // { seviye, liste: [...], sira, bitti }
+};
+const DESTEK = {
+  kayit: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder),
+  tanima: !!(window.SpeechRecognition || window.webkitSpeechRecognition)
+};
 
-function mulakatFiltreCiz() {
-  const turler = ["hepsi", ...new Set(MULAKAT.map(m => m.tur))];
-  document.getElementById("mulakat-filtre").innerHTML = turler.map(tr =>
-    `<button class="cip ${tr === mulakat.tur ? "aktif" : ""}" data-tur="${tr}">${tr === "hepsi" ? a("filtreHepsi") : guvenli(t(MULAKAT_TURLERI[tr]))}</button>`
-  ).join("");
+// ----- Profilim (kişiselleştirilmiş sorular için, sadece bu tarayıcıda) -----
+let mulakatProfil = { ulke: "", deneyim: "", dil: "" };
+try { mulakatProfil = Object.assign(mulakatProfil, JSON.parse(localStorage.getItem("tdp-mulakat-profil") || "{}")); } catch (e) { /* boş başla */ }
+function profilKaydet() { try { localStorage.setItem("tdp-mulakat-profil", JSON.stringify(mulakatProfil)); } catch (e) { /* yoksay */ } }
+
+// Soru metni: İngilizce seçiliyse İngilizce, profil doluysa kişiselleştirilmiş hâli
+function soruMetni(s, ekSoru) {
+  const d = mulakat.ingilizce ? "en" : dil;
+  if (ekSoru) return ekSoru[d] || ekSoru.tr;
+  if (s.profil) {
+    const sablon = s.profil[d];
+    const gerekli = (sablon.match(/\{(\w+)\}/g) || []).map(x => x.slice(1, -1));
+    if (gerekli.length && gerekli.every(k => mulakatProfil[k] && mulakatProfil[k].trim()))
+      return sablon.replace(/\{(\w+)\}/g, (_, k) => mulakatProfil[k].trim());
+  }
+  return s.soru[d];
 }
 
-function sayacYaz() {
-  const el = document.getElementById("mulakat-sayac");
-  const dk = Math.floor(mulakat.kalan / 60);
-  const sn = String(mulakat.kalan % 60).padStart(2, "0");
-  el.textContent = `${dk}:${sn}`;
-  el.classList.toggle("bitti", mulakat.kalan === 0);
+// ----- Kontrol listesi (işaretler bu tarayıcıda saklanır) -----
+let mulakatListe = [];
+try { mulakatListe = JSON.parse(localStorage.getItem("tdp-mulakat-liste") || "[]"); } catch (e) { mulakatListe = []; }
+
+// ----- Gelişim kayıtları (ilerleme nesnesinin içinde) -----
+function mulakatGecmis() { if (!Array.isArray(ilerleme.mulakat)) ilerleme.mulakat = []; return ilerleme.mulakat; }
+
+const ikiHane = n => String(n).padStart(2, "0");
+const sureMetin = sn => `${sn < 0 ? "+" : ""}${Math.floor(Math.abs(sn) / 60)}:${ikiHane(Math.abs(sn) % 60)}`;
+
+// ---------- ÇİZİM ----------
+function mulakatCiz() {
+  document.querySelectorAll("#mulakat-mod .cip").forEach(c => c.classList.toggle("aktif", c.dataset.mMod === mulakat.mod));
+  const alan = document.getElementById("mulakat-alan");
+  if (mulakat.mod === "hazirlik") alan.innerHTML = hazirlikCiz();
+  else if (mulakat.mod === "tek") alan.innerHTML = ayarlarCiz() + tekSoruCiz();
+  else if (mulakat.mod === "juri") alan.innerHTML = ayarlarCiz(true) + juriCiz();
+  else alan.innerHTML = gelisimCiz();
+  if (mulakat.uyari) alan.insertAdjacentHTML("afterbegin", `<p class="cevrimdisi">${guvenli(mulakat.uyari)}</p>`);
+  medyaOnizlemeBagla();
 }
 
-function sayacDurdur() {
-  clearInterval(mulakat.zamanlayici);
-  mulakat.zamanlayici = null;
-  document.getElementById("mulakat-basla").textContent = a("sureBaslat");
+function hazirlikCiz() {
+  const iskeletler = Object.values(MULAKAT_ISKELET).map(i => `
+    <div class="kutu iskelet-kart"><h3>${guvenli(t(i.ad))}</h3>
+      <ol>${i.adimlar.map(x => `<li>${guvenli(t(x))}</li>`).join("")}</ol>
+      <p class="acilis"><b>${a("mAcilis")}:</b> ${guvenli(t(i.acilis))}</p></div>`).join("");
+  const kurtarici = MULAKAT_KURTARICI.map(k => `
+    <div class="kurtarici"><h3>${guvenli(t(k.durum))}</h3>
+      <ul>${k.cumleler.map(c => `<li><span>${guvenli(c.tr)}</span><i>${guvenli(c.en)}</i></li>`).join("")}</ul></div>`).join("");
+  const liste = MULAKAT_LISTE.map((m, i) => `
+    <li><label class="secim"><input type="checkbox" data-m-liste="${i}" ${mulakatListe.includes(i) ? "checked" : ""}> <span>${guvenli(t(m))}</span></label></li>`).join("");
+  return `
+    <div class="kutu m-tavsiye"><h2>${a("mNasil")}</h2><ol>
+      <li>${a("mNasil1")}</li><li>${a("mNasil2")}</li><li>${a("mNasil3")}</li><li>${a("mNasil4")}</li></ol></div>
+    <h2 class="ara-baslik">${a("mIskeletler")}</h2>
+    <p class="pol-bolge">${a("mIskeletAcik")}</p>
+    <div class="iskelet-izgara">${iskeletler}</div>
+    <h2 class="ara-baslik">${a("mKurtarici")}</h2>
+    <p class="pol-bolge">${a("mKurtariciAcik")}</p>
+    <div class="kutu kurtarici-izgara">${kurtarici}</div>
+    <div class="iki-sutun">
+      <div class="kutu"><h2>${a("mListe")}</h2><ul class="m-liste">${liste}</ul>
+        <p class="pol-bolge">${mulakatListe.length} / ${MULAKAT_LISTE.length}</p></div>
+      <div class="kutu nefes-kutu"><h2>${a("mNefes")}</h2><p class="pol-bolge">${a("mNefesAcik")}</p>
+        <div class="nefes" id="nefes"><span id="nefes-yazi">${a("mNefesHazir")}</span></div>
+        <button class="dugme ikincil" id="nefes-basla">${a("mNefesBasla")}</button></div>
+    </div>`;
 }
 
-// Mevcut soruyu seçili dilde ekrana yazar (dil değişince de çağrılır)
-function mulakatSoruYaz() {
+function ayarlarCiz(juriMi) {
+  const kayitSec = DESTEK.kayit ? `
+    <label>${a("mKayit")}: <select id="m-kayit">
+      <option value="yok" ${mulakat.kayitTuru === "yok" ? "selected" : ""}>${a("mKayitYok")}</option>
+      <option value="ses" ${mulakat.kayitTuru === "ses" ? "selected" : ""}>${a("mKayitSes")}</option>
+      <option value="video" ${mulakat.kayitTuru === "video" ? "selected" : ""}>${a("mKayitVideo")}</option></select></label>` : `<span class="pol-bolge">${a("mKayitDesteklenmiyor")}</span>`;
+  const tanima = DESTEK.tanima ? `<label class="secim"><input type="checkbox" id="m-tanima" ${mulakat.sesTanima ? "checked" : ""}> ${a("mTanima")}</label>` : "";
+  const dusunme = juriMi ? "" : `<label>${a("mDusunme")}: <select id="m-dusunme">${[0, 10, 15, 30].map(s => `<option value="${s}" ${s === mulakat.dusunme ? "selected" : ""}>${s} ${a("sn")}</option>`).join("")}</select></label>`;
+  const p = mulakatProfil;
+  return `
+    <div class="m-ayarlar">
+      ${dusunme}
+      <label class="secim"><input type="checkbox" id="m-ingilizce" ${mulakat.ingilizce ? "checked" : ""}> ${a("mIngilizce")}</label>
+      ${kayitSec}${tanima}
+    </div>
+    <details class="m-profil"><summary>${a("mProfil")}</summary>
+      <p class="pol-bolge">${a("mProfilAcik")}</p>
+      <div class="m-profil-izgara">
+        <label>${a("mProfilUlke")}<input data-m-profil="ulke" value="${guvenli(p.ulke)}" placeholder="${guvenli(a("mProfilUlkeOrnek"))}"></label>
+        <label>${a("mProfilDeneyim")}<input data-m-profil="deneyim" value="${guvenli(p.deneyim)}" placeholder="${guvenli(a("mProfilDeneyimOrnek"))}"></label>
+        <label>${a("mProfilDil")}<input data-m-profil="dil" value="${guvenli(p.dil)}" placeholder="${guvenli(a("mProfilDilOrnek"))}"></label>
+      </div></details>
+    ${mulakat.sesTanima ? `<p class="kunye">${a("mTanimaNot")}</p>` : ""}`;
+}
+
+// Zamanlayıcı ve kayıt alanı (tek soru ve jüri ortak)
+function sahneCiz(baslik, metin, iskeletAnahtar, ekMi) {
+  const isk = MULAKAT_ISKELET[iskeletAnahtar];
+  const sayac = mulakat.asama === "dusunme"
+    ? `<div class="m-asama dusunme">${a("mDusunuyor")}</div><div class="sayac" id="m-sayac">${sureMetin(mulakat.kalan)}</div>
+       <button class="dugme" data-m-is="hazirim">${a("mHazirim")}</button>`
+    : `<div class="m-asama cevap">${mulakat.kaydedici ? "● " : ""}${a("mCevapla")}</div><div class="sayac" id="m-sayac">${sureMetin(mulakat.kalan)}</div>
+       <button class="dugme" data-m-is="bitir">${a("mBitti")}</button>`;
+  return `
+    <div class="kutu mulakat-kutu m-sahne">
+      ${baslik}
+      ${ekMi ? `<p class="m-ek-etiket">${a("mEkSoru")}</p>` : ""}
+      <p class="mulakat-soru">${guvenli(metin)}</p>
+      ${sayac}
+      <video id="m-ayna" class="m-ayna" autoplay muted playsinline ${mulakat.kayitVideo ? "" : "hidden"}></video>
+      ${mulakat.iskeletGoster && isk ? `<details class="m-iskelet" open><summary>${guvenli(t(isk.ad))}</summary><ol>${isk.adimlar.map(x => `<li>${guvenli(t(x))}</li>`).join("")}</ol></details>` : ""}
+    </div>`;
+}
+
+function tekSoruCiz() {
+  if (!mulakat.soru) yeniMulakatSorusu(true);
   const s = mulakat.soru;
-  document.getElementById("mulakat-tur").textContent = t(MULAKAT_TURLERI[s.tur]);
-  document.getElementById("mulakat-soru").textContent = t(s.soru);
-  const ipucu = document.getElementById("mulakat-ipucu");
-  ipucu.textContent = t(s.ipucu);
-  document.getElementById("mulakat-ipucu-btn").textContent = ipucu.hidden ? a("ipucuGoster") : a("ipucuGizle");
-  document.getElementById("mulakat-basla").textContent = mulakat.zamanlayici ? a("durdur") : a("sureBaslat");
+  const filtre = ["hepsi", ...Object.keys(MULAKAT_TURLERI)].map(tr =>
+    `<button class="cip ${tr === mulakat.tur ? "aktif" : ""}" data-m-tur="${tr}">${tr === "hepsi" ? a("filtreHepsi") : guvenli(t(MULAKAT_TURLERI[tr]))}</button>`).join("");
+  const ust = `<p class="mulakat-tur">${guvenli(t(MULAKAT_TURLERI[s.tur]))}</p>`;
+  if (mulakat.asama === "dusunme" || mulakat.asama === "cevap")
+    return `<div class="filtre">${filtre}</div>` + sahneCiz(ust, soruMetni(s), s.iskelet);
+  if (mulakat.asama === "degerlendir")
+    return `<div class="filtre">${filtre}</div>` + degerlendirmeCiz([{ s }], "tek");
+  const isk = MULAKAT_ISKELET[s.iskelet];
+  return `
+    <div class="filtre">${filtre}</div>
+    <div class="kutu mulakat-kutu">
+      ${ust}
+      <p class="mulakat-soru">${guvenli(soruMetni(s))}</p>
+      <details class="m-iskelet"><summary>${a("mIskeletGoster")}: ${guvenli(t(isk.ad))}</summary>
+        <ol>${isk.adimlar.map(x => `<li>${guvenli(t(x))}</li>`).join("")}</ol><p class="acilis">${guvenli(t(isk.acilis))}</p></details>
+      <p class="pol-bolge">${a("mTekAcik").replace("{dk}", "90")}</p>
+      <div class="dugmeler">
+        <button class="dugme" data-m-is="basla">${a("mBasla")}</button>
+        <button class="dugme ikincil" data-m-is="yeni">${a("yeniSoru")}</button>
+      </div>
+    </div>`;
 }
 
-function yeniMulakatSorusu() {
+function juriCiz() {
+  const j = mulakat.juri;
+  if (!j) {
+    return `
+      <div class="kutu"><h2>${a("mJuriBaslik")}</h2><p class="pol-bolge">${a("mJuriAcik")}</p>
+        <div class="seviye-izgara">${MULAKAT_SEVIYE.map((sv, i) => `
+          <button class="seviye" data-m-seviye="${i}"><b>${guvenli(t(sv.ad))}</b><small>${guvenli(t(sv.acik))}</small></button>`).join("")}</div>
+        <p class="pol-bolge">${a("mJuriIpucu")}</p></div>`;
+  }
+  if (j.bitti) return degerlendirmeCiz(j.liste, "juri");
+  const oge = j.liste[j.sira];
+  const ust = `<div class="quiz-ilerleme"><div style="width:${(j.sira / j.liste.length) * 100}%"></div></div>
+    <p class="mulakat-tur">${guvenli(t(MULAKAT_SEVIYE[j.seviye].ad))} · ${a("soru")} ${j.sira + 1} / ${j.liste.length}</p>`;
+  return sahneCiz(ust, soruMetni(oge.s, oge.ek), oge.s.iskelet, !!oge.ek) +
+    `<p class="ortala"><button class="dugme metin" data-m-is="juri-bitir">${a("mJuriErken")}</button></p>`;
+}
+
+// Cevaptan sonra: kayıt, konuşma istatistikleri, öz değerlendirme, örnek cevap
+function degerlendirmeCiz(liste, tur) {
+  const kayit = mulakat.kayitUrl ? (mulakat.kayitVideo
+    ? `<video class="m-kayit" src="${mulakat.kayitUrl}" controls playsinline></video>`
+    : `<audio class="m-kayit" src="${mulakat.kayitUrl}" controls></audio>`) : "";
+  const istatistik = konusmaIstatistik();
+  const olcutler = MULAKAT_OLCUT.map(o => `
+    <div class="olcut-satir"><span>${guvenli(t(o.ad))}</span>
+      <span class="olcut-puan">${[1, 2, 3].map(p => `<button class="${mulakat.puanlar[o.id] === p ? "aktif" : ""}" data-m-puan="${o.id}" data-p="${p}" aria-label="${p}">${p}</button>`).join("")}</span></div>`).join("");
+  const puanlanan = Object.keys(mulakat.puanlar).length;
+  const sorular = liste.map(o => `
+    <div class="m-cevap-kart">
+      <p class="m-cevap-soru">${o.ek ? `<span class="m-ek-etiket">${a("mEkSoru")}</span> ` : ""}${guvenli(soruMetni(o.s, o.ek))}</p>
+      ${o.ek ? "" : `
+      <details><summary>${a("mGucluCevap")}</summary><p>${guvenli(t(o.s.ipucu))}</p></details>
+      <details><summary>${a("mOrnekCevap")}</summary><p class="model-ceviri">${guvenli(o.s.model[mulakat.ingilizce ? "en" : dil])}</p><p class="kunye">${a("mOrnekNot")}</p></details>`}
+    </div>`).join("");
+  return `
+    <div class="kutu">
+      <h2>${a("mDegerlendir")}</h2>
+      ${kayit ? `<p class="pol-bolge">${a("mKayitDinle")}</p>${kayit}` : `<p class="pol-bolge">${a("mKayitYokNot")}</p>`}
+      ${istatistik}
+      <h3 class="ara-baslik">${a("mOzDegerlendirme")}</h3>
+      <p class="pol-bolge">${a("mPuanAcik")}</p>
+      <div class="olcut-liste">${olcutler}</div>
+    </div>
+    <div class="kutu"><h3>${tur === "juri" ? a("mJuriSorular") : a("mKarsilastir")}</h3>${sorular}</div>
+    <div class="dugmeler ortala-flex">
+      <button class="dugme" data-m-is="kaydet" ${puanlanan < MULAKAT_OLCUT.length ? "disabled" : ""}>${a("mKaydet")}</button>
+      <button class="dugme ikincil" data-m-is="${tur === "juri" ? "juri-yeni" : "tekrar"}">${tur === "juri" ? a("mJuriYeni") : a("mTekrar")}</button>
+    </div>
+    ${puanlanan < MULAKAT_OLCUT.length ? `<p class="ortala pol-bolge">${a("mPuanEksik").replace("{n}", MULAKAT_OLCUT.length - puanlanan)}</p>` : ""}`;
+}
+
+// Ses tanıma açıksa: kelime sayısı, dakikada kelime, dolgu kelimeleri
+function konusmaIstatistik() {
+  if (!mulakat.metin.trim()) return mulakat.sesTanima ? `<p class="pol-bolge">${a("mTanimaBos")}</p>` : "";
+  const d = mulakat.ingilizce ? "en" : dil;
+  const kucuk = " " + mulakat.metin.toLocaleLowerCase(d === "tr" ? "tr" : "en").replace(/[.,!?;:]/g, " ").replace(/\s+/g, " ") + " ";
+  const kelime = kucuk.trim().split(" ").filter(Boolean).length;
+  const dk = Math.max(mulakat.cevapSn, 1) / 60;
+  const dolgular = MULAKAT_DOLGU[d].map(w => ({ w, n: kucuk.split(" " + w + " ").length - 1 })).filter(x => x.n > 0).sort((x, y) => y.n - x.n);
+  const toplamDolgu = dolgular.reduce((t2, x) => t2 + x.n, 0);
+  const hiz = Math.round(kelime / dk);
+  const hizYorum = hiz < 100 ? a("mHizYavas") : hiz > 170 ? a("mHizHizli") : a("mHizIyi");
+  return `
+    <div class="m-istatistik">
+      <div><b>${kelime}</b><span>${a("kelime")}</span></div>
+      <div><b>${sureMetin(mulakat.cevapSn)}</b><span>${a("mSure")}</span></div>
+      <div><b>${hiz}</b><span>${a("mHiz")}</span><small>${hizYorum}</small></div>
+      <div><b>${toplamDolgu}</b><span>${a("mDolgu")}</span><small>${dolgular.slice(0, 3).map(x => `"${guvenli(x.w)}" ×${x.n}`).join(", ")}</small></div>
+    </div>
+    <details><summary>${a("mMetin")}</summary><p class="kaynak-metin">${guvenli(mulakat.metin)}</p></details>`;
+}
+
+function gelisimCiz() {
+  const g = mulakatGecmis();
+  if (!g.length) return `<div class="kutu"><h2>${a("mGelisim")}</h2><p class="pol-bolge">${a("mGelisimYok")}</p></div>`;
+  const son = g.slice(-12);
+  const ort = {};
+  MULAKAT_OLCUT.forEach(o => {
+    const v = g.filter(x => x.olcut && x.olcut[o.id]).map(x => x.olcut[o.id]);
+    ort[o.id] = v.length ? v.reduce((p, c) => p + c, 0) / v.length : 0;
+  });
+  const zayif = MULAKAT_OLCUT.filter(o => ort[o.id]).sort((x, y) => ort[x.id] - ort[y.id]).slice(0, 2);
+  const tarihYaz = s => new Date(s).toLocaleDateString(dil === "tr" ? "tr-TR" : "en-GB", { day: "numeric", month: "short" });
+  return `
+    <div class="kutu"><h2>${a("mGelisim")}</h2>
+      <p class="pol-bolge">${a("mGelisimAcik").replace("{n}", g.length)}</p>
+      <div class="m-grafik" role="img" aria-label="${guvenli(a("mGelisim"))}">${son.map(x => `
+        <div class="m-cubuk" title="${guvenli(tarihYaz(x.t))} · ${x.puan.toFixed(1)} / 3">
+          <span style="height:${(x.puan / 3) * 100}%"><small>${x.puan.toFixed(1)}</small></span><i>${guvenli(tarihYaz(x.t))}${x.mod === "juri" ? " · J" : ""}</i></div>`).join("")}</div>
+      <p class="kunye">${a("mGrafikNot")}</p></div>
+    <div class="kutu"><h2>${a("mOlcutOrt")}</h2>
+      ${MULAKAT_OLCUT.map(o => `<div class="cubuk-satir"><span>${guvenli(t(o.ad))}</span>
+        <span class="cubuk"><span style="width:${(ort[o.id] / 3) * 100}%"></span></span><b>${ort[o.id] ? ort[o.id].toFixed(1) : "–"}</b><small>/ 3</small></div>`).join("")}
+      ${zayif.length ? `<p class="m-odak"><b>${a("mOdak")}:</b> ${zayif.map(o => guvenli(t(o.ad))).join(" · ")}</p>` : ""}
+      <button class="dugme metin" data-m-is="gecmis-sil">${a("mGecmisSil")}</button></div>`;
+}
+
+// ---------- AKIŞ: soru seçimi, zamanlayıcı, kayıt ----------
+function yeniMulakatSorusu(sessiz) {
   const havuz = mulakat.tur === "hepsi" ? MULAKAT : MULAKAT.filter(m => m.tur === mulakat.tur);
   let secim;
   do { secim = havuz[Math.floor(Math.random() * havuz.length)]; }
-  while (havuz.length > 1 && secim === mulakat.soru); // aynı soru arka arkaya gelmesin
+  while (havuz.length > 1 && secim === mulakat.soru);
   mulakat.soru = secim;
-  sayacDurdur();
-  mulakat.kalan = 90;
-  sayacYaz();
-  document.getElementById("mulakat-ipucu").hidden = true;
-  mulakatSoruYaz();
+  mulakat.asama = "hazir";
+  if (!sessiz) mulakatCiz();
 }
 
-document.getElementById("mulakat-basla").onclick = () => {
-  if (mulakat.zamanlayici) { sayacDurdur(); return; }
-  if (mulakat.kalan === 0) { mulakat.kalan = 90; sayacYaz(); }
-  document.getElementById("mulakat-basla").textContent = a("durdur");
-  mulakat.zamanlayici = setInterval(() => {
-    mulakat.kalan--;
-    sayacYaz();
-    if (mulakat.kalan <= 0) sayacDurdur();
-  }, 1000);
-};
-document.getElementById("mulakat-ipucu-btn").onclick = () => {
-  const ipucu = document.getElementById("mulakat-ipucu");
-  ipucu.hidden = !ipucu.hidden;
-  mulakatSoruYaz();
-};
-document.getElementById("mulakat-yeni").onclick = yeniMulakatSorusu;
-document.getElementById("mulakat-filtre").addEventListener("click", e => {
-  const btn = e.target.closest("button");
-  if (!btn) return;
-  mulakat.tur = btn.dataset.tur;
-  mulakatFiltreCiz();
-  yeniMulakatSorusu();
+function sayacDurdur() { clearInterval(mulakat.zamanlayici); mulakat.zamanlayici = null; }
+function sayacYaz() {
+  const el = document.getElementById("m-sayac");
+  if (!el) return;
+  el.textContent = sureMetin(mulakat.kalan);
+  el.classList.toggle("bitti", mulakat.asama === "cevap" && mulakat.kalan <= 0);
+}
+
+// Düşünme süresi → cevap süresi
+function asamaBaslat(dusunmeSn, cevapSn) {
+  sayacDurdur();
+  mulakat.cevapSuresi = cevapSn;
+  if (dusunmeSn > 0) {
+    mulakat.asama = "dusunme"; mulakat.kalan = dusunmeSn; mulakatCiz();
+    mulakat.zamanlayici = setInterval(() => {
+      mulakat.kalan--; sayacYaz();
+      if (mulakat.kalan <= 0) cevabaGec();
+    }, 1000);
+  } else cevabaGec();
+}
+function cevabaGec() {
+  sayacDurdur();
+  mulakat.asama = "cevap"; mulakat.kalan = mulakat.cevapSuresi; mulakat.cevapBas = Date.now();
+  mulakatCiz();
+  tanimaBaslat();
+  mulakat.zamanlayici = setInterval(() => { mulakat.kalan--; sayacYaz(); }, 1000); // süre bitince eksiye geçer (uzatma görünür)
+}
+function cevabiBitir() {
+  sayacDurdur();
+  mulakat.cevapSn += Math.round((Date.now() - mulakat.cevapBas) / 1000);
+  tanimaDurdur();
+}
+
+// Ses/görüntü kaydı: tek soruda her soru, jüride tüm oturum boyunca
+async function kayitBaslat() {
+  kayitTemizle();
+  if (mulakat.kayitTuru === "yok" || !DESTEK.kayit) return true;
+  try {
+    mulakat.kayitVideo = mulakat.kayitTuru === "video";
+    mulakat.medya = await navigator.mediaDevices.getUserMedia({ audio: true, video: mulakat.kayitVideo ? { facingMode: "user" } : false });
+    mulakat.parcalar = [];
+    mulakat.kaydedici = new MediaRecorder(mulakat.medya);
+    mulakat.kaydedici.ondataavailable = e => { if (e.data.size) mulakat.parcalar.push(e.data); };
+    mulakat.kaydedici.start(1000);
+    return true;
+  } catch (e) {
+    alanUyari(a("mKayitIzin"));
+    mulakat.kayitTuru = "yok"; mulakat.kayitVideo = false;
+    return true; // kayıt olmadan devam
+  }
+}
+function kayitDurdur() {
+  return new Promise(coz => {
+    const k = mulakat.kaydedici;
+    if (!k || k.state === "inactive") { medyaKapat(); coz(); return; }
+    k.onstop = () => {
+      const blob = new Blob(mulakat.parcalar, { type: k.mimeType || (mulakat.kayitVideo ? "video/webm" : "audio/webm") });
+      mulakat.kayitUrl = URL.createObjectURL(blob);
+      medyaKapat(); coz();
+    };
+    k.stop();
+  });
+}
+function medyaKapat() {
+  if (mulakat.medya) mulakat.medya.getTracks().forEach(tr => tr.stop());
+  mulakat.medya = null; mulakat.kaydedici = null;
+}
+function kayitTemizle() {
+  if (mulakat.kayitUrl) URL.revokeObjectURL(mulakat.kayitUrl);
+  mulakat.kayitUrl = null; mulakat.parcalar = [];
+}
+function medyaOnizlemeBagla() {
+  const ayna = document.getElementById("m-ayna");
+  if (ayna && mulakat.medya && mulakat.kayitVideo) { ayna.srcObject = mulakat.medya; ayna.hidden = false; }
+}
+function alanUyari(metin) { mulakat.uyari = metin; }
+
+// Ses tanıma (isteğe bağlı): konuşmayı yazıya çevirip istatistik çıkarır
+function tanimaBaslat() {
+  if (!mulakat.sesTanima || !DESTEK.tanima) return;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  try {
+    const r = new SR();
+    r.lang = (mulakat.ingilizce || dil === "en") ? "en-GB" : "tr-TR";
+    r.continuous = true; r.interimResults = false;
+    r.onresult = e => { for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) mulakat.metin += " " + e.results[i][0].transcript; };
+    r.onend = () => { if (mulakat.tanima === r && mulakat.asama === "cevap") { try { r.start(); } catch (err) { /* yoksay */ } } };
+    r.start(); mulakat.tanima = r;
+  } catch (e) { mulakat.tanima = null; }
+}
+function tanimaDurdur() {
+  const r = mulakat.tanima; mulakat.tanima = null;
+  if (r) { try { r.stop(); } catch (e) { /* yoksay */ } }
+}
+
+function oturumSifirla() {
+  sayacDurdur(); tanimaDurdur();
+  mulakat.metin = ""; mulakat.cevapSn = 0; mulakat.puanlar = {};
+}
+
+// Jüri listesi: kendini tanıt ile açılır, seviyeye göre ek ve baskı soruları eklenir
+function juriListesiKur(seviye) {
+  const sv = MULAKAT_SEVIYE[seviye];
+  const al = (tur, adet, haric) => karistir(MULAKAT.filter(m => tur.includes(m.tur) && !haric.includes(m))).slice(0, adet);
+  const secilen = [MULAKAT[0]]; // "Kendinizi tanıtın"
+  const ozel = [];
+  if (seviye >= 2) ozel.push(...al(["baski"], 1, secilen));
+  if (seviye >= 3) ozel.push(...al(["ingilizce"], 1, secilen));
+  ozel.push(...al(["konsolosluk"], 1, secilen));
+  const kalan = sv.sayi - 1 - ozel.length;
+  const ana = al(["genel", "guncel", "tarih", "kisisel"], Math.max(0, kalan), [...secilen, ...ozel]);
+  const govde = karistir([...ana, ...ozel.filter(x => x.tur !== "baski")]);
+  const sira = [...secilen, ...govde, ...ozel.filter(x => x.tur === "baski")].slice(0, sv.sayi);
+  const liste = [];
+  sira.forEach(s => {
+    liste.push({ s });
+    if (s.ek && s.ek.length && Math.random() < sv.ek) liste.push({ s, ek: s.ek[Math.floor(Math.random() * s.ek.length)] });
+  });
+  return liste;
+}
+
+async function juriSoruBaslat() {
+  const j = mulakat.juri, sv = MULAKAT_SEVIYE[j.seviye];
+  const oge = j.liste[j.sira];
+  mulakat.iskeletGoster = sv.iskelet;
+  asamaBaslat(oge.ek ? Math.min(sv.dusunme, 10) : sv.dusunme, oge.ek ? 60 : 90);
+}
+async function juriBitir() {
+  cevabiBitir();
+  await kayitDurdur();
+  mulakat.juri.bitti = true; mulakat.asama = "degerlendir";
+  mulakatCiz();
+  window.scrollTo({ top: document.getElementById("mulakat-alan").offsetTop - 120, behavior: "instant" });
+}
+
+function sonucKaydet(mod) {
+  const v = Object.values(mulakat.puanlar);
+  const kayit = { t: new Date().toISOString(), mod, puan: v.reduce((p, c) => p + c, 0) / v.length, olcut: { ...mulakat.puanlar } };
+  if (mod === "juri") kayit.seviye = mulakat.juri.seviye + 1;
+  const g = mulakatGecmis(); g.push(kayit);
+  if (g.length > 100) g.splice(0, g.length - 100);
+  ilerlemeKaydet(); ilerlemeCiz();
+}
+
+// ---------- OLAYLAR ----------
+const mulakatBolum = document.getElementById("mulakat");
+mulakatBolum.addEventListener("click", async e => {
+  const mod = e.target.closest("[data-m-mod]");
+  if (mod) {
+    if (mulakat.asama === "dusunme" || mulakat.asama === "cevap") { cevabiBitir(); await kayitDurdur(); }
+    oturumSifirla(); kayitTemizle(); mulakat.uyari = "";
+    mulakat.mod = mod.dataset.mMod; mulakat.asama = "hazir"; mulakat.juri = null; mulakat.iskeletGoster = true;
+    mulakatCiz(); return;
+  }
+  const tur = e.target.closest("[data-m-tur]");
+  if (tur) { mulakat.tur = tur.dataset.mTur; oturumSifirla(); kayitTemizle(); yeniMulakatSorusu(); return; }
+  const puan = e.target.closest("[data-m-puan]");
+  if (puan) { mulakat.puanlar[puan.dataset.mPuan] = Number(puan.dataset.p); mulakatCiz(); return; }
+  const sev = e.target.closest("[data-m-seviye]");
+  if (sev) {
+    oturumSifirla();
+    mulakat.juri = { seviye: Number(sev.dataset.mSeviye), sira: 0, bitti: false, liste: [] };
+    mulakat.juri.liste = juriListesiKur(mulakat.juri.seviye);
+    await kayitBaslat(); juriSoruBaslat(); return;
+  }
+  const is = e.target.closest("[data-m-is]");
+  if (!is) return;
+  switch (is.dataset.mIs) {
+    case "basla": oturumSifirla(); mulakat.iskeletGoster = true; await kayitBaslat(); asamaBaslat(mulakat.dusunme, 90); break;
+    case "yeni": oturumSifirla(); kayitTemizle(); yeniMulakatSorusu(); break;
+    case "hazirim": cevabaGec(); break;
+    case "bitir":
+      if (mulakat.mod === "juri") {
+        cevabiBitir();
+        if (mulakat.juri.sira + 1 < mulakat.juri.liste.length) { mulakat.juri.sira++; juriSoruBaslat(); }
+        else juriBitir();
+      } else { cevabiBitir(); await kayitDurdur(); mulakat.asama = "degerlendir"; mulakatCiz(); }
+      break;
+    case "juri-bitir": juriBitir(); break;
+    case "kaydet":
+      sonucKaydet(mulakat.mod);
+      oturumSifirla(); kayitTemizle();
+      if (mulakat.mod === "juri") { mulakat.juri = null; mulakat.mod = "gelisim"; mulakat.asama = "hazir"; mulakatCiz(); }
+      else yeniMulakatSorusu();
+      break;
+    case "tekrar": oturumSifirla(); kayitTemizle(); mulakat.asama = "hazir"; mulakatCiz(); break;
+    case "juri-yeni": oturumSifirla(); kayitTemizle(); mulakat.juri = null; mulakat.asama = "hazir"; mulakatCiz(); break;
+    case "gecmis-sil": ilerleme.mulakat = []; ilerlemeKaydet(); ilerlemeCiz(); mulakatCiz(); break;
+  }
+});
+mulakatBolum.addEventListener("change", e => {
+  const el = e.target;
+  if (el.id === "m-dusunme") mulakat.dusunme = Number(el.value);
+  else if (el.id === "m-ingilizce") { mulakat.ingilizce = el.checked; if (mulakat.asama === "hazir") mulakatCiz(); }
+  else if (el.id === "m-kayit") mulakat.kayitTuru = el.value;
+  else if (el.id === "m-tanima") { mulakat.sesTanima = el.checked; mulakatCiz(); }
+  else if (el.dataset.mListe !== undefined) {
+    const i = Number(el.dataset.mListe);
+    mulakatListe = mulakatListe.filter(x => x !== i); if (el.checked) mulakatListe.push(i);
+    try { localStorage.setItem("tdp-mulakat-liste", JSON.stringify(mulakatListe)); } catch (err) { /* yoksay */ }
+    mulakatCiz();
+  }
+});
+mulakatBolum.addEventListener("input", e => {
+  const k = e.target.dataset.mProfil;
+  if (k) { mulakatProfil[k] = e.target.value; profilKaydet(); }
+});
+
+// Nefes egzersizi: 4 sn al, 4 sn tut, 6 sn ver; 4 tur (~1 dakika)
+let nefesZaman = null;
+mulakatBolum.addEventListener("click", e => {
+  if (e.target.id !== "nefes-basla") return;
+  const daire = document.getElementById("nefes"), yazi = document.getElementById("nefes-yazi");
+  clearTimeout(nefesZaman);
+  const adimlar = [["mNefesAl", 4, "buyu"], ["mNefesTut", 4, "buyu"], ["mNefesVer", 6, "kucul"]];
+  let tur = 0, i = 0;
+  const adim = () => {
+    if (!document.getElementById("nefes")) return;
+    if (tur >= 4) { yazi.textContent = a("mNefesBitti"); daire.className = "nefes"; return; }
+    const [ad, sn, sinif] = adimlar[i];
+    yazi.textContent = `${a(ad)} · ${sn}`; daire.className = "nefes " + sinif;
+    daire.style.transitionDuration = sinif === "buyu" && ad === "mNefesTut" ? "0s" : sn + "s";
+    i++; if (i === adimlar.length) { i = 0; tur++; }
+    nefesZaman = setTimeout(adim, sn * 1000);
+  };
+  adim();
 });
 
 // ---------- İLERLEME (bu tarayıcıda saklanır) ----------
@@ -565,7 +988,8 @@ function ilerlemeQuizKaydet(konu, dogruMu) {
 function ilerlemeCiz() {
   const kutu = document.getElementById("ana-ilerleme");
   const konular = Object.keys(ilerleme.quiz);
-  if (!konular.length && !ilerleme.kartlar.length) { kutu.hidden = true; return; }
+  const mg = Array.isArray(ilerleme.mulakat) ? ilerleme.mulakat : [];
+  if (!konular.length && !ilerleme.kartlar.length && !mg.length) { kutu.hidden = true; return; }
   kutu.hidden = false;
   const satirlar = konular.map(k => {
     const v = ilerleme.quiz[k]; const y = Math.round(v.d / v.t * 100);
@@ -578,6 +1002,7 @@ function ilerlemeCiz() {
     <div class="ilerleme-izgara">
       <div><h3>${a("ilerlemeQuiz")}</h3>${satirlar || `<p class="pol-bolge">${a("ilerlemeYok")}</p>`}</div>
       <div class="kart-sayi"><h3>${a("ilerlemeKart")}</h3><b>${ilerleme.kartlar.length}</b><span>/ ${KARTLAR.length}</span></div>
+      <div class="kart-sayi"><h3>${a("ilerlemeMulakat")}</h3><b>${mg.length ? mg[mg.length - 1].puan.toFixed(1) : "–"}</b><span>/ 3 · ${mg.length} ${a("ilerlemeOturum")}</span></div>
     </div>`;
   document.getElementById("ilerleme-sifirla").onclick = () => { ilerleme = { quiz: {}, kartlar: [] }; ilerlemeKaydet(); ilerlemeCiz(); kartCiz(); };
 }
@@ -983,8 +1408,8 @@ function aramaDiziniKur() {
     }));
   MULAKAT.forEach(m =>
     ekle("menuMulakat", t(m.soru), t(MULAKAT_TURLERI[m.tur]), iki(m.soru) + " " + iki(m.ipucu), () => {
-      mulakat.tur = "hepsi"; mulakatFiltreCiz(); mulakat.soru = m; sayacDurdur(); mulakat.kalan = 90; sayacYaz();
-      document.getElementById("mulakat-ipucu").hidden = true; mulakatSoruYaz(); sekmeyeGit("mulakat");
+      oturumSifirla(); kayitTemizle(); mulakat.juri = null;
+      mulakat.mod = "tek"; mulakat.tur = "hepsi"; mulakat.soru = m; mulakat.asama = "hazir"; mulakatCiz(); sekmeyeGit("mulakat");
     }));
   ARSIV.forEach((s, i) =>
     ekle("menuArsiv", t(s.konu), arsivYil(s.yil) + " · " + a("arsiv_" + s.sinav) + " · " + a("bolum_" + s.bolum), iki(s.konu) + " " + s.temalar.map(k => iki(ARSIV_TEMALAR[k])).join(" "), () => {
@@ -1125,8 +1550,7 @@ function hepsiniCiz() {
     soruCiz();
   }
   kartCiz();
-  mulakatFiltreCiz();
-  if (mulakat.soru) mulakatSoruYaz();
+  if (mulakat.asama !== "dusunme" && mulakat.asama !== "cevap") mulakatCiz();
   ilerlemeCiz();
   yaziliCiz();
   sinavCiz();
@@ -1147,7 +1571,7 @@ document.getElementById("dil-dugme").onclick = () => {
 
 // ---------- BAŞLANGIÇ: sayfa açılınca ----------
 quizBaslat("hepsi");
-yeniMulakatSorusu();
+yeniMulakatSorusu(true);
 hepsiniCiz();
 sekmeGoster();
 
