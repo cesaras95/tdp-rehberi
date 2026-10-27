@@ -22,7 +22,7 @@ Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya günd
 | `veri/arsiv.js` | Çıkmış sorular arşivi: KİM ve MM sınavlarında sorulan konular (konu düzeyinde, soru metni kopyalanmadan) |
 | `veri/harita.js` | Politikalar sekmesindeki harita (otomatik üretilir; `robot/harita_uret.mjs`) |
 | `veri/sinav.js` | Sınav rehberi, kompozisyon soruları ve çeviri metinleri |
-| `veri/sozluk.js` | 10.750 terimlik sözlük (Bakanlık terminoloji listelerinden; Sözlük sekmesi açılınca yüklenir) |
+| `veri/sozluk.js` | 10.700+ terimlik sözlük (Bakanlık terminoloji listelerinden; Sözlük sekmesi açılınca yüklenir) |
 | `veri/otomatik.js` | Robotun her gün yazdığı başlıklar (elle düzenleme) |
 | `sw.js` | Service worker: siteyi telefona yüklenebilir ve çevrimdışı açılır yapar |
 | `manifest.webmanifest` | Uygulamanın adı, rengi ve simgeleri (`gorseller/ikon-*.png`) |

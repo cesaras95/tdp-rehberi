@@ -270,3 +270,15 @@ Object.assign(ARAYUZ.en, {
   mGrafikNot: "Scores are self-assessed; they do not predict the interview result.", mOlcutOrt: "Your average by criterion", mOdak: "Focus on", mGecmisSil: "Delete interview history",
   ilerlemeMulakat: "Last interview score", ilerlemeOturum: "sessions"
 });
+
+// ---------- SÖZLÜK İŞARETLERİ ----------
+Object.assign(ARAYUZ.tr, {
+  sozlukTamam: "tamamlandı", sozlukTamamAcik: "Bu terim Bakanlığın PDF'inde kesik basılmıştı; eksik kısmı elle tamamlandı.",
+  sozlukEksik: "kaynakta eksik", sozlukEksikAcik: "Bu terim Bakanlığın PDF'inde kesik basılmış ve kesin karşılığı doğrulanamadı.",
+  sozlukNot: "Not: Bakanlığın bazı PDF'lerinde uzun terimler kesik basılmış. Tespit edilenler tamamlandı ve işaretlendi. Hatalı ya da eksik bir terim görürsen bildir."
+});
+Object.assign(ARAYUZ.en, {
+  sozlukTamam: "completed", sozlukTamamAcik: "This term was printed truncated in the Ministry's PDF; the missing part was completed by hand.",
+  sozlukEksik: "incomplete in source", sozlukEksikAcik: "This term was printed truncated in the Ministry's PDF and its exact equivalent could not be verified.",
+  sozlukNot: "Note: some long terms are printed truncated in the Ministry's PDFs. Those detected have been completed and marked. Please report any wrong or incomplete term you see."
+});

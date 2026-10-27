@@ -766,3 +766,7 @@ body.panel-acik { overflow: hidden; }
   .m-sahne .mulakat-soru { font-size: 1.3rem; }
   .olcut-satir { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
+
+/* Sözlük: kaynakta kesik olup tamamlanan terimler */
+.soz-isaret { font-style: normal; font-size: .72rem; font-weight: 700; color: var(--analiz); background: var(--analiz-acik); border-radius: 6px; padding: 1px 6px; margin-left: 4px; white-space: nowrap; cursor: help; }
+.sozluk-not { margin: 10px 16px; }

@@ -1155,7 +1155,8 @@ function sozlukCiz() {
     return guvenli(metin.slice(0, i)) + "<mark>" + guvenli(metin.slice(i, i + q.length)) + "</mark>" + guvenli(metin.slice(i + q.length));
   };
   sonucEl.innerHTML = bulunan.slice(0, SINIR).map(r =>
-    `<div class="sozluk-satir"><span class="tr">${vurgula(r[0])}</span><span class="en">${vurgula(r[1])}</span><small>${a("alan_" + r[2])}</small></div>`).join("");
+    `<div class="sozluk-satir"><span class="tr">${vurgula(r[0])}</span><span class="en">${vurgula(r[1])}${r[3] ? ` <em class="soz-isaret" title="${guvenli(a(r[3] === 1 ? "sozlukTamamAcik" : "sozlukEksikAcik"))}">${a(r[3] === 1 ? "sozlukTamam" : "sozlukEksik")}</em>` : ""}</span><small>${a("alan_" + r[2])}</small></div>`).join("") +
+    `<p class="kunye sozluk-not">${a("sozlukNot")}</p>`;
 }
 document.getElementById("sozluk-ara").addEventListener("input", e => { sozluk.sorgu = e.target.value; sozlukCiz(); });
 document.getElementById("sozluk-filtre").addEventListener("click", e => {
