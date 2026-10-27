@@ -26,17 +26,17 @@ const DUYURULAR = [
   },
   {
     tarih: "2026-10-23",
-    baslik: { tr: "İstanbul'da sekiz ülkeli dışişleri bakanları toplantısı", en: "Eight-country foreign ministers' meeting in Istanbul" },
+    baslik: { tr: "İstanbul'da R4 ve R4+E3 dışişleri bakanları toplantıları", en: "R4 and R4+E3 foreign ministers' meetings in Istanbul" },
     ozet: {
-      tr: "İngiltere, Fransa, Almanya, İtalya, Türkiye, Suudi Arabistan, Pakistan ve Mısır dışişleri bakanları bu formatta ilk kez bir araya geldi. Gündemde Filistin, Yemen, Hürmüz Boğazı ve Rusya-Ukrayna vardı. Düzenli toplanma kararı alındı.",
-      en: "The foreign ministers of the UK, France, Germany, Italy, Türkiye, Saudi Arabia, Pakistan and Egypt met in this format for the first time. The agenda covered Palestine, Yemen, the Strait of Hormuz and Russia–Ukraine. They agreed to meet regularly."
+      tr: "Bakan Fidan, R4 (Türkiye, Mısır, Pakistan, Suudi Arabistan) ve R4+E3 (Almanya, Birleşik Krallık, Fransa) formatındaki toplantılara ev sahipliği yaptı. Basına yansıyan bilgilere göre gündemde Filistin, Yemen, Hürmüz Boğazı ve Rusya-Ukrayna vardı; tarafların düzenli toplanma kararı aldığı bildirildi.",
+      en: "Minister Fidan hosted meetings in the R4 (Türkiye, Egypt, Pakistan, Saudi Arabia) and R4+E3 (Germany, the UK, France) formats. According to press reports, the agenda covered Palestine, Yemen, the Strait of Hormuz and Russia–Ukraine, and the parties agreed to meet regularly."
     },
     sinavNotu: {
-      tr: "Türkiye'nin Avrupa ile bölge ülkeleri arasında 'köprü' ve platform rolü. Mülakatta 'yeni çok taraflı formatlar' sorusuna örnek olarak kullanılabilir.",
-      en: "Türkiye's 'bridge' and platform role between Europe and the region. A good example for interview questions on new multilateral formats."
+      tr: "Türkiye'nin Avrupa ile bölge ülkeleri arasında platform rolü ve \"minilateral\" (küçük gruplu) diplomasi örneği. Bazı basın kaynakları İtalya'yı da saydı; Bakanlığın resmî açıklaması ise yedi ülkeyi (R4+E3) belirtiyor. Resmî kaynağı esas al.",
+      en: "An example of Türkiye's platform role between Europe and regional states and of 'minilateral' diplomacy. Some press reports also listed Italy; the Ministry's official statement names seven countries (R4+E3). Rely on the official source."
     },
-    konu: "arabuluculuk", tur: "haber",
-    kaynak: "https://www.institude.org/news-bulletins/weekly-news-bulletin-on-turkey-october-26-2026"
+    konu: "arabuluculuk", tur: "resmi",
+    kaynak: "https://www.mfa.gov.tr/no_-203_-r4-ve-r4_e3-disisleri-bakanlari-toplantilari-hk.tr.mfa"
   },
   {
     tarih: "2026-10-22",

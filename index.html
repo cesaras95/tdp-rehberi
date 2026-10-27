@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -66,6 +66,9 @@
       <a href="#quiz" data-sekme="quiz" data-t="menuQuiz"></a>
       <a href="#kartlar" data-sekme="kartlar" data-t="menuKartlar"></a>
       <a href="#mulakat" data-sekme="mulakat" data-t="menuMulakat"></a>
+      <a href="#yazili" data-sekme="yazili" data-t="menuYazili"></a>
+      <a href="#sozluk" data-sekme="sozluk" data-t="menuSozluk"></a>
+      <a href="#sinav" data-sekme="sinav" data-t="menuSinav"></a>
     </nav>
   </header>
 
@@ -92,6 +95,9 @@
       </div>
 
       <div class="ozet-izgara" id="ana-ozet"></div>
+
+      <!-- İLERLEME: bu tarayıcıda kaydedilen quiz ve kart sonuçları -->
+      <div class="kutu ilerleme" id="ana-ilerleme" hidden></div>
 
       <!-- KAPILAR: bölümlere görselli girişler -->
       <div class="kapilar">
@@ -148,6 +154,8 @@
         <button class="cip" data-oncelik="dusuk" data-t="filtreDusuk"></button>
       </div>
       <div id="politika-liste" class="kart-izgara"></div>
+      <!-- Bir başlığa tıklanınca ayrıntılı "dosya" burada açılır -->
+      <div id="politika-dosya" hidden></div>
     </section>
 
     <!-- TÜRKİYE GÜNDEMİ -->
@@ -210,7 +218,14 @@
         <span id="kart-sayac"></span>
         <button class="dugme ikincil" id="kart-ileri" data-t="sonraki"></button>
       </div>
-      <div class="ortala"><button class="dugme metin" id="kart-karistir" data-t="karistir"></button></div>
+      <div class="dugmeler ortala-flex">
+        <button class="dugme ikincil" id="kart-tekrar" data-t="kartTekrar"></button>
+        <button class="dugme" id="kart-bildim" data-t="kartBildim"></button>
+      </div>
+      <div class="ortala">
+        <label class="secim"><input type="checkbox" id="kart-sadece"> <span data-t="kartSadece"></span></label>
+        <button class="dugme metin" id="kart-karistir" data-t="karistir"></button>
+      </div>
     </section>
 
     <!-- MÜLAKAT -->
@@ -231,6 +246,35 @@
       </div>
     </section>
 
+    <!-- YAZILI PRATİK: kompozisyon ve çeviri -->
+    <section id="yazili" class="sekme" hidden>
+      <h1 data-t="yaziliBaslik"></h1>
+      <p class="giris" data-t="yaziliGiris"></p>
+      <div class="filtre" id="yazili-mod">
+        <button class="cip aktif" data-mod="kompozisyon" data-t="modKompozisyon"></button>
+        <button class="cip" data-mod="ceviri" data-t="modCeviri"></button>
+      </div>
+      <div id="yazili-alan"></div>
+    </section>
+
+    <!-- SÖZLÜK: Bakanlık terminoloji listelerinden aranabilir sözlük -->
+    <section id="sozluk" class="sekme" hidden>
+      <h1 data-t="sozlukBaslik"></h1>
+      <p class="giris" data-t="sozlukGiris"></p>
+      <div class="arama-kutu">
+        <input type="search" id="sozluk-ara" autocomplete="off" data-ph="sozlukAra">
+      </div>
+      <div class="filtre" id="sozluk-filtre"></div>
+      <p class="pol-bolge" id="sozluk-durum"></p>
+      <div id="sozluk-sonuc" class="sozluk-liste"></div>
+    </section>
+
+    <!-- SINAV REHBERİ -->
+    <section id="sinav" class="sekme" hidden>
+      <h1 data-t="sinavBaslik"></h1>
+      <div id="sinav-alan"></div>
+    </section>
+
   </main>
 
   <!-- ALT BİLGİ: sitenin resmî olmadığını açıkça belirtiyoruz -->
@@ -245,7 +289,8 @@
   <script src="veri/duyurular.js"></script>
   <script src="veri/dunya.js"></script>
   <script src="veri/sorular.js"></script>
+  <script src="veri/sinav.js"></script>
   <script src="veri/otomatik.js"></script>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

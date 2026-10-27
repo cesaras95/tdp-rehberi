@@ -17,9 +17,15 @@ Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya günd
 | `veri/duyurular.js` | Türkiye gündemi (sık güncellenir) |
 | `veri/dunya.js` | Dünya gündemi (sık güncellenir) |
 | `veri/sorular.js` | Quiz, bilgi kartları, mülakat soruları |
+| `veri/sinav.js` | Sınav rehberi, kompozisyon soruları ve çeviri metinleri |
+| `veri/sozluk.js` | 10.750 terimlik sözlük (Bakanlık terminoloji listelerinden; Sözlük sekmesi açılınca yüklenir) |
 | `veri/otomatik.js` | Robotun her gün yazdığı başlıklar (elle düzenleme) |
 | `robot/basliklari_cek.py` | Başlıkları toplayan robot |
 | `.github/workflows/guncelle.yml` | Robotun çalar saati ve yayın adımları |
+
+## Politika dosyaları
+
+Her politika başlığında şu alanlar var: resmî tutum, analiz, karşı tez, olgular ve rakamlar, temel belgeler (linkli), sınav ipucu, kavramlar ve örnek soru. Rakamların yanında "... itibarıyla" tarihi yazılır; rakam güncellenince tarih de güncellenmelidir. Resmî tutum Bakanlık metinlerine dayanır, yorum yalnızca analiz alanında yer alır.
 
 ## Günlük robot
 
