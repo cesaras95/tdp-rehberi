@@ -15,15 +15,46 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
   <!-- UYGULAMA (PWA): telefona yüklenebilir sürüm için kimlik kartı ve simgeler -->
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#9b1c2c">
   <link rel="icon" href="gorseller/ikon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="gorseller/ikon-apple.png">
   <meta name="apple-mobile-web-app-title" content="TDP Rehberi">
+  <!-- Arama motorları siteyi listelemesin (yalnızca davetliler için) -->
+  <meta name="robots" content="noindex, nofollow">
+  <!-- SAHTE KAPI: erişim listesi doluysa ve bu tarayıcı daha önce giriş yapmadıysa içeriği gizle -->
+  <script src="veri/erisim.js?v=5"></script>
+  <script>
+    (function () {
+      var kayitli = null;
+      try { kayitli = localStorage.getItem("tdp-erisim"); } catch (e) {}
+      if (typeof ERISIM !== "undefined" && ERISIM.length && ERISIM.indexOf(kayitli) < 0) {
+        document.documentElement.classList.add("kilitli");
+      }
+    })();
+  </script>
 </head>
 <body>
+
+  <!-- GİRİŞ EKRANI (sahte kapı): yalnızca erişim listesi doluysa görünür -->
+  <div class="kapi-ekran" id="kapi-ekran">
+    <form class="kapi-form" id="kapi-form" autocomplete="on">
+      <div class="kapi-ust">
+        <span class="logo-isaret" aria-hidden="true">◈</span>
+        <button class="dil-dugme" type="button" id="kapi-dil">EN</button>
+      </div>
+      <h1 data-t="kapiBaslik">TDP Rehberi</h1>
+      <p class="giris" data-t="kapiAcik"></p>
+      <label><span data-t="kapiKullanici">Kullanıcı adı</span>
+        <input type="text" id="kapi-kullanici" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required></label>
+      <label><span data-t="kapiSifre">Şifre</span>
+        <input type="password" id="kapi-sifre" name="password" autocomplete="current-password" required></label>
+      <p class="kapi-hata" id="kapi-hata" role="alert" hidden></p>
+      <button class="dugme" type="submit" data-t="kapiGir">Giriş yap</button>
+    </form>
+  </div>
 
   <!-- ÇİZİM KÜTÜPHANESİ: sitede tekrar kullanılan, bu proje için çizilmiş küre (dünya) simgesi.
        <use href="#kure"/> yazılan her yerde bu çizim görünür. -->
@@ -324,7 +355,7 @@
   <!-- ALT BİLGİ: sitenin resmî olmadığını açıkça belirtiyoruz -->
   <footer class="alt">
     <div class="kap"><p data-t-html="altBilgi"></p>
-    <div class="kur-kutu" id="kur-kutu" hidden><p data-t="kurAcik"></p><button class="dugme" id="kur-dugme" type="button" data-t="kurDugme"></button><p class="pol-bolge" id="kur-ios" data-t="kurIos" hidden></p></div><p class="kunye" data-t="altKunye"></p></div>
+    <div class="kur-kutu" id="kur-kutu" hidden><p data-t="kurAcik"></p><button class="dugme" id="kur-dugme" type="button" data-t="kurDugme"></button><p class="pol-bolge" id="kur-ios" data-t="kurIos" hidden></p></div><p class="kunye" data-t="altKunye"></p><p><button class="dugme metin" id="cikis-dugme" type="button" data-t="kapiCikis" hidden></button></p></div>
   </footer>
 
   <!-- ÖNCE VERİLER, SONRA UYGULAMA (sıra önemli!) -->
@@ -339,6 +370,6 @@
   <script src="veri/harita.js"></script>
   <script src="veri/sinav.js"></script>
   <script src="veri/otomatik.js"></script>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>

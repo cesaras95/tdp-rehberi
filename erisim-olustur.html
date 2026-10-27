@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- =============================================================
+     erisim-olustur.html — Yeni kullanıcı için "parmak izi" üretir
+     Şifre bu sayfadan hiçbir yere gönderilmez; hesaplama senin tarayıcında yapılır.
+     Çıkan satırı veri/erisim.js içindeki listeye ekle.
+     ============================================================= -->
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Erişim oluştur · TDP Rehberi</title>
+  <style>
+    :root { --zemin:#f6f2ea; --yuzey:#fffdf8; --metin:#1d2433; --soluk:#5b6272; --cizgi:#e2dccf; --vurgu:#9b1c2c; }
+    @media (prefers-color-scheme: dark) { :root { --zemin:#14171f; --yuzey:#1c2029; --metin:#ebe7df; --soluk:#a3a8b3; --cizgi:#2e333e; --vurgu:#e0697a; } }
+    body { margin:0; background:var(--zemin); color:var(--metin); font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { max-width:520px; margin:40px auto; padding:24px 20px; background:var(--yuzey); border:1px solid var(--cizgi); border-top:4px solid var(--vurgu); border-radius:14px; }
+    h1 { font-size:1.5rem; margin:0 0 8px; }
+    p { color:var(--soluk); }
+    label { display:grid; gap:4px; font-weight:600; margin:12px 0; }
+    input, textarea { font:inherit; padding:10px 12px; border:1.5px solid var(--cizgi); border-radius:10px; background:var(--zemin); color:var(--metin); }
+    textarea { width:100%; box-sizing:border-box; font-family:ui-monospace,Consolas,monospace; font-size:.85rem; }
+    button { font:inherit; font-weight:700; cursor:pointer; border:0; background:var(--vurgu); color:#fff; padding:10px 18px; border-radius:10px; }
+    .uyari { font-size:.9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Yeni kişiye erişim ver</h1>
+  <p>Bir kullanıcı adı ve şifre belirle. Hesaplama tamamen bu tarayıcıda yapılır; şifre hiçbir yere gönderilmez ve kaydedilmez.</p>
+  <form id="form">
+    <label>Kullanıcı adı <input id="k" autocomplete="off" autocapitalize="none" spellcheck="false" required></label>
+    <label>Şifre <input id="s" type="text" autocomplete="off" required></label>
+    <label>Kimin için? (not, ör. Ayşe) <input id="n" autocomplete="off"></label>
+    <button type="submit">Parmak izini üret</button>
+  </form>
+  <label>veri/erisim.js listesine eklenecek satır <textarea id="cikti" rows="3" readonly></textarea></label>
+  <p class="uyari">Kullanıcı adını ve şifreyi o kişiye ayrıca (ör. yüz yüze ya da mesajla) ilet. Bu satırda şifre yoktur, ama zayıf şifreler tahmin edilebilir: en az 10 karakterli bir şifre seç.</p>
+</main>
+<script>
+  // app.js'teki erisimIzi() ile birebir aynı hesaplama
+  async function iz(k, s) {
+    const metin = "tdp-rehberi|" + k.trim().toLocaleLowerCase("tr") + "|" + s;
+    const o = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(metin));
+    return [...new Uint8Array(o)].map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  document.getElementById("form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const h = await iz(document.getElementById("k").value, document.getElementById("s").value);
+    const not = document.getElementById("n").value.replace(/[\r\n]/g, " ").trim();
+    document.getElementById("cikti").value = `  "${h}",${not ? " // " + not : ""}`;
+    document.getElementById("cikti").select();
+  });
+</script>
+</body>
+</html>

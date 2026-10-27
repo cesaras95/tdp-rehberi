@@ -645,3 +645,26 @@ body.panel-acik { overflow: hidden; }
   .arsiv-satir { grid-template-columns: 1fr; gap: 6px; padding: 12px 14px; }
   .arsiv-yil { flex-direction: row; align-items: center; gap: 8px; }
 }
+
+/* ---------- GİRİŞ EKRANI (sahte kapı) ---------- */
+.kapi-ekran { display: none; }
+.kilitli body > *:not(.kapi-ekran) { display: none !important; }
+.kilitli .kapi-ekran {
+  display: grid; place-items: center; min-height: 100vh; padding: 24px 16px;
+  background: radial-gradient(circle at 50% 0%, var(--vurgu-acik), var(--zemin) 60%);
+}
+.kapi-form {
+  width: 100%; max-width: 380px; display: grid; gap: 14px;
+  background: var(--yuzey); border: 1px solid var(--cizgi); border-top: 4px solid var(--vurgu);
+  border-radius: var(--yuvarlak); padding: 28px 24px; box-shadow: var(--golge);
+}
+.kapi-ust { display: flex; justify-content: space-between; align-items: center; }
+.kapi-form h1 { margin: 4px 0 0; font-size: 1.8rem; }
+.kapi-form .giris { margin: 0; font-size: .95rem; }
+.kapi-form label { display: grid; gap: 4px; font-weight: 600; font-size: .92rem; }
+.kapi-form input {
+  font: inherit; font-weight: 400; padding: 10px 12px; border-radius: 10px;
+  border: 1.5px solid var(--cizgi); background: var(--zemin); color: var(--metin);
+}
+.kapi-form input:focus { outline: none; border-color: var(--vurgu); }
+.kapi-hata { margin: 0; color: var(--yanlis); font-weight: 600; font-size: .92rem; }

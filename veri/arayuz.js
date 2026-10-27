@@ -178,3 +178,15 @@ Object.assign(ARAYUZ.en, {
   kurAcik: "You can install the site on your phone like an app; pages you have opened once also work offline.",
   cevrimdisi: "No internet connection. Showing the saved version."
 });
+
+// ---------- GİRİŞ EKRANI (sahte kapı) ----------
+Object.assign(ARAYUZ.tr, {
+  kapiBaslik: "TDP Rehberi", kapiAcik: "Bu site yalnızca davet edilen kişilere açıktır. Sana verilen kullanıcı adı ve şifreyle giriş yap.",
+  kapiKullanici: "Kullanıcı adı", kapiSifre: "Şifre", kapiGir: "Giriş yap",
+  kapiHata: "Kullanıcı adı ya da şifre yanlış.", kapiCikis: "Çıkış yap"
+});
+Object.assign(ARAYUZ.en, {
+  kapiBaslik: "TFP Guide", kapiAcik: "This site is open to invited people only. Sign in with the username and password you were given.",
+  kapiKullanici: "Username", kapiSifre: "Password", kapiGir: "Sign in",
+  kapiHata: "Wrong username or password.", kapiCikis: "Sign out"
+});

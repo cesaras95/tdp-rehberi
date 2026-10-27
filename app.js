@@ -1154,3 +1154,42 @@ sekmeGoster();
 // Sayfa #tarih gibi bir adresle açıldığında tarayıcı o bölüme kendiliğinden kaydırır;
 // üstteki menü başlığı örtmesin diye açılışta en üste dönüyoruz.
 window.addEventListener("load", () => window.scrollTo({ top: 0, behavior: "instant" }));
+
+// ---------- GİRİŞ EKRANI (deneme amaçlı "sahte kapı") ----------
+// Benzetme: Kapıda davetli listesine bakan görevli. Girilen kullanıcı adı + şifreden bir
+// parmak izi (hash, SHA-256) üretir ve veri/erisim.js'teki listeyle karşılaştırır.
+// UYARI: Gerçek güvenlik değildir; içerik sayfa kaynağında durmaya devam eder.
+// erisim-olustur.html de aynı hesaplamayı kullanır; birini değiştirirsen ikisini de değiştir.
+async function erisimIzi(kullanici, sifre) {
+  const metin = "tdp-rehberi|" + kullanici.trim().toLocaleLowerCase("tr") + "|" + sifre;
+  const ozet = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(metin));
+  return [...new Uint8Array(ozet)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+const kapiAktif = typeof ERISIM !== "undefined" && ERISIM.length > 0;
+document.getElementById("cikis-dugme").hidden = !kapiAktif;
+document.getElementById("kapi-dil").textContent = a("dilButon");
+document.getElementById("kapi-dil").onclick = () => {
+  document.getElementById("dil-dugme").click();
+  document.getElementById("kapi-dil").textContent = a("dilButon");
+};
+document.getElementById("kapi-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const hata = document.getElementById("kapi-hata");
+  const iz = await erisimIzi(document.getElementById("kapi-kullanici").value, document.getElementById("kapi-sifre").value);
+  if (ERISIM.includes(iz)) {
+    try { localStorage.setItem("tdp-erisim", iz); } catch (err) { /* hatırlayamazsa her açılışta sorar */ }
+    document.documentElement.classList.remove("kilitli");
+    hata.hidden = true;
+    document.getElementById("kapi-sifre").value = "";
+    sekmeGoster();
+  } else {
+    hata.textContent = a("kapiHata"); hata.hidden = false;
+    document.getElementById("kapi-sifre").select();
+  }
+});
+document.getElementById("cikis-dugme").onclick = () => {
+  try { localStorage.removeItem("tdp-erisim"); } catch (err) { /* yoksay */ }
+  document.documentElement.classList.add("kilitli");
+  window.scrollTo({ top: 0, behavior: "instant" });
+};
+if (document.documentElement.classList.contains("kilitli")) document.getElementById("kapi-kullanici").focus();
