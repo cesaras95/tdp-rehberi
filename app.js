@@ -664,6 +664,7 @@ function degerlendirmeCiz(liste, tur) {
     <div class="olcut-satir"><span>${guvenli(t(o.ad))}</span>
       <span class="olcut-puan">${[1, 2, 3].map(p => `<button class="${mulakat.puanlar[o.id] === p ? "aktif" : ""}" data-m-puan="${o.id}" data-p="${p}" aria-label="${p}">${p}</button>`).join("")}</span></div>`).join("");
   const puanlanan = Object.keys(mulakat.puanlar).length;
+  mulakat.sonListe = liste;
   const sorular = liste.map(o => `
     <div class="m-cevap-kart">
       <p class="m-cevap-soru">${o.ek ? `<span class="m-ek-etiket">${a("mEkSoru")}</span> ` : ""}${guvenli(soruMetni(o.s, o.ek))}</p>
@@ -681,6 +682,11 @@ function degerlendirmeCiz(liste, tur) {
       <div class="olcut-liste">${olcutler}</div>
     </div>
     <div class="kutu"><h3>${tur === "juri" ? a("mJuriSorular") : a("mKarsilastir")}</h3>${sorular}</div>
+    <div class="kutu"><h3>${a("istemMulakatBaslik")}</h3>
+      <p class="pol-bolge">${a(mulakat.metin.trim() ? "istemMulakatOto" : "istemMulakatEl")}</p>
+      <textarea id="m-cevap-metin" rows="6" placeholder="${guvenli(a("istemMulakatPh"))}">${guvenli(mulakat.elMetin || mulakat.metin.trim())}</textarea>
+      ${istemDugme("istem-mulakat")}
+      <div class="istem-kutu" id="m-istem-kutu" hidden></div></div>
     <div class="dugmeler ortala-flex">
       <button class="dugme" data-m-is="kaydet" ${puanlanan < MULAKAT_OLCUT.length ? "disabled" : ""}>${a("mKaydet")}</button>
       <button class="dugme ikincil" data-m-is="${tur === "juri" ? "juri-yeni" : "tekrar"}">${tur === "juri" ? a("mJuriYeni") : a("mTekrar")}</button>
@@ -842,7 +848,7 @@ function tanimaDurdur() {
 
 function oturumSifirla() {
   sayacDurdur(); tanimaDurdur();
-  mulakat.metin = ""; mulakat.cevapSn = 0; mulakat.puanlar = {};
+  mulakat.metin = ""; mulakat.elMetin = ""; mulakat.cevapSn = 0; mulakat.puanlar = {};
 }
 
 // Jüri listesi: kendini tanıt ile açılır, seviyeye göre ek ve baskı soruları eklenir
@@ -901,6 +907,11 @@ mulakatBolum.addEventListener("click", async e => {
   }
   const tur = e.target.closest("[data-m-tur]");
   if (tur) { mulakat.tur = tur.dataset.mTur; oturumSifirla(); kayitTemizle(); yeniMulakatSorusu(); return; }
+  if (e.target.closest("#istem-mulakat")) {
+    const metin = document.getElementById("m-cevap-metin").value;
+    if (kelimeSay(metin) < 10) { const k = document.getElementById("m-istem-kutu"); k.hidden = false; k.innerHTML = `<p>${a("istemKisaMulakat")}</p>`; return; }
+    istemGoster("m-istem-kutu", istemMulakat(mulakat.sonListe || [], metin)); return;
+  }
   const puan = e.target.closest("[data-m-puan]");
   if (puan) { mulakat.puanlar[puan.dataset.mPuan] = Number(puan.dataset.p); mulakatCiz(); return; }
   const sev = e.target.closest("[data-m-seviye]");
@@ -949,6 +960,7 @@ mulakatBolum.addEventListener("change", e => {
   }
 });
 mulakatBolum.addEventListener("input", e => {
+  if (e.target.id === "m-cevap-metin") { mulakat.elMetin = e.target.value; return; }
   const k = e.target.dataset.mProfil;
   if (k) { mulakatProfil[k] = e.target.value; profilKaydet(); }
 });
@@ -1007,6 +1019,184 @@ function ilerlemeCiz() {
   document.getElementById("ilerleme-sifirla").onclick = () => { ilerleme = { quiz: {}, kartlar: [] }; ilerlemeKaydet(); ilerlemeCiz(); kartCiz(); };
 }
 
+// ---------- YAPAY ZEKA DEĞERLENDİRME İSTEMİ ----------
+// Benzetme: Bir öğretmene ödevini verirken yanına not iliştirmek: "Şu ölçütlere göre oku,
+// neyi neden değiştirmem gerektiğini söyle." Bu butonlar o notu hazırlar ve panoya kopyalar;
+// kullanıcı Claude'a (ya da başka bir yapay zekaya) yapıştırır. Site hiçbir yere metin göndermez.
+const ISTEM_ADRES = "https://claude.ai/new";
+const madde = liste => liste.map(x => "- " + x).join("\n");
+
+function istemKompozisyon(k, metin) {
+  const kullanilan = yazili.kalan ? Math.round((yazili.sureDk * 60 - yazili.kalan) / 60) : null;
+  const ipuclari = k.ipuclari ? k.ipuclari[dil] : [];
+  const cerceve = CERCEVE.map(c => t(c)).join(" → ");
+  if (dil === "en") return `You are an experienced examiner marking essays in the written exams of the Ministry of Foreign Affairs of the Republic of Türkiye (consular/specialist and career diplomat tracks). Assess the essay below against exam standards.
+
+QUESTION: ${t(k.soru)}
+WORD COUNT: ${kelimeSay(metin)}${kullanilan !== null ? ` · TIME USED: ${kullanilan} of ${yazili.sureDk} min` : ""}
+EXPECTED POINTS:
+${madde(ipuclari)}
+THINKING FRAMEWORK: ${cerceve}
+
+ESSAY:
+"""
+${metin.trim()}
+"""
+
+Rules for your assessment:
+1. Score each criterion from 1 to 10 with a one-sentence reason: (a) direct answer and focus, (b) structure (introduction–body–conclusion, paragraphing), (c) factual accuracy and concrete examples, (d) analytical depth, (e) conveying Türkiye's official position correctly and separately from commentary, (f) diplomatic/academic register, (g) grammar and spelling.
+2. If there is a factual error, say so clearly and give the correct information; mark anything you are unsure of as "check".
+3. Don't just say good/bad: show what to change and why with concrete examples (quote → suggested version).
+4. Name any recurring mistakes and suggest a short corrective exercise for each.
+5. Rewrite my weakest paragraph as a stronger exam answer (not the whole essay).
+6. Finish with an overall score out of 100 and my three most important points to improve.
+Write the feedback in English; give correction examples in the language of the essay.`;
+  return `Sen T.C. Dışişleri Bakanlığı Konsolosluk ve İhtisas Memurluğu (KİM) ve Meslek Memurluğu (MM) yazılı sınavlarında kompozisyon değerlendiren deneyimli bir jüri üyesisin. Aşağıdaki kompozisyonu sınav ölçütlerine göre değerlendir.
+
+SORU: ${t(k.soru)}
+KELİME SAYISI: ${kelimeSay(metin)}${kullanilan !== null ? ` · KULLANILAN SÜRE: ${kullanilan} / ${yazili.sureDk} dk` : ""}
+BEKLENEN UNSURLAR:
+${madde(ipuclari)}
+DÜŞÜNME ÇERÇEVESİ: ${cerceve}
+
+KOMPOZİSYON:
+"""
+${metin.trim()}
+"""
+
+Değerlendirme kuralları:
+1. Her ölçüte 1–10 arası puan ver ve tek cümleyle gerekçelendir: (a) soruya doğrudan cevap ve odak, (b) yapı (giriş–gelişme–sonuç, paragraf düzeni), (c) bilgi doğruluğu ve somut örnekler, (d) analitik derinlik, (e) Türkiye'nin resmî tutumunu doğru ve yorumdan ayrı aktarma, (f) diplomatik/akademik üslup, (g) dil bilgisi ve yazım.
+2. Bilgi hatası varsa açıkça yaz ve doğrusunu belirt; emin olmadığın noktaları "kontrol et" diye işaretle.
+3. Sadece iyi/kötü deme: neyi neden değiştirmem gerektiğini somut örneklerle göster (alıntı → önerilen hâli).
+4. Tekrarlayan hataları adlandır ve her biri için kısa bir düzeltme alıştırması öner.
+5. En zayıf paragrafımı daha güçlü bir sınav cevabı olarak yeniden yaz (tüm metni değil).
+6. Sonunda 100 üzerinden genel puan ve en önemli 3 gelişim noktamı yaz.
+Geri bildirimi Türkçe yaz; düzeltme örneklerini kompozisyonun yazıldığı dilde ver.`;
+}
+
+function istemCeviri(c, metin) {
+  if (dil === "en") return `You are a senior translator at the Translation Department of the Ministry of Foreign Affairs of the Republic of Türkiye, assessing a Turkish-to-English translation written in an exam.
+
+SOURCE TEXT (Turkish):
+"""
+${c.tr}
+"""
+
+MY TRANSLATION (English):
+"""
+${metin.trim()}
+"""
+
+REFERENCE TRANSLATION (for comparison; not the only correct version):
+"""
+${c.model}
+"""
+KEY TERMS EXPECTED: ${c.terimler.join("; ")}
+
+Rules for your assessment:
+1. Accuracy of meaning: compare sentence by sentence; list anything omitted, added or mistranslated. Pay special attention to lost qualifiers, numbers, dates and geographical references ("information loss").
+2. Terminology: is it consistent with the Ministry's terminology lists? Use British spelling (defence, organisation).
+3. Grammar: subject–verb agreement, use of articles, tense consistency.
+4. Register: formal diplomatic style.
+5. For each error: my wording → suggested wording → why.
+6. Give a corrected full translation.
+7. Finish with a score out of 100 and my three most important points to improve.`;
+  return `Sen T.C. Dışişleri Bakanlığı Tercüme Dairesi'nde çalışan kıdemli bir çevirmensin. Sınavda yapılmış Türkçeden İngilizceye bir çeviriyi değerlendiriyorsun.
+
+KAYNAK METİN (Türkçe):
+"""
+${c.tr}
+"""
+
+ÇEVİRİM (İngilizce):
+"""
+${metin.trim()}
+"""
+
+ÖRNEK ÇEVİRİ (karşılaştırma için; tek doğru değildir):
+"""
+${c.model}
+"""
+BEKLENEN KİLİT TERİMLER: ${c.terimler.join("; ")}
+
+Değerlendirme kuralları:
+1. Anlam doğruluğu: her cümleyi kaynakla karşılaştır; atlanan, eklenen ya da yanlış aktarılan bilgileri listele. Özellikle niteleyici, sayı, tarih ve coğrafi ifade kayıplarına ("veri kaybı") dikkat et.
+2. Terminoloji: Dışişleri Bakanlığı terminoloji listelerine uygun mu? İngiliz yazımı kullanılmalı (defence, organisation).
+3. Dil bilgisi: özne-yüklem uyumu, article ("the", "a") kullanımı, zaman uyumu.
+4. Üslup: resmî diplomatik metin üslubu.
+5. Her hata için: benim ifadem → önerilen ifade → neden.
+6. Düzeltilmiş tam çeviriyi ver.
+7. Sonunda 100 üzerinden puan ve en önemli 3 gelişim noktamı yaz.
+Geri bildirimi Türkçe yaz.`;
+}
+
+function istemMulakat(liste, metin) {
+  const en = dil === "en";
+  const sorular = liste.map((o, i) => `${i + 1}. ${o.ek ? (en ? "[follow-up] " : "[ek soru] ") : ""}${soruMetni(o.s, o.ek)}${o.ek ? "" : `\n   ${en ? "Elements of a strong answer" : "Güçlü cevabın unsurları"}: ${o.s.ipucu[en ? "en" : "tr"]}`}`).join("\n");
+  const olcut = MULAKAT_OLCUT.map(o => o.ad[en ? "en" : "tr"]).join("; ");
+  const sure = mulakat.cevapSn ? `${Math.round(mulakat.cevapSn)} ${en ? "seconds" : "saniye"}` : (en ? "unknown" : "bilinmiyor");
+  if (en) return `You are a member of the interview panel for the Ministry of Foreign Affairs of the Republic of Türkiye (consular/specialist and career diplomat tracks). Assess my spoken answer(s) below as a real panel would.
+
+QUESTION(S):
+${sorular}
+
+TOTAL SPEAKING TIME: ${sure}
+MY ANSWER (transcript or summary):
+"""
+${metin.trim()}
+"""
+
+Rules for your assessment:
+1. Score each criterion from 1 to 3 with a one-sentence reason: ${olcut}.
+2. Did I answer directly in the first sentence? Where did I ramble or lose focus? Quote the exact spot.
+3. Is Türkiye's position conveyed correctly and kept separate from my own commentary? Flag any factual error.
+4. Show a stronger 60–90 second version of my answer (for structure, not to memorise), keeping my own experience where it is personal.
+5. Ask two follow-up questions a real panel would ask next and tell me briefly how to handle each.
+6. Finish with my three most important points to improve.`;
+  return `Sen T.C. Dışişleri Bakanlığı Konsolosluk ve İhtisas Memurluğu (KİM) ve Meslek Memurluğu (MM) sözlü sınav jürisinin bir üyesisin. Aşağıdaki sözlü cevabımı gerçek bir jüri gibi değerlendir.
+
+SORU(LAR):
+${sorular}
+
+TOPLAM KONUŞMA SÜRESİ: ${sure}
+CEVABIM (yazıya dökümü ya da özeti):
+"""
+${metin.trim()}
+"""
+
+Değerlendirme kuralları:
+1. Her ölçüte 1–3 arası puan ver ve tek cümleyle gerekçelendir: ${olcut}.
+2. İlk cümlede doğrudan cevap verdim mi? Nerede uzattım ya da odağı kaybettim? Tam yerini alıntılayarak göster.
+3. Türkiye'nin tutumunu doğru ve kendi yorumumdan ayrı aktardım mı? Bilgi hatası varsa belirt.
+4. Cevabımın daha güçlü bir 60–90 saniyelik hâlini göster (ezber için değil, yapı için); kişisel sorularda benim deneyimimi koru.
+5. Gerçek bir jürinin sıradaki soracağı iki ek soruyu sor ve her birini nasıl karşılamam gerektiğini kısaca söyle.
+6. Sonunda en önemli 3 gelişim noktamı yaz.
+Geri bildirimi Türkçe yaz.`;
+}
+
+// Panoya kopyala (eski tarayıcılar için yedek yöntemle)
+async function panoyaKopyala(metin) {
+  try { await navigator.clipboard.writeText(metin); return true; }
+  catch (e) {
+    const ta = document.createElement("textarea"); ta.value = metin; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let tamam = false; try { tamam = document.execCommand("copy"); } catch (err) { tamam = false; }
+    ta.remove(); return tamam;
+  }
+}
+// Kopyalama sonrası bilgi kutusu: kopyalanamazsa metni gösterir, kullanıcı elle kopyalar
+async function istemGoster(kutuId, istem) {
+  const kutu = document.getElementById(kutuId);
+  const tamam = await panoyaKopyala(istem);
+  kutu.hidden = false;
+  kutu.innerHTML = `
+    <p><b>${tamam ? a("istemKopyalandi") : a("istemKopyalanamadi")}</b> ${a("istemNasil")}</p>
+    <p><a class="dugme ikincil kucuk" href="${ISTEM_ADRES}" target="_blank" rel="noopener">${a("istemClaudeAc")} ↗</a></p>
+    <details ${tamam ? "" : "open"}><summary>${a("istemGor")}</summary><textarea class="istem-metin" rows="10" readonly>${guvenli(istem)}</textarea></details>
+    <p class="kunye">${a("istemNot")}</p>`;
+}
+const istemDugme = id => `<div class="istem-satir"><button class="dugme ikincil" id="${id}">✦ ${a("istemDugme")}</button><span class="pol-bolge">${a("istemAcik")}</span></div>`;
+
 // ---------- YAZILI PRATİK ----------
 // ozel: Çıkmış Sorular arşivinden açılan sorunun sırası (yoksa null)
 const yazili = { mod: "kompozisyon", komp: 0, cev: 0, ozel: null, kalan: 0, saat: null, sureDk: 45, ipucu: false, kontrol: false };
@@ -1053,6 +1243,8 @@ function yaziliCiz() {
           <p class="quiz-soru">${guvenli(t(k.soru))}</p>
           ${sayac}
           <textarea id="yazi-metin" rows="16" placeholder="${guvenli(a("kompYaz"))}">${guvenli(taslakOku())}</textarea>
+          ${istemDugme("istem-komp")}
+          <div class="istem-kutu" id="istem-kutu" hidden></div>
         </div>
         <aside>
           <div class="kutu"><h3>${a("kompCerceve")}</h3><ol class="cerceve-liste">${CERCEVE.map(c => `<li>${guvenli(t(c))}</li>`).join("")}</ol></div>
@@ -1078,7 +1270,9 @@ function yaziliCiz() {
         <h3>${a("cevKaynak")}</h3><p class="kaynak-metin">${guvenli(c.tr)}</p>
         ${sayac}
         <textarea id="yazi-metin" rows="7" placeholder="${guvenli(a("cevYaz"))}">${guvenli(metin)}</textarea>
-        <button class="dugme" id="cev-kontrol">${a("cevKontrol")}</button>
+        <div class="dugmeler"><button class="dugme" id="cev-kontrol">${a("cevKontrol")}</button></div>
+        ${istemDugme("istem-cev")}
+        <div class="istem-kutu" id="istem-kutu" hidden></div>
       </div>
       ${kontrol}`;
   }
@@ -1094,6 +1288,15 @@ document.getElementById("yazili").addEventListener("click", e => {
   if (mod) { yazili.mod = mod.dataset.mod; yazili.kontrol = false; yazili.ipucu = false; yaziSaatDurdur(); yazili.kalan = 0; yaziliCiz(); return; }
   if (e.target.id === "komp-ipucu") { yazili.ipucu = true; yaziliCiz(); return; }
   if (e.target.id === "cev-kontrol") { yazili.kontrol = true; yaziliCiz(); return; }
+  if (e.target.closest("#istem-komp, #istem-cev")) {
+    const metin = document.getElementById("yazi-metin").value;
+    const enAz = yazili.mod === "kompozisyon" ? 20 : 10;
+    if (kelimeSay(metin) < enAz) { const k = document.getElementById("istem-kutu"); k.hidden = false; k.innerHTML = `<p>${a("istemKisa").replace("20", enAz)}</p>`; return; }
+    const istem = yazili.mod === "kompozisyon"
+      ? istemKompozisyon(yazili.ozel !== null ? ozelKompozisyon(yazili.ozel) : KOMPOZISYON[yazili.komp], metin)
+      : istemCeviri(CEVIRI[yazili.cev], metin);
+    istemGoster("istem-kutu", istem); return;
+  }
   const dosya = e.target.closest("[data-dosya-ac]");
   if (dosya) { e.preventDefault(); dosyaAc(dosya.dataset.dosyaAc); return; }
   if (e.target.id === "yazi-basla") {

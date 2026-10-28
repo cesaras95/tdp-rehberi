@@ -292,3 +292,33 @@ Object.assign(ARAYUZ.en, {
   sozlukListe: "{sayi} terms in alphabetical order (by Turkish term). Start typing to search or pick a letter.",
   sozlukHarfHepsi: "All", sozlukDahaFazla: "Show more", sozlukGosterilen: "Showing {n} of {sayi} terms"
 });
+
+// ---------- YAPAY ZEKA DEĞERLENDİRME İSTEMİ ----------
+Object.assign(ARAYUZ.tr, {
+  istemDugme: "Değerlendirme istemini kopyala",
+  istemAcik: "Metnin, soru ve ölçütlerle birlikte hazır bir talimata dönüşür. Claude'a yapıştır, ayrıntılı geri bildirim al.",
+  istemKopyalandi: "Kopyalandı.", istemKopyalanamadi: "Otomatik kopyalanamadı; aşağıdaki metni seçip kopyala.",
+  istemNasil: "Claude'da yeni bir sohbet aç, yapıştır (Ctrl+V / uzun bas → Yapıştır) ve gönder.",
+  istemClaudeAc: "Claude'u yeni sekmede aç", istemGor: "İstemi göster",
+  istemNot: "Site metnini hiçbir yere göndermez; yapıştırdığın yapay zeka hizmetinin gizlilik koşulları geçerlidir. Yapay zekanın puanı da bir görüştür; bilgi doğruluğunu kaynaklardan kontrol et.",
+  istemKisa: "Değerlendirme için önce en az 20 kelime yaz.",
+  istemMulakatBaslik: "Yapay zekaya değerlendirt",
+  istemMulakatOto: "Ses tanıma cevabını yazıya döktü; gerekirse düzelt, sonra istemi kopyala.",
+  istemMulakatEl: "Cevabını aşağıya kısaca yaz ya da özetle (ses tanıma açıksa bu alan kendiliğinden dolar), sonra istemi kopyala.",
+  istemMulakatPh: "Cevabımda önce … dedim, sonra …",
+  istemKisaMulakat: "Önce cevabını en az birkaç cümleyle yaz ya da özetle."
+});
+Object.assign(ARAYUZ.en, {
+  istemDugme: "Copy assessment prompt",
+  istemAcik: "Your text becomes a ready-made instruction with the question and criteria. Paste it into Claude for detailed feedback.",
+  istemKopyalandi: "Copied.", istemKopyalanamadi: "Couldn't copy automatically; select and copy the text below.",
+  istemNasil: "Open a new chat in Claude, paste (Ctrl+V / long-press → Paste) and send.",
+  istemClaudeAc: "Open Claude in a new tab", istemGor: "Show prompt",
+  istemNot: "The site doesn't send your text anywhere; the privacy terms of the AI service you paste it into apply. The AI's score is an opinion too; check facts against sources.",
+  istemKisa: "Write at least 20 words before requesting an assessment.",
+  istemMulakatBaslik: "Get an AI assessment",
+  istemMulakatOto: "Speech recognition transcribed your answer; correct it if needed, then copy the prompt.",
+  istemMulakatEl: "Briefly write or summarise your answer below (it fills automatically if speech recognition is on), then copy the prompt.",
+  istemMulakatPh: "In my answer I first said …, then …",
+  istemKisaMulakat: "First write or summarise your answer in at least a few sentences."
+});
