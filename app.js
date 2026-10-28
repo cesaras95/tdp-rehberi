@@ -1459,7 +1459,7 @@ function haritaCiz() {
   }).join("");
   // Türkiye'nin etiketi
   const tr = HARITA.ulkeler.find(u => u[3] === "tr");
-  const trEtiket = tr ? `<text x="${tr[5]}" y="${tr[6] + 5}" class="harita-tr-yazi" text-anchor="middle">${guvenli(a("haritaTurkiye"))}</text>` : "";
+  const trEtiket = tr ? `<text x="${tr[5]}" y="${tr[6] - 9}" class="harita-tr-yazi" text-anchor="middle">${guvenli(a("haritaTurkiye"))}</text>` : "";
   kutu.innerHTML = `
     <div class="harita-ust"><h2>${a("haritaBaslik")}</h2><p class="pol-bolge">${a("haritaAcik")}</p></div>
     <div class="harita-izgara">

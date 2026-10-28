@@ -2,11 +2,14 @@ import fs from "node:fs";
 import * as d3 from "/opt/npm-tools/node_modules/d3-geo/src/index.js";
 const [,, giris, cikis] = process.argv;
 const gj = JSON.parse(fs.readFileSync(giris, "utf8"));
-const W = 1000, H = 760;
-const proj = d3.geoAzimuthalEqualArea().rotate([-32, -36]);
-const kutu = { type: "Polygon", coordinates: [[[-20, -35], [80, -35], [80, 62], [-20, 62], [-20, -35]].reverse()] };
-proj.fitExtent([[6, 6], [W - 6, H - 6]], { type: "MultiPoint", coordinates: [[-18, 36], [78, 40], [30, -35], [35, 64], [60, 56], [-12, 10]] });
-proj.clipExtent([[0, 0], [W, H]]);
+// Tüm dünya: Equal Earth projeksiyonu (eşit alanlı; kıtaların büyüklüğü doğru oranda), Antarktika hariç
+const W = 1000;
+const dunya = { type: "FeatureCollection", features: gj.features.filter(f => f.properties.ADM0_A3 !== "ATA") };
+const proj = d3.geoEqualEarth();
+proj.fitWidth(W - 12, dunya);
+const sinir = d3.geoPath(proj).bounds(dunya);
+const H = Math.ceil(sinir[1][1] - sinir[0][1]) + 12;
+proj.translate([proj.translate()[0] + 6, proj.translate()[1] - sinir[0][1] + 6]);
 const yol = d3.geoPath(proj).digits(1);
 const AB = ["AUT","BEL","BGR","HRV","CZE","DNK","EST","FIN","FRA","DEU","HUN","IRL","ITA","LVA","LTU","LUX","MLT","NLD","POL","PRT","ROU","SVK","SVN","ESP","SWE"];
 const NATO = ["GBR","NOR","ISL","USA","CAN"];
@@ -21,7 +24,7 @@ AB.forEach(k => harita[k] = "ab"); NATO.forEach(k => harita[k] = "nato-abd");
 ["AZE","ARM","GEO","KAZ","KGZ","UZB","TKM","TJK"].forEach(k => harita[k] = "turk-dunyasi");
 ["ALB","MNE","MKD","BIH","SRB","KOS"].forEach(k => harita[k] = "balkanlar");
 ["CHN","MNG","IND","BGD","BTN","NPL","LKA","THA","LAO","MMR","VNM","KHM","MYS","IDN","PHL","KOR","PRK","JPN","TWN"].forEach(k => harita[k] = "cin-asya");
-["BRA","ARG","CHL","PER","COL","VEN","MEX","CUB","ECU","BOL","URY","PRY"].forEach(k => harita[k] = "latin-amerika");
+["BRA","ARG","CHL","PER","COL","VEN","MEX","CUB","ECU","BOL","URY","PRY","GTM","HND","SLV","NIC","CRI","PAN","DOM","HTI","JAM","TTO","GUY","SUR","BLZ","BHS"].forEach(k => harita[k] = "latin-amerika");
 const sonuc = [];
 for (const f of gj.features) {
   const p = f.properties; const k = p.ADM0_A3;
@@ -37,7 +40,7 @@ for (const f of gj.features) {
   const [adTr, adEn] = ADLAR[k] || [p.NAME_TR || p.NAME, p.NAME_EN || p.NAME];
   sonuc.push([k, adTr, adEn, pol, d, Math.round(c[0]), Math.round(c[1])]);
 }
-const ust = `// OTOMATİK ÜRETİLDİ: Natural Earth 1:110m ülke sınırları (kamu malı), Türkiye merkezli eşit alanlı projeksiyon.
+const ust = `// OTOMATİK ÜRETİLDİ: Natural Earth 1:110m ülke sınırları (kamu malı), tüm dünya, Equal Earth projeksiyonu.
 // Biçim: [kod, ad (TR), ad (EN), politika id ("" = bağlantısız, "tr" = Türkiye), SVG yolu, merkez x, merkez y]
 // Bu dosyayı elle düzenleme; haritadaki ülke-politika eşleşmesini değiştirmek için robot/harita_uret.mjs'i kullan.
 `;

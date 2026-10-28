@@ -563,15 +563,15 @@ body.panel-acik { overflow: hidden; }
 
 /* ---------- HARİTA ---------- */
 .harita-ust p { margin: 0 0 12px; }
-.harita-izgara { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 18px; align-items: start; }
+.harita-izgara { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .harita { width: 100%; height: auto; display: block; background: var(--zemin); border-radius: 10px; }
 .ulke { fill: var(--harita-bos); stroke: var(--yuzey); stroke-width: .8; transition: fill .15s; }
 .ulke.bagli { fill: var(--harita-bagli); cursor: pointer; }
 .ulke.bagli:hover, .ulke.parla { fill: var(--resmi); }
 .ulke.tr { fill: var(--vurgu); }
 .parlatiyor .ulke.bagli:not(.parla) { fill: var(--harita-bos); }
-.harita-tr-yazi { fill: #fff; font: 700 15px var(--govde-font); pointer-events: none; paint-order: stroke; stroke: var(--vurgu); stroke-width: 3px; }
-.harita-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.harita-tr-yazi { fill: var(--vurgu); font: 700 11px var(--govde-font); pointer-events: none; paint-order: stroke; stroke: var(--zemin); stroke-width: 3px; }
+.harita-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
 .harita-pol {
   width: 100%; display: flex; justify-content: space-between; gap: 8px; align-items: center;
   font: inherit; font-size: .92rem; text-align: left; cursor: pointer; color: var(--metin);
