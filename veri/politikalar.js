@@ -480,5 +480,122 @@ const POLITIKALAR = [
       tr: "Türkiye'nin enerji merkezi olma hedefinin jeopolitik fırsat ve risklerini değerlendiriniz.",
       en: "Assess the geopolitical opportunities and risks of Türkiye's goal of becoming an energy hub."
     }
+  },
+  {
+    id: "balkanlar",
+    baslik: { tr: "Balkanlar", en: "The Balkans" },
+    bolge: { tr: "Güneydoğu Avrupa", en: "South-East Europe" },
+    oncelik: "orta",
+    resmi: {
+      tr: "Türkiye Balkanlar politikasını kapsayıcılık ve bölgesel sahiplenme ilkelerine dayandırır; diyalog ve uzlaşıyı önceler. Bosna-Hersek'in toprak bütünlüğünü, egemenliğini ve siyasi birliğini destekler, Belgrad-Priştine diyaloğunu destekleyip tarafları tek taraflı adımlardan kaçınmaya çağırır. Batı Balkan ülkelerinin Avrupa-Atlantik kurumlarıyla bütünleşmesini bölgesel istikrarın güvencesi olarak görür ve bölgedeki soydaş ve akraba toplulukların haklarını gözetir.",
+      en: "Türkiye bases its Balkan policy on the principles of inclusiveness and regional ownership, giving priority to dialogue and consensus. It supports the territorial integrity, sovereignty and political unity of Bosnia and Herzegovina, backs the Belgrade–Pristina dialogue and calls on the parties to avoid unilateral steps. It sees the integration of the Western Balkan countries into Euro-Atlantic institutions as a guarantee of regional stability and looks after the rights of kin and related communities in the region."
+    },
+    analiz: {
+      tr: "Balkanlar, Osmanlı mirası, nüfus bağları ve AB-NATO sınırında yer alması nedeniyle Türkiye için hem kimlik hem güvenlik meselesidir. Türkiye'nin avantajı, Bosna-Hersek ve Kosova'nın yanı sıra Sırbistan ile de iyi ilişki kurabilmesi; üçlü danışma mekanizmaları ve 2025'te kurulan Balkan Barış Platformu bu \"herkesle konuşabilen aktör\" rolünü kurumsallaştırma çabasıdır. Ekonomi ve savunma sanayii (İHA, zırhlı araç, gemi satışları) ilişkilerin yeni taşıyıcısı olurken, AB'nin bölgedeki genişleme takvimi ve Rusya ile Körfez ülkelerinin etkisi Türkiye'nin alanını sınırlıyor.",
+      en: "Because of the Ottoman legacy, population ties and its position on the EU–NATO frontier, the Balkans are a matter of both identity and security for Türkiye. Türkiye's advantage is that it can maintain good relations with Serbia as well as with Bosnia and Herzegovina and Kosovo; the trilateral consultation mechanisms and the Balkan Peace Platform created in 2025 are efforts to institutionalise this role as an 'actor that can talk to everyone'. While the economy and the defence industry (sales of drones, armoured vehicles and ships) are becoming new drivers of relations, the EU's enlargement timetable and the influence of Russia and the Gulf states limit Türkiye's room for manoeuvre."
+    },
+    olgular: [
+      { tr: "2009–2010: Türkiye-Bosna-Hersek-Sırbistan ve Türkiye-Bosna-Hersek-Hırvatistan Üçlü Danışma Mekanizmaları kuruldu.", en: "2009–2010: the Türkiye–Bosnia and Herzegovina–Serbia and Türkiye–Bosnia and Herzegovina–Croatia Trilateral Consultation Mechanisms were set up." },
+      { tr: "18 Şubat 2008: Türkiye, Kosova'nın bağımsızlığını ilk tanıyan ülkeler arasında yer aldı.", en: "18 February 2008: Türkiye was among the first countries to recognise Kosovo's independence." },
+      { tr: "Ekim 2023: Türkiye NATO Kosova Gücü (KFOR) komutanlığını bir yıllığına üstlendi. AB'nin Bosna-Hersek'teki EUFOR Althea misyonuna AB dışı ülkeler arasında en fazla personel katkısını yapan ülkedir.", en: "October 2023: Türkiye took over command of NATO's Kosovo Force (KFOR) for one year. It is the largest non-EU contributor of personnel to the EU's EUFOR Althea mission in Bosnia and Herzegovina." },
+      { tr: "26 Temmuz 2025: Balkan Barış Platformu'nun ilk toplantısı İstanbul'da yapıldı (Arnavutluk, Bosna-Hersek, Karadağ, Kosova, Kuzey Makedonya, Sırbistan). İkinci toplantı 23 Ocak 2026'da yine İstanbul'daydı.", en: "26 July 2025: the first meeting of the Balkan Peace Platform was held in Istanbul (Albania, Bosnia and Herzegovina, Montenegro, Kosovo, North Macedonia, Serbia). The second meeting was also held in Istanbul, on 23 January 2026." },
+      { tr: "Türkiye, Güneydoğu Avrupa İşbirliği Süreci'ne (GDAÜ) ve Bölgesel İşbirliği Konseyi'ne katılır; Güneydoğu Avrupa Tugayı (SEEBRIG) karargâhına 2026–2032 döneminde ev sahipliği yapacaktır.", en: "Türkiye takes part in the South-East European Cooperation Process (SEECP) and the Regional Cooperation Council; it will host the headquarters of the South-Eastern Europe Brigade (SEEBRIG) in 2026–2032." },
+      { tr: "Ekim 2024: Cumhurbaşkanı Arnavutluk (10 Ekim) ve Sırbistan'ı (11 Ekim) ziyaret etti; Yüksek Düzeyli İşbirliği Konseyi toplantılarında Sırbistan ile 11, Arnavutluk ile 4 belge imzalandı.", en: "October 2024: the President visited Albania (10 October) and Serbia (11 October); 11 documents were signed with Serbia and 4 with Albania at High-Level Cooperation Council meetings." }
+    ],
+    belgeler: [
+      { ad: { tr: "Belirsizlikler Çağında Kararlı ve Güçlü Türk Dış Politikası, 2025 (Bakanlık, PDF)", en: "Determined and Strong Turkish Foreign Policy in an Age of Uncertainty, 2025 (Ministry, PDF, Turkish)" }, url: "https://www.mfa.gov.tr/site_media/html/belirsizlikler-caginda-kararli-ve-guclu-turk-dis-politikasi-2025-kitapcik.pdf" },
+      { ad: { tr: "Türkiye-Bosna-Hersek ikili ilişkiler bilgi notu (Saraybosna Büyükelçiliği)", en: "Türkiye–Bosnia and Herzegovina bilateral relations note (Embassy in Sarajevo)" }, url: "https://sarajevo-emb.mfa.gov.tr/Mission/ShowInfoNote/340802" }
+    ],
+    karsiTez: {
+      tr: "Bazı Batılı analistler Türkiye'nin Balkanlar'daki kültürel ve dinî faaliyetlerini AB entegrasyonuyla rekabet eden bir \"neo-Osmanlıcı\" etki çabası olarak yorumlar. Sırp milliyetçi çevreleri ise Türkiye'nin Kosova ve Bosnalı Boşnaklarla yakınlığını taraflılık olarak görür.",
+      en: "Some Western analysts interpret Türkiye's cultural and religious activities in the Balkans as a 'neo-Ottoman' bid for influence that competes with EU integration. Serbian nationalist circles see Türkiye's closeness to Kosovo and the Bosniaks as partiality."
+    },
+    sinavIpucu: {
+      tr: "\"Kapsayıcılık\" ve \"bölgesel sahiplenme\" ilkelerini mutlaka adlandır. Türkiye'nin Sırbistan ile de iyi ilişkisini vurgulamak dengeli bir cevap verir. Batı Trakya Türk azınlığı Yunanistan ile ilişkiler (Lozan) kapsamındadır; Bulgaristan'daki Türk toplumu ayrı bir başlıktır.",
+      en: "Be sure to name the principles of 'inclusiveness' and 'regional ownership'. Stressing Türkiye's good relations with Serbia too makes for a balanced answer. The Turkish minority of Western Thrace falls under relations with Greece (Lausanne); the Turkish community in Bulgaria is a separate topic."
+    },
+    kavramlar: [{ tr: "Bölgesel sahiplenme", en: "Regional ownership" }, { tr: "Kapsayıcılık", en: "Inclusiveness" }, { tr: "Avrupa-Atlantik bütünleşmesi", en: "Euro-Atlantic integration" }, { tr: "Soydaş ve akraba topluluklar", en: "Kin and related communities" }],
+    soru: {
+      tr: "Türkiye'nin Batı Balkanlar'daki istikrar arayışında üçlü mekanizmaların ve Balkan Barış Platformu'nun rolünü değerlendiriniz.",
+      en: "Assess the role of the trilateral mechanisms and the Balkan Peace Platform in Türkiye's pursuit of stability in the Western Balkans."
+    }
+  },
+  {
+    id: "cin-asya",
+    baslik: { tr: "Çin ve Asya-Pasifik", en: "China and the Asia-Pacific" },
+    bolge: { tr: "Asya", en: "Asia" },
+    oncelik: "orta",
+    resmi: {
+      tr: "Türkiye, Çin ile 1971'de kurulan ve 2010'da \"Stratejik İşbirliği\" düzeyine yükseltilen ilişkilerini milli menfaatler temelinde geliştirir; Uygur Türklerinin temel hak ve özgürlüklerine önem verdiğini açıkça ifade eder. Ağustos 2019'da başlatılan \"Yeniden Asya\" Girişimi ile Asya ülkeleriyle ilişkileri bölgesel, alt bölgesel ve ülke bazında bütüncül bir strateji çerçevesinde güçlendirmeyi, ASEAN ile çok taraflı işbirliğini derinleştirmeyi hedefler.",
+      en: "Türkiye develops its relations with China, established in 1971 and raised to the level of 'Strategic Cooperation' in 2010, on the basis of national interests, and states openly that it attaches importance to the fundamental rights and freedoms of the Uyghur Turks. Through the 'Asia Anew' Initiative launched in August 2019, it aims to strengthen relations with Asian countries within a holistic strategy at regional, sub-regional and country levels, and to deepen multilateral cooperation with ASEAN."
+    },
+    analiz: {
+      tr: "Çin, Türkiye'nin en büyük ithalat kaynağı ve Orta Koridor ile Kuşak ve Yol Girişimi'nin kesişiminde önemli bir ortak; ancak ilişki derin bir ticaret açığı ve Uygur meselesi nedeniyle asimetrik ve hassas. Türkiye, NATO üyeliğini korurken Şanghay İşbirliği Örgütü (diyalog ortağı) ve BRICS gibi platformlara ilgi göstererek dış politikasını çeşitlendirme mesajı veriyor. \"Yeniden Asya\" ise Çin'le sınırlı değil: Japonya, Güney Kore, Hindistan, Endonezya ve ASEAN ile ticaret, teknoloji ve savunma sanayii işbirliği, Asya'nın küresel ekonomideki ağırlığına uyum sağlama çabası.",
+      en: "China is Türkiye's largest source of imports and an important partner at the intersection of the Middle Corridor and the Belt and Road Initiative; however, the relationship is asymmetric and sensitive because of a deep trade deficit and the Uyghur issue. While keeping its NATO membership, Türkiye signals the diversification of its foreign policy by showing interest in platforms such as the Shanghai Cooperation Organisation (as a dialogue partner) and BRICS. 'Asia Anew' is not limited to China: trade, technology and defence industry cooperation with Japan, South Korea, India, Indonesia and ASEAN is an effort to adapt to Asia's weight in the global economy."
+    },
+    olgular: [
+      { tr: "1971: Türkiye ile Çin Halk Cumhuriyeti arasında diplomatik ilişkiler kuruldu (2026, ilişkilerin 55. yılı). 2010: ilişkiler \"Stratejik İşbirliği\" düzeyine yükseltildi.", en: "1971: diplomatic relations were established between Türkiye and the People's Republic of China (2026 marks the 55th anniversary). 2010: relations were raised to the level of 'Strategic Cooperation'." },
+      { tr: "Kasım 2015: Kuşak ve Yol Girişimi ile Orta Koridor'un uyumlaştırılmasına ilişkin mutabakat zaptı imzalandı.", en: "November 2015: a memorandum of understanding on aligning the Belt and Road Initiative with the Middle Corridor was signed." },
+      { tr: "2025: TÜİK verilerine göre Çin, 49,6 milyar dolarla Türkiye'nin en çok ithalat yaptığı ülke oldu; Türkiye'nin Çin'e ihracatı bunun çok altında kaldığı için ikili ticarette büyük bir açık var.", en: "2025: according to TurkStat, China was Türkiye's largest source of imports at $49.6 billion; because Türkiye's exports to China were far lower, bilateral trade shows a large deficit." },
+      { tr: "Haziran 2024: Dışişleri Bakanı Çin'i ziyaret etti; Pekin'in yanı sıra Urumçi ve Kaşgar'da temaslarda bulundu. 31 Ağustos 2025: Cumhurbaşkanı ile Xi Jinping ŞİÖ Tianjin Zirvesi marjında görüştü.", en: "June 2024: the Foreign Minister visited China, holding contacts in Urumqi and Kashgar as well as Beijing. 31 August 2025: the President met Xi Jinping on the margins of the SCO Tianjin Summit." },
+      { tr: "Ağustos 2019: \"Yeniden Asya\" Girişimi açıklandı. Aralık 2025 itibarıyla Türkiye'nin girişim coğrafyasında 30 büyükelçiliği ve 26 başkonsolosluğu var. 2017: Türkiye ASEAN'ın sektörel diyalog ortağı oldu.", en: "August 2019: the 'Asia Anew' Initiative was announced. As of December 2025, Türkiye has 30 embassies and 26 consulates general in the initiative's geography. 2017: Türkiye became an ASEAN Sectoral Dialogue Partner." }
+    ],
+    belgeler: [
+      { ad: { tr: "Türkiye-Çin Halk Cumhuriyeti Siyasi İlişkileri (Bakanlık)", en: "Türkiye–People's Republic of China Political Relations (Ministry, Turkish)" }, url: "https://www.mfa.gov.tr/turkiye-cin-halk-cumhuriyeti-siyasi-iliskileri.tr.mfa" },
+      { ad: { tr: "Yeniden Asya Girişimi (Bakanlık)", en: "Asia Anew Initiative (Ministry, Turkish)" }, url: "https://www.mfa.gov.tr/yeniden-asya-girisimi.tr.mfa" },
+      { ad: { tr: "TÜİK 2025 dış ticaret verileri (DHA haberi)", en: "TurkStat 2025 foreign trade figures (DHA report, Turkish)" }, url: "https://www.dha.com.tr/ekonomi/tuik-2025te-ihracat-yuzde-4-4-ithalat-yuzde-6-2-artti-2808325" }
+    ],
+    karsiTez: {
+      tr: "Çin, Sincan politikasını terörle mücadele ve kalkınma politikası olarak sunar ve dış eleştirileri iç işlerine müdahale sayar. Bazı Batılı çevreler ise Türkiye'nin ŞİÖ ve BRICS'e ilgisini ittifak bağlılığından uzaklaşma işareti olarak yorumlar; Türkiye bunu çeşitlendirme olarak tanımlar.",
+      en: "China presents its Xinjiang policy as counter-terrorism and development and regards foreign criticism as interference in its internal affairs. Some Western circles read Türkiye's interest in the SCO and BRICS as a sign of drifting away from its alliance commitments; Türkiye defines it as diversification."
+    },
+    sinavIpucu: {
+      tr: "Ekonomik karşılıklı bağımlılık ile değer temelli konular (Uygur Türkleri) arasındaki dengeyi açıkça kur. \"Yeniden Asya\"yı sadece Çin'e indirgeme; Japonya, Güney Kore, Hindistan ve ASEAN'ı da an. Orta Koridor'u bu dosyayla Türk Dünyası dosyası arasında bir köprü olarak kullan.",
+      en: "Clearly balance economic interdependence against value-based issues (the Uyghur Turks). Don't reduce 'Asia Anew' to China; mention Japan, South Korea, India and ASEAN too. Use the Middle Corridor as a bridge between this file and the Turkic World file."
+    },
+    kavramlar: [{ tr: "Stratejik işbirliği", en: "Strategic cooperation" }, { tr: "Orta Koridor", en: "Middle Corridor" }, { tr: "Kuşak ve Yol Girişimi", en: "Belt and Road Initiative" }, { tr: "Diyalog ortağı", en: "Dialogue partner" }],
+    soru: {
+      tr: "\"Yeniden Asya\" Girişimi'ni Türkiye'nin dış politikasını çeşitlendirme arayışı açısından, Çin ile ilişkilerin fırsat ve kısıtlarıyla birlikte değerlendiriniz.",
+      en: "Assess the 'Asia Anew' Initiative in terms of Türkiye's search to diversify its foreign policy, together with the opportunities and constraints of relations with China."
+    }
+  },
+  {
+    id: "latin-amerika",
+    baslik: { tr: "Latin Amerika ve Karayipler", en: "Latin America and the Caribbean" },
+    bolge: { tr: "Amerika kıtası", en: "The Americas" },
+    oncelik: "dusuk",
+    resmi: {
+      tr: "Türkiye, Latin Amerika ve Karayipler ile ilişkilerini 1998'de hazırlanıp 2006'da güncellenen Eylem Planı çerçevesinde geliştirir. Siyasi istişare mekanizmaları, bölgesel örgütlerdeki gözlemcilik statüleri, ticaret ve serbest ticaret anlaşmaları, kalkınma işbirliği (TİKA), burslar ve ulaştırma bağlantıları ile bölgedeki varlığını kalıcı ve çok boyutlu hâle getirmeyi amaçlar.",
+      en: "Türkiye develops its relations with Latin America and the Caribbean within the framework of the Action Plan prepared in 1998 and updated in 2006. It aims to make its presence in the region lasting and multidimensional through political consultation mechanisms, observer status in regional organisations, trade and free trade agreements, development cooperation (TİKA), scholarships and transport links."
+    },
+    analiz: {
+      tr: "Latin Amerika, Türkiye'nin küresel aktör olma ve dış politikasını coğrafi olarak çeşitlendirme hedefinin sınama alanıdır. Coğrafi uzaklık ve tarihsel bağların sınırlılığı nedeniyle ilişkiler daha çok ekonomi, diplomasi ağı ve çok taraflı forumlarda (G20, BM) işbirliğine dayanıyor. Brezilya ve Meksika gibi G20 ortaklarıyla \"orta güç\" ortak noktası öne çıkıyor; ancak ticaret hacmi bölge dışı büyük oyunculara kıyasla mütevazı ve ticaret dengesi Türkiye aleyhine.",
+      en: "Latin America is a test case for Türkiye's goal of being a global actor and diversifying its foreign policy geographically. Because of geographical distance and limited historical ties, relations rest mainly on the economy, the diplomatic network and cooperation in multilateral forums (G20, UN). Common ground as 'middle powers' with G20 partners such as Brazil and Mexico stands out; however, trade volume is modest compared with major extra-regional players and the trade balance is against Türkiye."
+    },
+    olgular: [
+      { tr: "1926: Şili, Türkiye Cumhuriyeti'ni tanıyan ilk Latin Amerika ülkesi oldu. Bölgede büyükelçilik açılışları 1940'larda başladı.", en: "1926: Chile was the first Latin American country to recognise the Republic of Türkiye. The opening of embassies in the region began in the 1940s." },
+      { tr: "1998: Latin Amerika ve Karayipler Eylem Planı hazırlandı; 2006'da güncellendi ve 2006 Türkiye'de \"Latin Amerika ve Karayipler Yılı\" ilan edildi.", en: "1998: the Latin America and the Caribbean Action Plan was prepared; it was updated in 2006, which was declared the 'Year of Latin America and the Caribbean' in Türkiye." },
+      { tr: "Gözlemcilik: Amerikan Devletleri Örgütü (1998), Karayip Devletleri Birliği (2000), Pasifik İttifakı (2013), SICA (2015); MERCOSUR (2010) ve CARICOM (2011) ile istişare mekanizmaları; BM ECLAC üyeliği (2017).", en: "Observer status: Organization of American States (1998), Association of Caribbean States (2000), Pacific Alliance (2013), SICA (2015); consultation mechanisms with MERCOSUR (2010) and CARICOM (2011); membership of UN ECLAC (2017)." },
+      { tr: "Ticaret hacmi: 2000'lerin başında yaklaşık 1 milyar dolar, 2024 sonunda 15,6 milyar dolar. Şili ile Serbest Ticaret Anlaşması 2011'de yürürlüğe girdi.", en: "Trade volume: about $1 billion in the early 2000s, $15.6 billion at the end of 2024. The Free Trade Agreement with Chile entered into force in 2011." },
+      { tr: "Şubat 2025 itibarıyla Türkiye'nin bölgede 19 büyükelçiliği ve 1 başkonsolosluğu var (2000'lerin başında 6 büyükelçilik).", en: "As of February 2025, Türkiye has 19 embassies and 1 consulate general in the region (6 embassies in the early 2000s)." }
+    ],
+    belgeler: [
+      { ad: { tr: "Türkiye'nin Latin Amerika ve Karayiplere Yönelik Politikası (Bakanlık)", en: "Türkiye's Policy towards Latin America and the Caribbean (Ministry, Turkish)" }, url: "https://www.mfa.gov.tr/i_-turkiye_nin-latin-amerika-ve-karayiplere-yonelik-politikasi-ve-bolge-ulkeleri-ile-iliskileri.tr.mfa" },
+      { ad: { tr: "Türkiye, 9 Latin Amerika ülkesiyle ilişkilerin 75. yılını kutluyor (Hürriyet Daily News, Eylül 2025)", en: "Türkiye marks 75 years of diplomatic ties with Latin American and Caribbean nations (Hürriyet Daily News, September 2025)" }, url: "https://www.hurriyetdailynews.com/turkiye-marks-75-years-of-diplomatic-ties-with-latin-american-caribbean-nations-213856" },
+      { ad: { tr: "Türkiye'nin Latin Amerika ve Karayipler stratejisi ticarette (Anadolu Ajansı, Eylül 2024)", en: "Türkiye's Latin America and Caribbean strategy in trade (Anadolu Agency, September 2024, Turkish)" }, url: "https://www.aa.com.tr/tr/ekonomi/turkiyenin-latin-amerika-ve-karayipler-stratejisi-ticarette-meyvelerini-veriyor/3332145" }
+    ],
+    karsiTez: {
+      tr: "Bazı analistler Türkiye'nin Latin Amerika açılımının sembolik ziyaretler ve temsilcilik sayısıyla sınırlı kaldığını, ticaretin ise ağırlıkla hammadde ithalatına dayandığını savunur. Venezuela gibi ülkelerle yakın ilişkiler de Batılı ortaklarla görüş ayrılığı konusu olabilmiştir.",
+      en: "Some analysts argue that Türkiye's Latin America opening has remained limited to symbolic visits and the number of missions, while trade relies mainly on raw material imports. Close relations with countries such as Venezuela have also at times been a point of disagreement with Western partners."
+    },
+    sinavIpucu: {
+      tr: "Bu dosya Afrika açılımının devamı olarak kurgulanabilir: aynı araçlar (eylem planı, \"yıl\" ilanı, temsilcilik ağı, THY, TİKA) farklı bir coğrafyada. Gözlemcilik statülerini yıllarıyla vermek cevaba somutluk katar.",
+      en: "This file can be framed as a continuation of the Africa opening: the same tools (action plan, a declared 'year', diplomatic network, Turkish Airlines, TİKA) in a different region. Giving the observer statuses with their years makes an answer concrete."
+    },
+    kavramlar: [{ tr: "Eylem planı", en: "Action plan" }, { tr: "Gözlemci statüsü", en: "Observer status" }, { tr: "Serbest ticaret anlaşması", en: "Free trade agreement" }, { tr: "Orta güç", en: "Middle power" }],
+    soru: {
+      tr: "Türkiye'nin Latin Amerika ve Karayipler açılımını, araçları ve sınırları açısından Afrika açılımıyla karşılaştırarak değerlendiriniz.",
+      en: "Assess Türkiye's opening to Latin America and the Caribbean by comparing its tools and limits with the Africa opening."
+    }
   }
 ];

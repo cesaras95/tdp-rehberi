@@ -322,3 +322,29 @@ Object.assign(ARAYUZ.en, {
   istemMulakatPh: "In my answer I first said …, then …",
   istemKisaMulakat: "First write or summarise your answer in at least a few sentences."
 });
+
+// ---------- TEMEL KONULAR VE DIŞİŞLERİ BAKANLARI ----------
+Object.assign(ARAYUZ.tr, {
+  menuTemeller: "Temel Konular", ozetTemel: "temel UI konusu",
+  temelBaslik: "Temel uluslararası ilişkiler konuları",
+  temelGiris: "Kuramlar, temel kavramlar, uluslararası hukuk ve diplomasi. Her konu kısa bir tanım, bilinmesi gereken noktalar, Türk dış politikasına uygulama ve bir örnek soruyla geliyor. Kompozisyonda bir kuramı ya da kavramı doğru kullanmak cevabı \"bilgi aktarımından\" \"analize\" taşır.",
+  temelNoktalar: "Bilinmesi gerekenler", temelTemsilci: "Öne çıkan düşünürler ve belgeler", temelTdp: "Türk dış politikasına uygulama",
+  bakanBaslik: "Dışişleri Bakanları (1920'den bugüne)",
+  bakanGiris: "TBMM Hükümeti'nin Hariciye Vekillerinden bugüne {n} kişi. Birden fazla dönem görev yapanlar aynı numarayla tekrar listelenir. Öne çıkan gelişmeler sınavda en sık sorulanlardır.",
+  bakanTbmm: "TBMM Hükümeti (1920–1923)", bakanCumhuriyet: "Cumhuriyet dönemi",
+  bakanAd: "Bakan", bakanGorev: "Görev süresi", bakanNot: "Öne çıkan gelişme",
+  bakanGorevde: "görevde", bakanBugun: "bugün", bakanAy: "ay", bakanYil: "yıl",
+  bakanKaynak: "Kaynak: Dışişleri Bakanlığı, Eski Dışişleri Bakanları listesi ({url}). Bakanlığın listesinde yer almayan kısa vekâletler (ör. 1944 Şükrü Saracoğlu, 1955 Adnan Menderes, 1956–57 Ethem Menderes) gösterilmemiştir."
+});
+Object.assign(ARAYUZ.en, {
+  menuTemeller: "IR Basics", ozetTemel: "core IR topics",
+  temelBaslik: "Core international relations topics",
+  temelGiris: "Theories, core concepts, international law and diplomacy. Each topic comes with a short definition, key points, application to Turkish foreign policy and a sample question. Using a theory or concept correctly in an essay moves an answer from 'reporting facts' to 'analysis'.",
+  temelNoktalar: "Key points", temelTemsilci: "Leading thinkers and documents", temelTdp: "Application to Turkish foreign policy",
+  bakanBaslik: "Ministers of Foreign Affairs (1920 to today)",
+  bakanGiris: "{n} people from the Commissars for Foreign Affairs of the Grand National Assembly Government to today. Those who served more than one term are listed again with the same number. The highlighted developments are those most often asked in exams.",
+  bakanTbmm: "Grand National Assembly Government (1920–1923)", bakanCumhuriyet: "Republican period",
+  bakanAd: "Minister", bakanGorev: "Term of office", bakanNot: "Key development",
+  bakanGorevde: "in office", bakanBugun: "today", bakanAy: "months", bakanYil: "years",
+  bakanKaynak: "Source: Ministry of Foreign Affairs, List of Former Ministers of Foreign Affairs ({url}). Short acting terms not on the Ministry's list (e.g. Şükrü Saracoğlu 1944, Adnan Menderes 1955, Ethem Menderes 1956–57) are not shown."
+});

@@ -788,3 +788,37 @@ body.panel-acik { overflow: hidden; }
 .istem-kutu p { margin: 0 0 8px; }
 .istem-kutu summary { cursor: pointer; color: var(--resmi); font-weight: 600; }
 .istem-metin, #m-cevap-metin { width: 100%; font: inherit; font-size: .88rem; padding: 10px; border-radius: 8px; border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--metin); margin-top: 8px; box-sizing: border-box; }
+
+/* ---------- TEMEL KONULAR ---------- */
+.temel-liste { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); align-items: start; }
+.temel-kart { margin: 0; }
+.temel-kart summary { cursor: pointer; list-style: none; }
+.temel-kart summary::-webkit-details-marker { display: none; }
+.temel-kart summary h3 { margin: 8px 0 6px; }
+.temel-kart summary p { margin: 0; color: var(--soluk); font-size: .95rem; }
+.temel-kart summary::after { content: "+"; float: right; margin-top: -1.6em; font-weight: 700; color: var(--vurgu); font-size: 1.3rem; }
+.temel-kart[open] summary::after { content: "–"; }
+.temel-kart[open] { grid-column: 1 / -1; }
+.temel-ic { margin-top: 14px; border-top: 1px solid var(--cizgi); padding-top: 12px; }
+.temel-ic h4 { font-family: var(--baslik-font); margin: 0 0 6px; }
+.temel-ic ul { margin: 0 0 12px; padding-left: 20px; }
+.temel-ic li { margin-bottom: 4px; }
+.temel-temsilci { font-size: .92rem; color: var(--soluk); }
+
+/* ---------- DIŞİŞLERİ BAKANLARI ---------- */
+.bakanlar { margin-top: 28px; }
+.bakan-tablo { display: grid; border: 1px solid var(--cizgi); border-radius: 10px; overflow: hidden; }
+.bakan-satir { display: grid; grid-template-columns: 40px minmax(160px, 1.2fr) minmax(170px, 1fr) 2fr; gap: 12px; padding: 9px 14px; border-top: 1px solid var(--cizgi); align-items: baseline; font-size: .93rem; }
+.bakan-satir:first-child { border-top: 0; }
+.bakan-bas { background: var(--zemin); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--soluk); }
+.bakan-no { color: var(--soluk); font-variant-numeric: tabular-nums; }
+.bakan-tarih { font-variant-numeric: tabular-nums; }
+.bakan-tarih small { display: block; color: var(--soluk); font-size: .8rem; }
+.bakan-not { color: var(--soluk); }
+.bakan-satir.gorevde { background: var(--resmi-acik); }
+.bakan-ad .etiket { font-style: normal; margin-left: 4px; }
+@media (max-width: 720px) {
+  .bakan-bas { display: none; }
+  .bakan-satir { grid-template-columns: 34px 1fr; gap: 2px 10px; }
+  .bakan-satir > span:nth-child(n+3) { grid-column: 2; }
+}

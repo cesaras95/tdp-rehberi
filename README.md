@@ -21,6 +21,9 @@ Türk Dış Politikası tarihi, politika başlıkları, Türkiye ve dünya günd
 | `veri/quiz_ek.js` | Ek quiz soruları (toplam 111 soru; sorular.js'ten sonra yüklenir) |
 | `veri/arsiv.js` | Çıkmış sorular arşivi: KİM ve MM sınavlarında sorulan konular (konu düzeyinde, soru metni kopyalanmadan) |
 | `veri/harita.js` | Politikalar sekmesindeki harita (otomatik üretilir; `robot/harita_uret.mjs`) |
+| `veri/bakanlar.js` | 1920'den bugüne Dışişleri Bakanları (Bakanlığın resmî listesine göre) |
+| `veri/temeller.js` | Temel UI konuları: kuramlar, kavramlar, uluslararası hukuk, diplomasi |
+| `veri/ek_icerik.js` | Yeni dosyalar için ek quiz ve kompozisyon soruları (sinav.js'ten sonra yüklenir) |
 | `veri/sinav.js` | Sınav rehberi, kompozisyon soruları ve çeviri metinleri |
 | `veri/sozluk.js` | 10.700+ terimlik sözlük (Bakanlık terminoloji listelerinden; Sözlük sekmesi açılınca yüklenir) |
 | `veri/otomatik.js` | Robotun her gün yazdığı başlıklar (elle düzenleme) |

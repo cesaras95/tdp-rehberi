@@ -9,7 +9,7 @@ proj.fitExtent([[6, 6], [W - 6, H - 6]], { type: "MultiPoint", coordinates: [[-1
 proj.clipExtent([[0, 0], [W, H]]);
 const yol = d3.geoPath(proj).digits(1);
 const AB = ["AUT","BEL","BGR","HRV","CZE","DNK","EST","FIN","FRA","DEU","HUN","IRL","ITA","LVA","LTU","LUX","MLT","NLD","POL","PRT","ROU","SVK","SVN","ESP","SWE"];
-const NATO = ["GBR","NOR","ISL","ALB","MNE","MKD","USA","CAN"];
+const NATO = ["GBR","NOR","ISL","USA","CAN"];
 const harita = {};
 AB.forEach(k => harita[k] = "ab"); NATO.forEach(k => harita[k] = "nato-abd");
 ["CYP","CYN"].forEach(k => harita[k] = "kibris");
@@ -19,6 +19,9 @@ AB.forEach(k => harita[k] = "ab"); NATO.forEach(k => harita[k] = "nato-abd");
 ["ISR","PSX","JOR"].forEach(k => harita[k] = "filistin");
 ["IRN","IRQ","SAU","QAT","ARE","KWT","OMN","YEM","PAK","AFG"].forEach(k => harita[k] = "iran-korfez");
 ["AZE","ARM","GEO","KAZ","KGZ","UZB","TKM","TJK"].forEach(k => harita[k] = "turk-dunyasi");
+["ALB","MNE","MKD","BIH","SRB","KOS"].forEach(k => harita[k] = "balkanlar");
+["CHN","MNG","IND","BGD","BTN","NPL","LKA","THA","LAO","MMR","VNM","KHM","MYS","IDN","PHL","KOR","PRK","JPN","TWN"].forEach(k => harita[k] = "cin-asya");
+["BRA","ARG","CHL","PER","COL","VEN","MEX","CUB","ECU","BOL","URY","PRY"].forEach(k => harita[k] = "latin-amerika");
 const sonuc = [];
 for (const f of gj.features) {
   const p = f.properties; const k = p.ADM0_A3;

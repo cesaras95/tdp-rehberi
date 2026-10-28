@@ -113,6 +113,7 @@ function anaSayfa() {
     <a href="#kartlar"><b>${KARTLAR.length}</b><span>${a("ozetKart")}</span></a>
     <a href="#mulakat"><b>${MULAKAT.length}</b><span>${a("ozetMulakat")}</span></a>
     <a href="#arsiv"><b>${ARSIV.length}</b><span>${a("ozetArsiv")}</span></a>
+    <a href="#temeller"><b>${TEMELLER.length}</b><span>${a("ozetTemel")}</span></a>
   `;
   const mini = d => `<div class="mini"><small>${tarihYazisi(d)}</small><br><strong>${guvenli(t(d.baslik))}</strong></div>`;
   document.getElementById("ana-son").innerHTML = yeniden(DUYURULAR).slice(0, 3).map(mini).join("");
@@ -1627,6 +1628,12 @@ function aramaDiziniKur() {
       () => sekmeyeGit("tarih", () => { const el = document.querySelectorAll("#tarih-liste details")[di]; if (el) { el.open = true; isikla(el.closest(".donem")); } }))));
   POLITIKALAR.forEach(p =>
     ekle("menuPolitikalar", t(p.baslik), t(p.bolge), [iki(p.baslik), iki(p.resmi), iki(p.analiz), ...p.olgular.map(iki), ...p.kavramlar.map(iki)].join(" "), () => dosyaAc(p.id)));
+  TEMELLER.forEach(x =>
+    ekle("menuTemeller", t(x.baslik), t(TEMEL_KATEGORI[x.kategori]), [iki(x.baslik), iki(x.ozet), ...x.noktalar.map(iki), x.temsilci, iki(x.tdp)].join(" "),
+      () => { temelKategori = "hepsi"; temellerCiz(); sekmeyeGit("temeller", () => { const el = document.getElementById("temel-" + x.id); if (el) { el.open = true; isikla(el); } }); }));
+  BAKANLAR.forEach((b, i) =>
+    ekle("bakanBaslik", b.ad, b.bas + " – " + (b.son || a("bakanBugun")), [b.ad, b.bas, b.son, b.not ? iki(b.not) : ""].join(" "),
+      () => { bakanDonem = "hepsi"; bakanlarCiz(); sekmeyeGit("tarih", () => isikla(document.getElementById("bakan-" + i))); }));
   DUYURULAR.forEach((h, i) =>
     ekle("menuGuncel", t(h.baslik), tarihYazisi(h), iki(h.baslik) + " " + iki(h.ozet), () => sekmeyeGit("guncel", () => isikla(document.getElementById("duyuru-" + i)))));
   DUNYA.forEach((h, i) =>
@@ -1768,6 +1775,69 @@ function baglantiDurumu() {
 window.addEventListener("online", baglantiDurumu);
 window.addEventListener("offline", baglantiDurumu);
 
+// ---------- TEMEL KONULAR (UI kuramları, kavramlar, hukuk, diplomasi) ----------
+// Benzetme: Dil bilgisi kitabı. Politika dosyaları kelimelerse bunlar cümle kurma kurallarıdır.
+let temelKategori = "hepsi";
+function temellerCiz() {
+  const kategoriler = ["hepsi", ...Object.keys(TEMEL_KATEGORI)];
+  document.getElementById("temel-filtre").innerHTML = kategoriler.map(k =>
+    `<button class="cip ${k === temelKategori ? "aktif" : ""}" data-temel-kat="${k}">${k === "hepsi" ? a("filtreHepsi") : guvenli(t(TEMEL_KATEGORI[k]))}</button>`).join("");
+  const liste = temelKategori === "hepsi" ? TEMELLER : TEMELLER.filter(x => x.kategori === temelKategori);
+  document.getElementById("temel-liste").innerHTML = liste.map(x => `
+    <details class="kutu temel-kart" id="temel-${x.id}">
+      <summary>
+        <span class="etiket analiz">${guvenli(t(TEMEL_KATEGORI[x.kategori]))}</span>
+        <h3>${guvenli(t(x.baslik))}</h3>
+        <p>${guvenli(t(x.ozet))}</p>
+      </summary>
+      <div class="temel-ic">
+        <h4>${a("temelNoktalar")}</h4>
+        <ul>${x.noktalar.map(n => `<li>${guvenli(t(n))}</li>`).join("")}</ul>
+        <p class="temel-temsilci"><b>${a("temelTemsilci")}:</b> ${guvenli(x.temsilci)}</p>
+        <div class="pol-blok analiz"><span class="etiket resmi">${a("temelTdp")}</span><p>${guvenli(t(x.tdp))}</p></div>
+        <div class="kutu ipucu-kutu"><h4>${a("polIpucu")}</h4><p>${guvenli(t(x.ipucu))}</p></div>
+        <p class="pol-soru"><b>${a("polSoru")}:</b> ${guvenli(t(x.soru))}</p>
+      </div>
+    </details>`).join("");
+}
+document.getElementById("temel-filtre").addEventListener("click", e => {
+  const b = e.target.closest("[data-temel-kat]"); if (!b) return;
+  temelKategori = b.dataset.temelKat; temellerCiz();
+});
+
+// ---------- DIŞİŞLERİ BAKANLARI (Tarih sekmesinin altında) ----------
+let bakanDonem = "hepsi";
+// "05.06.2023" → Date
+const tarihOku = s => { const [g, ay, y] = s.split("."); return new Date(Number(y), Number(ay) - 1, Number(g)); };
+function bakanlarCiz() {
+  const kutu = document.getElementById("bakanlar");
+  if (typeof BAKANLAR === "undefined") { kutu.hidden = true; return; }
+  // Kişi sırası: bir kişi ilk kez göründüğünde numara alır (tekrar eden dönemler aynı numarayı taşır)
+  const sira = new Map(); BAKANLAR.forEach(b => { if (!sira.has(b.ad)) sira.set(b.ad, sira.size + 1); });
+  const liste = bakanDonem === "hepsi" ? BAKANLAR : BAKANLAR.filter(b => b.donem === bakanDonem);
+  const yil = (b) => { const ms = (b.son ? tarihOku(b.son) : new Date()) - tarihOku(b.bas); const y = ms / (365.25 * 864e5); return y < 1 ? `${Math.max(1, Math.round(y * 12))} ${a("bakanAy")}` : `${y.toFixed(1).replace(".", dil === "tr" ? "," : ".")} ${a("bakanYil")}`; };
+  const cip = (d, metin) => `<button class="cip ${d === bakanDonem ? "aktif" : ""}" data-bakan-donem="${d}">${metin}</button>`;
+  kutu.innerHTML = `
+    <h2>${a("bakanBaslik")}</h2>
+    <p class="pol-bolge">${a("bakanGiris").replace("{n}", sira.size)}</p>
+    <div class="filtre">${cip("hepsi", a("filtreHepsi"))}${cip("tbmm", a("bakanTbmm"))}${cip("cumhuriyet", a("bakanCumhuriyet"))}</div>
+    <div class="bakan-tablo" role="table">
+      <div class="bakan-satir bakan-bas" role="row"><span>#</span><span>${a("bakanAd")}</span><span>${a("bakanGorev")}</span><span>${a("bakanNot")}</span></div>
+      ${liste.map(b => `
+      <div class="bakan-satir ${b.son ? "" : "gorevde"}" role="row" id="bakan-${BAKANLAR.indexOf(b)}">
+        <span class="bakan-no">${sira.get(b.ad)}</span>
+        <span class="bakan-ad"><b>${guvenli(b.ad)}</b>${b.son ? "" : ` <em class="etiket resmi">${a("bakanGorevde")}</em>`}</span>
+        <span class="bakan-tarih">${guvenli(b.bas)} – ${b.son ? guvenli(b.son) : a("bakanBugun")}<small>${yil(b)}</small></span>
+        <span class="bakan-not">${b.not ? guvenli(t(b.not)) : ""}</span>
+      </div>`).join("")}
+    </div>
+    <p class="kunye">${a("bakanKaynak").replace("{url}", guvenli(BAKANLAR_KAYNAK))}</p>`;
+}
+document.getElementById("bakanlar").addEventListener("click", e => {
+  const b = e.target.closest("[data-bakan-donem]"); if (!b) return;
+  bakanDonem = b.dataset.bakanDonem; bakanlarCiz();
+});
+
 // ---------- HER ŞEYİ ÇİZ ----------
 // Dil değişince bu fonksiyon tüm sayfayı yeni dilde yeniden yazar.
 // Quiz'deki ilerleme, kart sırası ve mülakat sorusu korunur.
@@ -1792,6 +1862,8 @@ function hepsiniCiz() {
   sinavCiz();
   arsivCiz();
   haritaCiz();
+  temellerCiz();
+  bakanlarCiz();
   if (sozluk.yuklendi) sozlukCiz();
   // Arama dizini dile bağlı; dil değişince yeniden kurulur
   aramaDizini = null;
