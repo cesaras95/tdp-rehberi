@@ -7,9 +7,65 @@
 // konu: politikalar.js'deki bir id (ilgili karta link verir)
 // =============================================================
 
-const SON_GUNCELLEME = { tr: "27 Ekim 2026", en: "27 October 2026" };
+const SON_GUNCELLEME = { tr: "2 Kasım 2026", en: "2 November 2026" };
 
 const DUYURULAR = [
+  {
+    tarih: "2026-10-31",
+    baslik: { tr: "Zelenski'nin İstanbul ziyareti", en: "Zelenskyy's visit to Istanbul" },
+    ozet: {
+      tr: "Cumhurbaşkanı Erdoğan, Ukrayna Devlet Başkanı Zelenski'yi Dolmabahçe'de kabul etti. Görüşmede Ukrayna'da barış çabaları ve Karadeniz'deki seyrüsefer güvenliği ele alındı; Erdoğan sivil gemilere yönelik saldırıların kabul edilemez olduğunu söyledi. Zelenski, Kasım'ın ilk yarısında ABD-Rusya-Ukrayna üçlü görüşmelerine hazırlanıldığını ve Türkiye'nin ev sahipliği seçeneğinin de konuşulduğunu belirtti.",
+      en: "President Erdoğan received Ukrainian President Zelenskyy at Dolmabahçe. The talks covered peace efforts in Ukraine and navigation safety in the Black Sea; Erdoğan said attacks on civilian vessels were unacceptable. Zelenskyy said a trilateral US–Russia–Ukraine round was being prepared for the first half of November and that the option of Türkiye as host had also been discussed."
+    },
+    sinavNotu: {
+      tr: "Türkiye'nin Montrö Sözleşmesi'nden gelen Karadeniz sorumluluğu ve 2022 Tahıl Koridoru deneyimi. Müzakere yeri Körfez'e kaysa da Türkiye kolaylaştırıcı rolünü canlı tutmaya çalışıyor.",
+      en: "Türkiye's Black Sea responsibilities under the Montreux Convention and the 2022 Grain Corridor experience. Although the talks venue has shifted to the Gulf, Türkiye is trying to keep its facilitation role alive."
+    },
+    konu: "rusya-ukrayna", tur: "haber",
+    kaynak: "https://www.hurriyetdailynews.com/erdogan-zelensky-meet-on-war-and-black-sea-security-228843"
+  },
+  {
+    tarih: "2026-10-30",
+    baslik: { tr: "Türk Devletleri Teşkilatı 13. Zirvesi — Ankara", en: "13th Summit of the Organization of Turkic States — Ankara" },
+    ozet: {
+      tr: "Ankara'daki zirvede dönem başkanlığı Azerbaycan'dan Türkiye'ye geçti ve 163 maddelik Ankara Beyannamesi kabul edildi. Beyanname savunma sanayii, siber güvenlik, Orta Koridor ve enerji hatlarında işbirliğini öngörüyor; Kıbrıs Türklerinin eşit haklarına destek de yer aldı. Özbekistan'dan Mirvohid Azimov yeni Genel Sekreter oldu; Azerbaycan zirvede Dışişleri Bakanı Bayramov düzeyinde temsil edildi.",
+      en: "At the Ankara summit, the chairmanship passed from Azerbaijan to Türkiye and the 163-point Ankara Declaration was adopted. The declaration provides for cooperation on the defence industry, cybersecurity, the Middle Corridor and energy routes, and includes support for the equal rights of Turkish Cypriots. Mirvokhid Azimov of Uzbekistan became the new Secretary-General; Azerbaijan was represented by Foreign Minister Bayramov."
+    },
+    sinavNotu: {
+      tr: "TDT'nin yapısı: 5 üye (Türkiye, Azerbaycan, Kazakistan, Kırgızistan, Özbekistan), gözlemciler (Macaristan, Türkmenistan, KKTC). Orta Koridor ve Zengezur bağlantıları sık sorulur. 2027 zirvesi Özbekistan'da.",
+      en: "OTS structure: 5 members (Türkiye, Azerbaijan, Kazakhstan, Kyrgyzstan, Uzbekistan) and observers (Hungary, Turkmenistan, the TRNC). The Middle Corridor and the Zangezur link are frequent questions. The 2027 summit will be in Uzbekistan."
+    },
+    konu: "turk-dunyasi", tur: "haber",
+    kaynak: "https://www.dailysabah.com/politics/turkic-states-adopt-163-point-declaration-to-deepen-strategic-ties/news/amp"
+  },
+  {
+    tarih: "2026-10-30",
+    baslik: { tr: "Türkiye, Sinirlioğlu'nu BM Genel Sekreterliğine aday gösterdi", en: "Türkiye nominates Sinirlioğlu for UN Secretary-General" },
+    ozet: {
+      tr: "Cumhurbaşkanı Erdoğan'ın imzasını taşıyan aday mektubu, BM Daimi Temsilcisi aracılığıyla Genel Kurul ve Güvenlik Konseyi başkanlarına iletildi. Aday, AGİT Genel Sekreteri ve eski Dışişleri Bakanı Feridun Sinirlioğlu. Bakan Fidan adaylığı, seçim sürecindeki tıkanıklığı aşmaya yönelik diplomatik bir katkı olarak nitelendirdi.",
+      en: "A nomination letter signed by President Erdoğan was transmitted by Türkiye's Permanent Representative to the Presidents of the General Assembly and the Security Council. The candidate is Feridun Sinirlioğlu, OSCE Secretary-General and former Foreign Minister. Minister Fidan described the candidacy as a diplomatic contribution to overcoming the deadlock in the selection process."
+    },
+    sinavNotu: {
+      tr: "Genel Sekreter seçimi: Güvenlik Konseyi tavsiyesi (en az 9 oy, daimi üyelerin vetosu yok) + Genel Kurul ataması. Bölgesel rotasyon geleneği ve Güvenlik Konseyi'nin seçilmiş üyelerinin (ör. Yunanistan) tutumu belirleyici olabilir.",
+      en: "Secretary-General selection: Security Council recommendation (at least 9 votes, no veto by a permanent member) followed by General Assembly appointment. The regional rotation tradition and the positions of elected Council members (e.g. Greece) may prove decisive."
+    },
+    konu: "arabuluculuk", tur: "haber",
+    kaynak: "https://en.yenisafak.com/world/turkiye-nominates-sinirlioglu-to-break-un-deadlock-3725045"
+  },
+  {
+    tarih: "2026-10-30",
+    baslik: { tr: "G20 Dışişleri Bakanları Toplantısı ve Türkiye–ABD temasları", en: "G20 Foreign Ministers' Meeting and Türkiye–US contacts" },
+    ozet: {
+      tr: "Bakan Fidan, 30-31 Ekim'de Atlanta'daki G20 Dışişleri Bakanları Toplantısı'na katıldı ve ABD, Almanya, Japonya, Endonezya ve Meksika dışişleri bakanlarıyla görüştü. ABD Dışişleri Bakanlığına göre Fidan ile Rubio, Aralık'taki G20 Liderler Zirvesi öncesinde ikili ilişkileri ilerletmenin yollarını ele aldı. Bundan iki gün önce Cumhurbaşkanı Erdoğan ile Başkan Trump telefonda Ukrayna, Yemen ve Hürmüz Boğazı'ndaki gelişmeleri görüştü.",
+      en: "Minister Fidan attended the G20 Foreign Ministers' Meeting in Atlanta on 30–31 October and met the foreign ministers of the US, Germany, Japan, Indonesia and Mexico. According to the US State Department, Fidan and Rubio discussed ways to advance bilateral ties ahead of the G20 Leaders' Summit in December. Two days earlier, President Erdoğan and President Trump discussed Ukraine, Yemen and the Strait of Hormuz by telephone."
+    },
+    sinavNotu: {
+      tr: "Türkiye G20'nin kurucu üyesi. Bakanlar toplantısı ortak bildiri olmadan bitti (bkz. Dünya Gündemi); bu, çok taraflı forumlarda uzlaşı zorluğunun güncel bir örneği.",
+      en: "Türkiye is a founding member of the G20. The ministerial ended without a joint communiqué (see World Agenda), a current example of how hard consensus has become in multilateral forums."
+    },
+    konu: "nato-abd", tur: "resmi",
+    kaynak: "https://www.mfa.gov.tr/sayin-bakanimizin-g20-disisleri-bakanlari-toplantisi-na-katilimi-30-31-ekim-2026-atlanta.en.mfa"
+  },
   {
     tarih: "2026-10-23",
     baslik: { tr: "9. İstanbul Arabuluculuk Konferansı", en: "9th Istanbul Mediation Conference" },
@@ -157,7 +213,7 @@ const YAKLASAN = [
   {
     tarih: "2026-11-09",
     baslik: { tr: "COP31 İklim Konferansı — Antalya (9-20 Kasım)", en: "COP31 Climate Change Conference — Antalya (9–20 November)" },
-    not: { tr: "COP Başkanı Bakan Murat Kurum; müzakere başkanlığı Avustralya'da.", en: "COP President: Minister Murat Kurum; Australia presides over the negotiations." },
+    not: { tr: "COP Başkanı Bakan Murat Kurum; müzakere başkanlığı Avustralya'da. Dünya Liderleri Zirvesi 11-12 Kasım'da.", en: "COP President: Minister Murat Kurum; Australia presides over the negotiations. The World Leaders' Summit is on 11–12 November." },
     kaynak: "https://en.wikipedia.org/wiki/2026_United_Nations_Climate_Change_Conference"
   },
   {
