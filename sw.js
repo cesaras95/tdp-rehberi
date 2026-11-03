@@ -6,13 +6,13 @@
 //
 // Siteyi güncelledikten sonra eski kopyalar silinsin diye SURUM'u değiştir.
 // =============================================================
-const SURUM = "tdp-v11";
+const SURUM = "tdp-v12";
 
 // İlk kurulumda depoya konacak temel dosyalar (büyük sözlük dosyası hariç;
 // o, Sözlük sekmesi ilk açıldığında depoya girer)
 const TEMEL = [
   "./", "index.html", "style.css", "app.js", "manifest.webmanifest",
-  "veri/arayuz.js", "veri/erisim.js", "veri/tarih.js", "veri/politikalar.js", "veri/duyurular.js", "veri/dunya.js",
+  "veri/arayuz.js", "veri/erisim.js", "veri/bildirim.js", "veri/tarih.js", "veri/politikalar.js", "veri/duyurular.js", "veri/dunya.js",
   "veri/sorular.js", "veri/mulakat.js", "veri/quiz_ek.js", "veri/arsiv.js", "veri/harita.js", "veri/sinav.js", "veri/bakanlar.js", "veri/temeller.js", "veri/ek_icerik.js", "veri/otomatik.js",
   "gorseller/ikon-192.png", "gorseller/turquie-kamaliste-afis.webp", "gorseller/turquie-kemaliste-bust.webp", "gorseller/bayrak.webp"
 ];
@@ -67,4 +67,32 @@ self.addEventListener("fetch", olay => {
   } else {
     olay.respondWith(onceDepo(istek));
   }
+});
+
+// ---------- BİLDİRİMLER (Web Push) ----------
+// Robot (robot/bildirim.py) şifreli bir mesaj gönderir; telefon onu buraya teslim eder.
+// Burada mesajı açıp ekranda bildirim olarak gösteriyoruz.
+self.addEventListener("push", olay => {
+  let veri = {};
+  try { veri = olay.data ? olay.data.json() : {}; } catch (e) { veri = { govde: olay.data ? olay.data.text() : "" }; }
+  const baslik = veri.baslik || "TDP Rehberi";
+  olay.waitUntil(self.registration.showNotification(baslik, {
+    body: veri.govde || "",
+    icon: "gorseller/ikon-192.png",
+    badge: "gorseller/ikon-192.png",
+    tag: veri.etiket || undefined,          // aynı etiketli eski bildirimin yerine geçer
+    data: { url: veri.url || "./" }
+  }));
+});
+
+// Bildirime dokununca: açık bir sekme varsa onu kullan, yoksa yeni pencere aç
+self.addEventListener("notificationclick", olay => {
+  olay.notification.close();
+  const hedef = new URL(olay.notification.data && olay.notification.data.url || "./", self.location.href).href;
+  olay.waitUntil((async () => {
+    const pencereler = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    const site = pencereler.find(p => p.url.startsWith(self.registration.scope));
+    if (site && hedef.startsWith(self.registration.scope)) { await site.focus(); return site.navigate(hedef); }
+    return self.clients.openWindow(hedef);
+  })());
 });

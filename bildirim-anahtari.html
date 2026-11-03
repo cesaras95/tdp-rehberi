@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- =============================================================
+     bildirim-anahtari.html — Bildirim anahtar çifti üretir (VAPID)
+     Hesaplama tamamen bu tarayıcıda yapılır; hiçbir yere gönderilmez.
+     Gizli anahtar GitHub Secrets'a (VAPID_OZEL), açık anahtar veri/bildirim.js'e gider.
+     ============================================================= -->
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Bildirim anahtarı · TDP Rehberi</title>
+  <style>
+    :root { --zemin:#f6f2ea; --yuzey:#fffdf8; --metin:#1d2433; --soluk:#5b6272; --cizgi:#e2dccf; --vurgu:#9b1c2c; --uyari:#8a5a00; --uyari-acik:#f8eed8; }
+    @media (prefers-color-scheme: dark) { :root { --zemin:#14171f; --yuzey:#1c2029; --metin:#ebe7df; --soluk:#a3a8b3; --cizgi:#2e333e; --vurgu:#e0697a; --uyari:#e2b558; --uyari-acik:#332a17; } }
+    body { margin:0; background:var(--zemin); color:var(--metin); font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { max-width:640px; margin:40px auto; padding:24px 20px; background:var(--yuzey); border:1px solid var(--cizgi); border-top:4px solid var(--vurgu); border-radius:14px; }
+    h1 { font-size:1.5rem; margin:0 0 8px; } h2 { font-size:1.1rem; margin:22px 0 6px; }
+    p { color:var(--soluk); }
+    textarea { width:100%; box-sizing:border-box; font:.82rem/1.4 ui-monospace,Consolas,monospace; padding:10px; border:1.5px solid var(--cizgi); border-radius:10px; background:var(--zemin); color:var(--metin); }
+    button { font:inherit; font-weight:700; cursor:pointer; border:0; background:var(--vurgu); color:#fff; padding:10px 18px; border-radius:10px; }
+    button.ikincil { background:none; color:var(--vurgu); border:1.5px solid var(--vurgu); padding:6px 12px; margin-top:6px; }
+    .uyari { background:var(--uyari-acik); color:var(--uyari); border-radius:10px; padding:10px 12px; font-weight:600; }
+    [hidden] { display:none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Bildirim anahtarı üret</h1>
+  <p>Bu sayfa, bildirimleri imzalamak için bir anahtar çifti üretir. Hesaplama tamamen bu tarayıcıda yapılır; hiçbir şey internete gönderilmez. Bu işlemi <b>bir kez</b> yapman yeterli.</p>
+  <button id="uret">Anahtar çifti üret</button>
+  <div id="sonuc" hidden>
+    <h2>1. Gizli anahtar → GitHub Secrets: <code>VAPID_OZEL</code></h2>
+    <p class="uyari">Bu anahtarı kimseyle paylaşma ve sohbete yapıştırma. Sadece GitHub'daki gizli ayara yapıştır.</p>
+    <textarea id="ozel" rows="6" readonly></textarea>
+    <button class="ikincil" data-kopyala="ozel">Gizli anahtarı kopyala</button>
+    <h2>2. Açık anahtar → Claude'a gönder</h2>
+    <p>Bu anahtar gizli değildir; siteye eklenmesi gerekir. Kopyalayıp sohbete yapıştırabilirsin.</p>
+    <textarea id="acik" rows="3" readonly></textarea>
+    <button class="ikincil" data-kopyala="acik">Açık anahtarı kopyala</button>
+    <p>Sayfayı kapatırsan anahtarlar kaybolur; ikisini de yerine koymadan kapatma. Kaybolursa yeni bir çift üretip ikisini birlikte değiştirmen yeterli.</p>
+  </div>
+</main>
+<script>
+  const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const pem = buf => "-----BEGIN PRIVATE KEY-----\n" + btoa(String.fromCharCode(...new Uint8Array(buf))).match(/.{1,64}/g).join("\n") + "\n-----END PRIVATE KEY-----";
+  document.getElementById("uret").onclick = async () => {
+    // P-256 eliptik eğri anahtarı: Web Push standardının (VAPID) istediği tür
+    const cift = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
+    document.getElementById("ozel").value = pem(await crypto.subtle.exportKey("pkcs8", cift.privateKey));
+    document.getElementById("acik").value = b64url(await crypto.subtle.exportKey("raw", cift.publicKey));
+    document.getElementById("sonuc").hidden = false;
+    document.getElementById("uret").hidden = true;
+  };
+  document.addEventListener("click", async e => {
+    const id = e.target.dataset.kopyala; if (!id) return;
+    const ta = document.getElementById(id); ta.select();
+    try { await navigator.clipboard.writeText(ta.value); } catch (err) { document.execCommand("copy"); }
+    e.target.textContent = "Kopyalandı ✓";
+  });
+</script>
+</body>
+</html>

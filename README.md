@@ -44,6 +44,19 @@ Her politika başlığında şu alanlar var: resmî tutum, analiz, karşı tez, 
 - Kaynak eklemek için: `robot/basliklari_cek.py` içindeki `KAYNAKLAR` listesine yeni bir blok ekle.
 - Bir kaynak çalışmazsa robot durmaz; o kaynak sitede görünmez, diğerleri görünür.
 
+## Bildirimler (Web Push)
+Telefona bildirim gönderen robot: `robot/bildirim.py`, çalar saati `.github/workflows/bildirim.yml`.
+- Her 30 dakikada bir Bakanlığın Türkçe açıklamalar akışına bakar; yeni açıklama varsa bildirir (en fazla 3'ü tek tek, fazlası tek özet).
+- Her sabah 08:20 (İstanbul) Anadolu Ajansı Dünya akışından iki manşet gönderir.
+- Hangi açıklamaların bildirildiği Actions önbelleğinde (cache) tutulur; kaybolursa robot ilk çalışmada sadece kaydeder, bildirim göndermez.
+
+Kurulum (bir kez):
+1. `bildirim-anahtari.html` sayfasını aç, anahtar üret.
+2. Gizli anahtarı GitHub → Settings → Secrets and variables → Actions → **New repository secret** ile `VAPID_OZEL` adıyla ekle. Sohbete yapıştırma.
+3. Açık anahtarı `veri/bildirim.js` içindeki `vapidAcik` alanına yaz.
+4. Telefonda uygulamayı ana ekrandan aç → Türkiye Gündemi → "Bildirimleri aç" → kodu kopyala → `PUSH_ABONELER` secret'ına yeni satır olarak ekle (her cihaz bir satır).
+5. Actions → Bildirimler → Run workflow → `test`.
+
 ## İki dilli metin nasıl yazılır?
 
 Her metin iki dilli bir kutudur:

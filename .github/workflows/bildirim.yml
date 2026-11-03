@@ -1,0 +1,66 @@
+# =============================================================
+# bildirim.yml — Bildirim robotunun çalar saati
+# Benzetme: Postacının vardiya çizelgesi. Yarım saatte bir Bakanlık panosuna
+# bakar; her sabah da dünya gündeminin özetini götürür.
+# Siteyi yeniden yayınlamaz; sadece bildirim gönderir.
+# =============================================================
+
+name: Bildirimler
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"   # Her 30 dakikada bir: yeni Bakanlık açıklaması var mı?
+    - cron: "20 5 * * *"     # Her gün 05:20 UTC = 08:20 İstanbul: dünya gündemi özeti
+  workflow_dispatch:         # Actions sekmesinden elle çalıştırma
+    inputs:
+      mod:
+        description: "Ne gönderilsin? (test = deneme bildirimi)"
+        required: true
+        default: test
+        type: choice
+        options: [test, yeni, sabah]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bildirim
+  cancel-in-progress: false
+
+jobs:
+  bildir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Depoyu indir
+        uses: actions/checkout@v6
+
+      # Hangi açıklamaların daha önce bildirildiğini hatırlamak için küçük bir not dosyası
+      - name: Önceki durumu geri yükle
+        uses: actions/cache/restore@v4
+        with:
+          path: .bildirim
+          key: bildirim-durum-${{ github.run_id }}
+          restore-keys: bildirim-durum-
+
+      - name: Kütüphaneyi kur
+        run: pip install --quiet pywebpush
+
+      - name: Bildirimleri gönder
+        env:
+          VAPID_OZEL: ${{ secrets.VAPID_OZEL }}
+          PUSH_ABONELER: ${{ secrets.PUSH_ABONELER }}
+          BILDIRIM_DURUM: .bildirim/durum.json
+        run: |
+          mkdir -p .bildirim
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then MOD="${{ inputs.mod }}";
+          elif [ "${{ github.event.schedule }}" = "20 5 * * *" ]; then MOD="sabah";
+          else MOD="yeni"; fi
+          python3 robot/bildirim.py "$MOD"
+
+      - name: Durumu kaydet
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .bildirim
+          key: bildirim-durum-${{ github.run_id }}

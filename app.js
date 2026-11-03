@@ -1838,6 +1838,70 @@ document.getElementById("bakanlar").addEventListener("click", e => {
   bakanDonem = b.dataset.bakanDonem; bakanlarCiz();
 });
 
+// ---------- BİLDİRİMLER (Web Push) ----------
+// Benzetme: Postaneye adres bırakmak. "Bildirimleri aç" deyince telefon, bu cihaza özel bir
+// posta kutusu adresi (abonelik kodu) üretir. Robot o adrese şifreli not bırakır.
+// Adresleri bir sunucuda değil, GitHub'daki gizli kasada (PUSH_ABONELER) tutuyoruz.
+const bildirim = { durum: "", kod: "", mesaj: "" };
+const iosCihaz = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+function anahtarBayt(b64) { // base64url → bayt dizisi (tarayıcının istediği biçim)
+  const dolgu = "=".repeat((4 - b64.length % 4) % 4);
+  const ikili = atob((b64 + dolgu).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from(ikili, c => c.charCodeAt(0));
+}
+async function bildirimDurumBul() {
+  if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) {
+    bildirim.durum = iosCihaz && !bagimsiz ? "ios" : "yok"; return;
+  }
+  if (!BILDIRIM.vapidAcik) { bildirim.durum = "hazirdegil"; return; }
+  if (Notification.permission === "denied") { bildirim.durum = "red"; return; }
+  try {
+    const kayit = await navigator.serviceWorker.ready;
+    const abone = await kayit.pushManager.getSubscription();
+    if (abone) { bildirim.durum = "abone"; bildirim.kod = JSON.stringify(abone.toJSON()); }
+    else bildirim.durum = "kapali";
+  } catch (e) { bildirim.durum = "kapali"; }
+}
+function bildirimCiz() {
+  const kutu = document.getElementById("bildirim-kutu");
+  if (!kutu) return;
+  const d = bildirim.durum;
+  let govde = "";
+  if (d === "yok") govde = `<p class="kunye">${a("bilDesteklenmiyor")}</p>`;
+  else if (d === "ios") govde = `<p>${a("bilIos")}</p>`;
+  else if (d === "hazirdegil") govde = `<p class="kunye">${a("bilHazirDegil")}</p>`;
+  else if (d === "red") govde = `<p>${a("bilReddedildi")}</p>`;
+  else if (d === "kapali") govde = `<p><button class="dugme" id="bil-ac">${a("bilDugmeAc")}</button></p>`;
+  else if (d === "abone") govde = `
+    <p>${a("bilAboneOldun")}</p>
+    <textarea class="istem-metin bil-kod" rows="3" readonly>${guvenli(bildirim.kod)}</textarea>
+    <p class="bil-satir"><button class="dugme" id="bil-kopyala">${a("bilKopyala")}</button>
+      <button class="dugme ikincil kucuk" id="bil-kapat">${a("bilDugmeKapat")}</button></p>
+    <p class="kunye">${a("bilKodNot")}</p>`;
+  kutu.innerHTML = `<h3>${a("bilBaslik")}</h3><p class="kunye">${a("bilAcik")}</p>${govde}
+    ${bildirim.mesaj ? `<p class="bil-mesaj">${guvenli(bildirim.mesaj)}</p>` : ""}`;
+  const ac = document.getElementById("bil-ac");
+  if (ac) ac.onclick = async () => {
+    bildirim.mesaj = "";
+    try {
+      const izin = await Notification.requestPermission();
+      if (izin !== "granted") { bildirim.durum = izin === "denied" ? "red" : "kapali"; bildirimCiz(); return; }
+      const kayit = await navigator.serviceWorker.ready;
+      const abone = await kayit.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: anahtarBayt(BILDIRIM.vapidAcik) });
+      bildirim.durum = "abone"; bildirim.kod = JSON.stringify(abone.toJSON());
+    } catch (e) { bildirim.mesaj = a("bilHata").replace("{hata}", e.message || e); }
+    bildirimCiz();
+  };
+  const kop = document.getElementById("bil-kopyala");
+  if (kop) kop.onclick = async () => { if (await panoyaKopyala(bildirim.kod)) kop.textContent = a("bilKopyalandi"); };
+  const kap = document.getElementById("bil-kapat");
+  if (kap) kap.onclick = async () => {
+    try { const abone = await (await navigator.serviceWorker.ready).pushManager.getSubscription(); if (abone) await abone.unsubscribe(); } catch (e) { /* zaten kapalı */ }
+    bildirim.durum = "kapali"; bildirim.kod = ""; bildirim.mesaj = a("bilKapandi"); bildirimCiz();
+  };
+}
+bildirimDurumBul().then(bildirimCiz);
+
 // ---------- HER ŞEYİ ÇİZ ----------
 // Dil değişince bu fonksiyon tüm sayfayı yeni dilde yeniden yazar.
 // Quiz'deki ilerleme, kart sırası ve mülakat sorusu korunur.
@@ -1864,6 +1928,7 @@ function hepsiniCiz() {
   haritaCiz();
   temellerCiz();
   bakanlarCiz();
+  bildirimCiz();
   if (sozluk.yuklendi) sozlukCiz();
   // Arama dizini dile bağlı; dil değişince yeniden kurulur
   aramaDizini = null;

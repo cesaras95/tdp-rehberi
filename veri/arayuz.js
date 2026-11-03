@@ -348,3 +348,31 @@ Object.assign(ARAYUZ.en, {
   bakanGorevde: "in office", bakanBugun: "today", bakanAy: "months", bakanYil: "years",
   bakanKaynak: "Source: Ministry of Foreign Affairs, List of Former Ministers of Foreign Affairs ({url}). Short acting terms not on the Ministry's list (e.g. Şükrü Saracoğlu 1944, Adnan Menderes 1955, Ethem Menderes 1956–57) are not shown."
 });
+
+// ---------- BİLDİRİMLER ----------
+Object.assign(ARAYUZ.tr, {
+  bilBaslik: "🔔 Bildirimler",
+  bilAcik: "Bakanlık yeni bir açıklama yayımlayınca ve her sabah 08:20'de dünya gündeminden iki manşetle telefonuna bildirim gelir.",
+  bilDugmeAc: "Bildirimleri aç", bilDugmeKapat: "Bildirimleri kapat", bilKopyala: "Abonelik kodunu kopyala",
+  bilDesteklenmiyor: "Bu tarayıcı bildirimleri desteklemiyor.",
+  bilIos: "iPhone'da bildirim için önce siteyi ana ekrana ekle (Paylaş → Ana Ekrana Ekle), sonra uygulamayı ana ekrandaki simgeden açıp buraya dön. (iOS 16.4 ve üstü gerekir.)",
+  bilHazirDegil: "Bildirim sistemi henüz kurulum aşamasında; birkaç gün içinde açılacak.",
+  bilReddedildi: "Bildirim izni reddedilmiş. Telefonun Ayarlar → Bildirimler bölümünden bu uygulamaya izin verip tekrar dene.",
+  bilAboneOldun: "Bu cihaz bildirimlere abone. Son adım: aşağıdaki kodu kopyalayıp GitHub'da PUSH_ABONELER gizli değerine yeni bir satır olarak ekle.",
+  bilKodNot: "Bu kod sadece bu cihaza bildirim göndermeye yarar; şifre değildir ama yine de herkese açık bir yere yapıştırma.",
+  bilKapandi: "Bildirimler bu cihazda kapatıldı.", bilHata: "Abone olunamadı: {hata}",
+  bilKopyalandi: "Kopyalandı ✓"
+});
+Object.assign(ARAYUZ.en, {
+  bilBaslik: "🔔 Notifications",
+  bilAcik: "Get a notification when the Ministry publishes a new statement, plus two world headlines every morning at 08:20 (Istanbul).",
+  bilDugmeAc: "Turn on notifications", bilDugmeKapat: "Turn off notifications", bilKopyala: "Copy subscription code",
+  bilDesteklenmiyor: "This browser does not support notifications.",
+  bilIos: "On iPhone, first add the site to your home screen (Share → Add to Home Screen), then open the app from that icon and come back here. (Requires iOS 16.4 or later.)",
+  bilHazirDegil: "Notifications are still being set up and will open soon.",
+  bilReddedildi: "Notification permission was denied. Allow it for this app in your phone's Settings → Notifications and try again.",
+  bilAboneOldun: "This device is subscribed. Last step: copy the code below and add it as a new line to the PUSH_ABONELER secret on GitHub.",
+  bilKodNot: "This code only lets the robot send notifications to this device; it is not a password, but still don't paste it anywhere public.",
+  bilKapandi: "Notifications turned off on this device.", bilHata: "Could not subscribe: {hata}",
+  bilKopyalandi: "Copied ✓"
+});
