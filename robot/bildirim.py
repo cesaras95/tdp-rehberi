@@ -12,6 +12,7 @@
 #
 # Kullanım:  python3 robot/bildirim.py yeni   → yeni Bakanlık açıklamalarını bildir
 #            python3 robot/bildirim.py sabah  → dünya gündeminden sabah özeti
+#            python3 robot/bildirim.py bugun  → bugünün açıklamaları + dünya manşetleri (elle)
 #            python3 robot/bildirim.py test   → tüm abonelere deneme bildirimi
 # =============================================================
 
@@ -124,6 +125,28 @@ def sabah_ozeti(aboneler):
     gonder(aboneler, "Dünya gündemi · sabah özeti", govde, SITE + "#dunya", "dunya-sabah")
 
 
+def bugunun_ozeti(aboneler):
+    """İstek üzerine: bugünün Bakanlık açıklamaları + dünya gündeminden üç manşet (iki bildirim)."""
+    from datetime import datetime, timedelta, timezone
+    bugun = datetime.now(timezone(timedelta(hours=3))).strftime("%Y-%m-%d")  # İstanbul saati
+    try:
+        mfa = cozumle(indir(kaynak("turkiye", "tr")["url"]))
+        bugunku = [h for h in mfa if (h["tarih"] or "").startswith(bugun)]
+        if bugunku:
+            govde = " • ".join(h["baslik"] for h in bugunku[:4])
+            gonder(aboneler, f"Dışişleri Bakanlığı · bugün {len(bugunku)} açıklama", govde, SITE + "#guncel", "mfa-bugun")
+        elif mfa:
+            gonder(aboneler, "Dışişleri Bakanlığı · bugün yeni açıklama yok", "Son açıklama: " + mfa[0]["baslik"], SITE + "#guncel", "mfa-bugun")
+    except Exception as hata:
+        print(f"Bakanlık akışı okunamadı: {hata}", file=sys.stderr)
+    try:
+        dunya = cozumle(indir(kaynak("dunya", "tr")["url"]))[:3]
+        if dunya:
+            gonder(aboneler, "Dünya gündemi · bugün", " • ".join(h["baslik"] for h in dunya), SITE + "#dunya", "dunya-bugun")
+    except Exception as hata:
+        print(f"Dünya akışı okunamadı: {hata}", file=sys.stderr)
+
+
 def main():
     mod = sys.argv[1] if len(sys.argv) > 1 else "yeni"
     aboneler = aboneleri_oku()
@@ -133,7 +156,10 @@ def main():
             gonder(aboneler, "TDP Rehberi", "Deneme bildirimi: bildirimler çalışıyor. 🎉", SITE, "test")
         return
     try:
-        if mod == "sabah":
+        if mod == "bugun":
+            if aboneler:
+                bugunun_ozeti(aboneler)
+        elif mod == "sabah":
             if aboneler:
                 sabah_ozeti(aboneler)
         else:

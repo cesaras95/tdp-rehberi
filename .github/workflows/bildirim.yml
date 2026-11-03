@@ -14,11 +14,11 @@ on:
   workflow_dispatch:         # Actions sekmesinden elle çalıştırma
     inputs:
       mod:
-        description: "Ne gönderilsin? (test = deneme bildirimi)"
+        description: "Ne gönderilsin? (test = deneme, bugun = bugünün özeti)"
         required: true
         default: test
         type: choice
-        options: [test, yeni, sabah]
+        options: [test, bugun, yeni, sabah]
 
 permissions:
   contents: read
