@@ -10,15 +10,15 @@ name: Bildirimler
 on:
   schedule:
     - cron: "*/30 * * * *"   # Her 30 dakikada bir: yeni Bakanlık açıklaması var mı?
-    - cron: "20 5 * * *"     # Her gün 05:20 UTC = 08:20 İstanbul: dünya gündemi özeti
+    - cron: "20 5,10,16 * * *"  # 08:20, 13:20, 19:20 İstanbul: Türkiye ve dünya gündemi özeti
   workflow_dispatch:         # Actions sekmesinden elle çalıştırma
     inputs:
       mod:
-        description: "Ne gönderilsin? (test = deneme, bugun = bugünün özeti)"
+        description: "Ne gönderilsin? (test = deneme, bugun = bugünün özeti, gundem = önemli başlıklar, kontrol = göndermeden göster)"
         required: true
         default: test
         type: choice
-        options: [test, bugun, yeni, sabah]
+        options: [test, bugun, gundem, kontrol, yeni]
 
 permissions:
   contents: read
@@ -54,7 +54,7 @@ jobs:
         run: |
           mkdir -p .bildirim
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then MOD="${{ inputs.mod }}";
-          elif [ "${{ github.event.schedule }}" = "20 5 * * *" ]; then MOD="sabah";
+          elif [ "${{ github.event.schedule }}" = "20 5,10,16 * * *" ]; then MOD="gundem";
           else MOD="yeni"; fi
           python3 robot/bildirim.py "$MOD"
 

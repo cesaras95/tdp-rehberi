@@ -47,7 +47,7 @@ Her politika başlığında şu alanlar var: resmî tutum, analiz, karşı tez, 
 ## Bildirimler (Web Push)
 Telefona bildirim gönderen robot: `robot/bildirim.py`, çalar saati `.github/workflows/bildirim.yml`.
 - Her 30 dakikada bir Bakanlığın Türkçe açıklamalar akışına bakar; yeni açıklama varsa bildirir (en fazla 3'ü tek tek, fazlası tek özet).
-- Her sabah 08:20 (İstanbul) Anadolu Ajansı Dünya akışından iki manşet gönderir.
+- Günde üç kez (08:20, 13:20, 19:20 İstanbul) Anadolu Ajansı Politika ve Dünya akışlarından, önem puanı en yüksek (dış politika anahtar kelimeleri) ve daha önce gönderilmemiş 3'er başlığı gönderir. Kelime listesi `robot/bildirim.py` içindeki `ONEMLI`'dir. `kontrol` modu göndermeden seçimi gösterir.
 - Hangi açıklamaların bildirildiği Actions önbelleğinde (cache) tutulur; kaybolursa robot ilk çalışmada sadece kaydeder, bildirim göndermez.
 
 Kurulum (bir kez):

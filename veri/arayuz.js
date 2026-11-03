@@ -352,7 +352,7 @@ Object.assign(ARAYUZ.en, {
 // ---------- BİLDİRİMLER ----------
 Object.assign(ARAYUZ.tr, {
   bilBaslik: "🔔 Bildirimler",
-  bilAcik: "Bakanlık yeni bir açıklama yayımlayınca ve her sabah 08:20'de dünya gündeminden iki manşetle telefonuna bildirim gelir.",
+  bilAcik: "Bakanlık yeni bir açıklama yayımlayınca ve günde üç kez (08:20, 13:20, 19:20) Türkiye ve dünya gündeminin en önemli başlıklarıyla telefonuna bildirim gelir.",
   bilDugmeAc: "Bildirimleri aç", bilDugmeKapat: "Bildirimleri kapat", bilKopyala: "Abonelik kodunu kopyala",
   bilDesteklenmiyor: "Bu tarayıcı bildirimleri desteklemiyor.",
   bilIos: "iPhone'da bildirim için önce siteyi ana ekrana ekle (Paylaş → Ana Ekrana Ekle), sonra uygulamayı ana ekrandaki simgeden açıp buraya dön. (iOS 16.4 ve üstü gerekir.)",
@@ -365,7 +365,7 @@ Object.assign(ARAYUZ.tr, {
 });
 Object.assign(ARAYUZ.en, {
   bilBaslik: "🔔 Notifications",
-  bilAcik: "Get a notification when the Ministry publishes a new statement, plus two world headlines every morning at 08:20 (Istanbul).",
+  bilAcik: "Get a notification when the Ministry publishes a new statement, plus the most important Turkish and world headlines three times a day (08:20, 13:20, 19:20 Istanbul).",
   bilDugmeAc: "Turn on notifications", bilDugmeKapat: "Turn off notifications", bilKopyala: "Copy subscription code",
   bilDesteklenmiyor: "This browser does not support notifications.",
   bilIos: "On iPhone, first add the site to your home screen (Share → Add to Home Screen), then open the app from that icon and come back here. (Requires iOS 16.4 or later.)",

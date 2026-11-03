@@ -3,7 +3,7 @@
 #
 # Benzetme: Postacı. Bakanlığın açıklamalar panosuna yarım saatte bir bakar;
 # yeni bir açıklama asılmışsa abonelerin kapısına kısa bir not bırakır.
-# Sabahları da dünya gündeminin iki manşetini götürür.
+# Günde üç kez de Türkiye ve dünya gündeminin en önemli başlıklarını götürür.
 #
 # GitHub Actions'ta .github/workflows/bildirim.yml tarafından çalıştırılır.
 # Gizli bilgiler GitHub "Secrets" bölümünden gelir (kodda ya da depoda YOK):
@@ -11,7 +11,8 @@
 #   PUSH_ABONELER  : abonelik kodları. Her satıra bir kod (uygulamadaki "Bildirimler" kutusu üretir).
 #
 # Kullanım:  python3 robot/bildirim.py yeni   → yeni Bakanlık açıklamalarını bildir
-#            python3 robot/bildirim.py sabah  → dünya gündeminden sabah özeti
+#            python3 robot/bildirim.py gundem → Türkiye ve dünya gündeminden önemli başlıklar (günde 3 kez)
+#            python3 robot/bildirim.py kontrol → gündem özetinde ne seçileceğini göster (göndermez)
 #            python3 robot/bildirim.py bugun  → bugünün açıklamaları + dünya manşetleri (elle)
 #            python3 robot/bildirim.py test   → tüm abonelere deneme bildirimi
 # =============================================================
@@ -83,9 +84,15 @@ def durum_oku():
         return None
 
 
-def durum_yaz(gorulen):
+def durum_yaz(gorulen=None, gundem=None):
+    """Durumu kaydeder; verilmeyen alan eski hâliyle kalır."""
+    eski = durum_oku() or {}
+    yeni = {"gorulen": (gorulen if gorulen is not None else eski.get("gorulen", []))[:HATIRLA],
+            "gundem": (gundem if gundem is not None else eski.get("gundem", []))[:HATIRLA]}
+    if gorulen is None and "gorulen" not in eski:
+        yeni.pop("gorulen")  # Bakanlık takibi henüz başlamadıysa "ilk çalışma" bilgisini bozma
     DURUM.parent.mkdir(parents=True, exist_ok=True)
-    DURUM.write_text(json.dumps({"gorulen": gorulen[:HATIRLA]}, ensure_ascii=False), encoding="utf-8")
+    DURUM.write_text(json.dumps(yeni, ensure_ascii=False), encoding="utf-8")
 
 
 def kaynak(kategori, dil):
@@ -97,7 +104,7 @@ def yeni_aciklamalar(aboneler):
     haberler = cozumle(indir(kaynak("turkiye", "tr")["url"]))
     durum = durum_oku()
     linkler = [h["link"] for h in haberler]
-    if durum is None:
+    if durum is None or "gorulen" not in durum:
         # İlk çalışma: mevcut açıklamaları "görüldü" say, eski haberlerle telefonu doldurma
         durum_yaz(linkler)
         print(f"İlk çalışma: {len(linkler)} açıklama kaydedildi, bildirim gönderilmedi.")
@@ -147,6 +154,59 @@ def bugunun_ozeti(aboneler):
         print(f"Dünya akışı okunamadı: {hata}", file=sys.stderr)
 
 
+# ---------- GÜNDEM ÖZETİ (günde 3 kez) ----------
+# Benzetme: Gazetenin sabah, öğle ve akşam baskısı. Son baskıdan beri çıkan haberlerin
+# içinden dış politika açısından en önemli görünenleri seçip tek bildirimde verir.
+GUNDEM_KAYNAKLARI = [
+    {"ad": "Türkiye gündemi", "url": "https://www.aa.com.tr/tr/rss/default?cat=politika", "sekme": "#guncel", "adet": 3},
+    {"ad": "Dünya gündemi", "url": None, "sekme": "#dunya", "adet": 3},  # None → KAYNAKLAR'daki AA Dünya (TR)
+]
+# Önem puanı: başlıkta geçen kelimelere göre. Büyük harf duyarsız, kelime başı eşleşir.
+ONEMLI = {
+    4: ["türkiye", "türk ", "ankara", "dışişleri", "erdoğan", "fidan", "tbmm"],
+    3: ["nato", "bm ", "birleşmiş milletler", "güvenlik konseyi", "avrupa birliği", "ab ", "zirve", "ateşkes",
+        "barış", "müzakere", "anlaşma", "yaptırım", "savaş", "saldırı", "seçim", "darbe", "kıbrıs", "ege",
+        "doğu akdeniz", "gazze", "filistin", "israil", "ukrayna", "rusya", "iran", "suriye", "irak", "kafkasya",
+        "azerbaycan", "ermenistan", "çin", "abd", "beyaz saray", "kremlin", "nükleer"],
+    2: ["bakan", "cumhurbaşkanı", "başbakan", "lider", "görüşme", "ziyaret", "kriz", "tatbikat", "mülteci",
+        "göç", "enerji", "doğal gaz", "petrol", "iklim", "insani yardım", "ticaret", "gümrük"],
+}
+DISLA = ["maç", "futbol", "basketbol", "lig ", "transfer", "magazin", "hava durumu", "deprem tatbikatı"]
+
+
+def onem(baslik):
+    b = " " + baslik.lower().replace("i̇", "i") + " "
+    if any(k in b for k in DISLA):
+        return -1
+    return sum(puan for puan, kelimeler in ONEMLI.items() for k in kelimeler if (" " + k) in b)
+
+
+def gundem_ozeti(aboneler):
+    import basliklari_cek
+    basliklari_cek.KAYNAK_BASINA_EN_FAZLA = 40  # özet için daha geniş havuz
+    durum = durum_oku() or {}
+    gonderilen = durum.get("gundem", [])
+    yeni_gonderilen, secilen_basliklar = [], set()
+    for g in GUNDEM_KAYNAKLARI:
+        url = g["url"] or kaynak("dunya", "tr")["url"]
+        try:
+            haberler = cozumle(indir(url))
+        except Exception as hata:
+            print(f"{g['ad']}: kaynak okunamadı ({hata})", file=sys.stderr)
+            continue
+        adaylar = [(onem(h["baslik"]), -i, h) for i, h in enumerate(haberler) if h["link"] not in gonderilen and h["baslik"] not in secilen_basliklar]
+        adaylar = [a for a in adaylar if a[0] > 0]
+        secilen = [h for _, _, h in sorted(adaylar, key=lambda a: (a[0], a[1]), reverse=True)[:g["adet"]]]
+        secilen_basliklar.update(h["baslik"] for h in secilen)  # aynı haber iki kaynakta varsa bir kez gönder
+        print(f"{g['ad']}: {len(haberler)} başlık, {len(adaylar)} aday, {len(secilen)} seçildi")
+        for h in secilen:
+            print("   •", h["baslik"])
+        if secilen and aboneler:
+            gonder(aboneler, g["ad"], " • ".join(h["baslik"] for h in secilen), SITE + g["sekme"], "gundem-" + g["sekme"][1:])
+        yeni_gonderilen += [h["link"] for h in secilen]
+    durum_yaz(gundem=yeni_gonderilen + gonderilen)
+
+
 def main():
     mod = sys.argv[1] if len(sys.argv) > 1 else "yeni"
     aboneler = aboneleri_oku()
@@ -159,9 +219,10 @@ def main():
         if mod == "bugun":
             if aboneler:
                 bugunun_ozeti(aboneler)
-        elif mod == "sabah":
-            if aboneler:
-                sabah_ozeti(aboneler)
+        elif mod in ("gundem", "sabah"):
+            gundem_ozeti(aboneler)
+        elif mod == "kontrol":   # bildirim göndermeden ne seçileceğini gösterir
+            gundem_ozeti([])
         else:
             yeni_aciklamalar(aboneler)
     except Exception as hata:
