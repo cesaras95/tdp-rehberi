@@ -26,6 +26,8 @@ from basliklari_cek import KAYNAKLAR, indir, cozumle  # aynı RSS okuyucuyu kull
 
 SITE = "https://cesaras95.github.io/tdp-rehberi/"
 DURUM = Path(os.environ.get("BILDIRIM_DURUM", Path(__file__).resolve().parent / ".bildirim_durum.json"))
+# VAPID "sub": bildirim servislerinin gerekirse ulaşacağı adres. Kütüphane yolsuz bir https adresi ister.
+ILETISIM = "https://cesaras95.github.io"
 EN_FAZLA_TEK_TEK = 3        # bir seferde en fazla kaç açıklama ayrı ayrı bildirilsin (fazlası tek özet olur)
 HATIRLA = 300               # durum dosyasında saklanan en fazla link sayısı
 
@@ -58,7 +60,7 @@ def gonder(aboneler, baslik, govde, url, etiket):
     for i, abone in enumerate(aboneler, 1):
         try:
             webpush(subscription_info=abone, data=veri, vapid_private_key=anahtar_yolu,
-                    vapid_claims={"sub": SITE}, ttl=12 * 3600)
+                    vapid_claims={"sub": ILETISIM}, ttl=12 * 3600)
             basarili += 1
         except WebPushException as hata:
             kod = getattr(hata.response, "status_code", None)
@@ -66,6 +68,8 @@ def gonder(aboneler, baslik, govde, url, etiket):
                 print(f"Abone {i}: abonelik artık geçersiz (HTTP {kod}). PUSH_ABONELER'den bu satırı silebilirsin.")
             else:
                 print(f"Abone {i}: gönderilemedi ({kod or hata})", file=sys.stderr)
+        except Exception as hata:  # tek bir abonedeki sorun diğerlerini durdurmasın
+            print(f"Abone {i}: gönderilemedi ({hata})", file=sys.stderr)
     os.unlink(anahtar_yolu)
     print(f"'{baslik}' → {basarili}/{len(aboneler)} aboneye gönderildi.")
     return basarili
