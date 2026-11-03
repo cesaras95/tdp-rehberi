@@ -6,7 +6,7 @@
 //
 // Siteyi güncelledikten sonra eski kopyalar silinsin diye SURUM'u değiştir.
 // =============================================================
-const SURUM = "tdp-v12";
+const SURUM = "tdp-v13";
 
 // İlk kurulumda depoya konacak temel dosyalar (büyük sözlük dosyası hariç;
 // o, Sözlük sekmesi ilk açıldığında depoya girer)

@@ -6,5 +6,5 @@
 // "henüz hazır değil" der.
 // =============================================================
 const BILDIRIM = {
-  vapidAcik: ""
+  vapidAcik: "BJzADp9Iod3TFP9sPGycgjKRUertkJQ1CBJ2J51WiHzpcw-4TDx__MHY92ukZaJaq3yd9M2q_PX_5VPkBfGR2-4"
 };
