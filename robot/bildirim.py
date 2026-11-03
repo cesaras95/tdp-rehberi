@@ -181,7 +181,7 @@ def onem(baslik):
     return sum(puan for puan, kelimeler in ONEMLI.items() for k in kelimeler if (" " + k) in b)
 
 
-def gundem_ozeti(aboneler):
+def gundem_ozeti(aboneler, kaydet=True):
     import basliklari_cek
     basliklari_cek.KAYNAK_BASINA_EN_FAZLA = 40  # özet için daha geniş havuz
     durum = durum_oku() or {}
@@ -204,7 +204,8 @@ def gundem_ozeti(aboneler):
         if secilen and aboneler:
             gonder(aboneler, g["ad"], " • ".join(h["baslik"] for h in secilen), SITE + g["sekme"], "gundem-" + g["sekme"][1:])
         yeni_gonderilen += [h["link"] for h in secilen]
-    durum_yaz(gundem=yeni_gonderilen + gonderilen)
+    if kaydet:
+        durum_yaz(gundem=yeni_gonderilen + gonderilen)
 
 
 def main():
@@ -222,7 +223,7 @@ def main():
         elif mod in ("gundem", "sabah"):
             gundem_ozeti(aboneler)
         elif mod == "kontrol":   # bildirim göndermeden ne seçileceğini gösterir
-            gundem_ozeti([])
+            gundem_ozeti([], kaydet=False)
         else:
             yeni_aciklamalar(aboneler)
     except Exception as hata:
