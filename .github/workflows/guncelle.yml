@@ -11,6 +11,7 @@ name: Günlük güncelleme ve yayın
 on:
   schedule:
     - cron: "17 4 * * *"   # Her gün 04:17 UTC = 07:17 İstanbul saati
+    - cron: "7 * * * *"    # Saatte bir (her saatin 7. dakikası): döviz ve altın kurları
   push:
     branches: [main]       # main dalına her yüklemede
   workflow_dispatch:       # Actions sekmesinden elle "Run workflow" ile
@@ -33,6 +34,9 @@ jobs:
 
       - name: Haber başlıklarını topla
         run: python3 robot/basliklari_cek.py
+
+      - name: Döviz ve altın kurlarını topla
+        run: python3 robot/kurlar_cek.py
 
       - name: Pages ayarlarını hazırla
         uses: actions/configure-pages@v5
