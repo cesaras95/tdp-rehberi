@@ -376,17 +376,3 @@ Object.assign(ARAYUZ.en, {
   bilKapandi: "Notifications turned off on this device.", bilHata: "Could not subscribe: {hata}",
   bilKopyalandi: "Copied ✓"
 });
-
-// ---------- PİYASALAR ----------
-Object.assign(ARAYUZ.tr, {
-  kurBaslik: "💱 Döviz ve altın", kurGram: "Gram altın", kurOns: "Ons altın",
-  kurZaman: "Son güncelleme: {saat} (saatte bir yenilenir)", kurEski: "veriler birkaç saattir güncellenmedi",
-  kurKaynak: "Kaynak",
-  kurNot: "Piyasa kurları ortalama değerlerdir; bankaların ve kuyumcuların alış-satış fiyatları farklıdır. Gram altın, ons fiyatından hesaplanan yaklaşık has altın değeridir. TCMB değerleri günlük resmî döviz satış kurudur. Yatırım tavsiyesi değildir."
-});
-Object.assign(ARAYUZ.en, {
-  kurBaslik: "💱 Currency and gold", kurGram: "Gold (gram)", kurOns: "Gold (ounce)",
-  kurZaman: "Last updated: {saat} (refreshed hourly)", kurEski: "data has not been updated for a few hours",
-  kurKaynak: "Source",
-  kurNot: "Market rates are mid-market values; bank and jeweller buy/sell prices differ. Gram gold is an approximate fine-gold value derived from the ounce price. CBRT figures are the daily official forex selling rate. Not investment advice."
-});

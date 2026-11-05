@@ -1902,37 +1902,6 @@ function bildirimCiz() {
 }
 bildirimDurumBul().then(bildirimCiz);
 
-// ---------- PİYASALAR (döviz ve altın) ----------
-// Benzetme: Döviz bürosunun tabelası. Robot saatte bir yeni rakamları yazar (veri/kurlar.js);
-// biz sadece tabelayı okunaklı biçimde gösteriyoruz.
-function kurlarCiz() {
-  const kutu = document.getElementById("kur-kutu");
-  if (!kutu) return;
-  const K = typeof KURLAR !== "undefined" ? KURLAR : null;
-  if (!K || !K.piyasa) { kutu.hidden = true; return; }
-  const yerel = dil === "tr" ? "tr-TR" : "en-GB";
-  const sayi = (v, b = 2) => v == null ? "–" : v.toLocaleString(yerel, { minimumFractionDigits: b, maximumFractionDigits: b });
-  const p = K.piyasa, r = K.tcmb || {};
-  const zaman = new Date(K.zaman);
-  const saat = zaman.toLocaleString(yerel, { timeZone: "Europe/Istanbul", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-  const eski = Date.now() - zaman.getTime() > 3 * 3600 * 1000;
-  const satir = (ad, deger, birim, resmi) => `<div class="kur"><span class="kur-ad">${ad}</span>
-      <strong class="kur-deger">${deger}<small> ${birim}</small></strong>
-      ${resmi ? `<span class="kur-resmi">TCMB ${sayi(resmi.satis, 4)}</span>` : ""}</div>`;
-  kutu.hidden = false;
-  kutu.innerHTML = `<h3>${a("kurBaslik")}</h3>
-    <div class="kur-izgara">
-      ${satir("USD", sayi(p.usd, 4), "₺", r.usd)}
-      ${satir("EUR", sayi(p.eur, 4), "₺", r.eur)}
-      ${satir("GBP", sayi(p.gbp, 4), "₺", r.gbp)}
-      ${satir(a("kurGram"), sayi(p.gramAltin), "₺")}
-      ${satir(a("kurOns"), sayi(p.onsUsd), "$")}
-    </div>
-    <p class="kunye">${a("kurZaman").replace("{saat}", saat)}${eski ? " · <strong>" + a("kurEski") + "</strong>" : ""}
-      · ${a("kurKaynak")}: ${(K.kaynaklar || []).map(k => `<a href="${k.site}" target="_blank" rel="noopener">${guvenli(k.ad)}</a>`).join(", ")}${r.tarih ? `, <a href="https://www.tcmb.gov.tr" target="_blank" rel="noopener">TCMB</a> (${guvenli(r.tarih)})` : ""}</p>
-    <p class="kunye">${a("kurNot")}</p>`;
-}
-
 // ---------- HER ŞEYİ ÇİZ ----------
 // Dil değişince bu fonksiyon tüm sayfayı yeni dilde yeniden yazar.
 // Quiz'deki ilerleme, kart sırası ve mülakat sorusu korunur.
@@ -1960,7 +1929,6 @@ function hepsiniCiz() {
   temellerCiz();
   bakanlarCiz();
   bildirimCiz();
-  kurlarCiz();
   if (sozluk.yuklendi) sozlukCiz();
   // Arama dizini dile bağlı; dil değişince yeniden kurulur
   aramaDizini = null;
