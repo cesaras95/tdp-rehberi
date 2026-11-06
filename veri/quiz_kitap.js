@@ -1,0 +1,92 @@
+// =============================================================
+// KİTAP TEMELLİ QUIZ SORULARI (iki dilli)
+// Dayanak: Baskın Oran (ed.), Türk Dış Politikası Cilt I (1919–1980).
+// Sorular ve açıklamalar özgün ifadelerle yazılmıştır; kitaptan alıntı değildir.
+// S() yardımcısı quiz_ek.js içinde tanımlıdır.
+// =============================================================
+
+Object.assign(KONULAR, {
+  temeller: { tr: "TDP'nin temelleri", en: "Foundations of Turkish foreign policy" }
+});
+
+QUIZ.push(
+  // ---------- TEMELLER ----------
+  S("temeller", 1, ["Baskın Oran'ın Türkiye'yi tanımlamak için kullandığı temel kavram hangisidir?", "Which core concept does Baskın Oran use to describe Türkiye?"],
+    ["Süper güç", "Orta büyüklükte devlet", "Tampon devlet", "Küçük devlet"],
+    ["Superpower", "Middle-sized state", "Buffer state", "Small state"],
+    ["Oran'a göre Türkiye sisteme etkisi sınırlı ama bölgesini etkileyebilen, konjonktürü pazarlık için kullanabilen bir orta büyüklükte devlettir (OBD).", "For Oran, Türkiye is a middle-sized state: limited influence on the system, but able to shape its region and use circumstances to bargain."]),
+  S("temeller", 3, ["Oran'a göre Türk dış politikasının iki temel direği hangileridir?", "According to Oran, what are the two pillars of Turkish foreign policy?"],
+    ["Yayılmacılık ve İslamcılık", "Tarafsızlık ve bağlantısızlık", "Turancılık ve Batıcılık", "Statükoculuk ve Batıcılık"],
+    ["Expansionism and Islamism", "Neutrality and non-alignment", "Pan-Turkism and Westernism", "Status quo and Westernism"],
+    ["Kitap statükoculuğu (sınırları korumak, irredantizm gütmemek) ve Batıcılığı aynı madalyonun iki yüzü olarak görür.", "The book sees status quo policy (keeping borders, no irredentism) and Westernism as two sides of the same coin."]),
+  S("temeller", 0, ["Türkiye'nin II. Dünya Savaşı'ndaki hukuki konumu için en doğru nitelendirme hangisidir?", "What is the most accurate description of Türkiye's legal position in the Second World War?"],
+    ["Savaş dışılık (non-belligerence)", "Sürekli tarafsızlık", "Mihver müttefikliği", "Silahlı tarafsızlık"],
+    ["Non-belligerence", "Permanent neutrality", "Alliance with the Axis", "Armed neutrality"],
+    ["19 Ekim 1939'da İngiltere ve Fransa ile ittifak yapıldığı için Türkiye hukuken tarafsız değil, savaş dışıydı.", "Because of the alliance with Britain and France of 19 October 1939, Türkiye was legally non-belligerent rather than neutral."]),
+  S("temeller", 2, ["Oran'ın dönemlendirmesinde 1960–1980 dönemi nasıl adlandırılır?", "How is 1960–1980 named in Oran's periodisation?"],
+    ["Batı Bloku Ekseninde-1", "Savaş Kaosunda Göreli Özerklik", "Göreli Özerklik-3", "Bağlantısızlık Dönemi"],
+    ["In the Western Bloc-1", "Relative autonomy amid the chaos of war", "Relative Autonomy-3", "The non-aligned period"],
+    ["Yumuşama ortamı ve ithal ikameci ekonomi Türkiye'ye 1960–1980'de görece geniş bir hareket alanı açtı; kitap bunu Göreli Özerklik-3 diye adlandırır.", "Détente and import-substituting industrialisation gave Türkiye relatively wide room in 1960–1980; the book calls it Relative Autonomy-3."]),
+  S("temeller", 1, ["Dışişleri Bakanlığının Osmanlı dönemindeki öncülü olan Umur-ı Hariciye Nezareti hangi yıl kuruldu?", "In which year was the Ottoman Ministry of Foreign Affairs (Umur-ı Hariciye Nezareti) established?"],
+    ["1793", "1835", "1856", "1876"],
+    ["1793", "1835", "1856", "1876"],
+    ["Reisülküttaplık 1835'te Hariciye Nezaretine dönüştürüldü. TBMM Hükümeti'nin Hariciye Vekâleti ise 1920'de kuruldu.", "The office of Reisülküttap became the Ministry of Foreign Affairs in 1835. The Grand National Assembly's Commissariat for Foreign Affairs followed in 1920."]),
+  S("temeller", 3, ["Cumhuriyet döneminde en uzun süre görev yapan dışişleri bakanı kimdir?", "Who was the longest-serving foreign minister of the Republic?"],
+    ["İsmet İnönü", "Fatin Rüştü Zorlu", "İhsan Sabri Çağlayangil", "Tevfik Rüştü Aras"],
+    ["İsmet İnönü", "Fatin Rüştü Zorlu", "İhsan Sabri Çağlayangil", "Tevfik Rüştü Aras"],
+    ["Tevfik Rüştü Aras 1925'ten 1938'e kadar yaklaşık 13 yıl görev yaptı; Montrö ve Balkan Antantı onun dönemindedir.", "Tevfik Rüştü Aras served from 1925 to 1938, about 13 years; Montreux and the Balkan Entente fall in his term."]),
+
+  // ---------- TARİH (1919–1980) ----------
+  S("tarih", 0, ["Kurtuluş Savaşı sırasında TBMM Hükümeti ile Sovyet Rusya arasında imzalanan antlaşma hangisidir?", "Which treaty did the Grand National Assembly government sign with Soviet Russia during the War of Independence?"],
+    ["Moskova Antlaşması (16 Mart 1921)", "Kars Antlaşması (13 Ekim 1921)", "Ankara Antlaşması (20 Ekim 1921)", "Gümrü Antlaşması (3 Aralık 1920)"],
+    ["Treaty of Moscow (16 March 1921)", "Treaty of Kars (13 October 1921)", "Treaty of Ankara (20 October 1921)", "Treaty of Gümrü (3 December 1920)"],
+    ["Moskova Antlaşması TBMM ile Sovyet Rusya arasındadır. Kars Antlaşması Güney Kafkas cumhuriyetleriyle, Ankara Antlaşması Fransa ile, Gümrü Ermenistan ile imzalandı.", "The Treaty of Moscow was with Soviet Russia. Kars was with the South Caucasian republics, Ankara with France and Gümrü with Armenia."]),
+  S("tarih", 2, ["Lozan'da çözülemeyip sonraya bırakılan sınır sorunu hangisidir?", "Which border question was left unresolved at Lausanne?"],
+    ["Batı Trakya", "Ege adaları", "Musul", "Hatay"],
+    ["Western Thrace", "The Aegean islands", "Mosul", "Hatay"],
+    ["Musul sorunu ikili görüşmelere ve Milletler Cemiyetine bırakıldı; 1926 Ankara Antlaşması ile Irak'a kaldı. Hatay sorunu ise 1936'da gündeme geldi.", "Mosul was left to bilateral talks and the League of Nations; under the 1926 Treaty of Ankara it remained with Iraq. Hatay arose later, in 1936."]),
+  S("tarih", 1, ["Montrö Boğazlar Sözleşmesi hangi tarihte imzalandı?", "When was the Montreux Convention signed?"],
+    ["24 Temmuz 1923", "20 Temmuz 1936", "9 Şubat 1934", "29 Haziran 1939"],
+    ["24 July 1923", "20 July 1936", "9 February 1934", "29 June 1939"],
+    ["Montrö 20 Temmuz 1936'da imzalandı ve Boğazlarda egemenliği Türkiye'ye geri verdi. Kitap bunu barışçıl ve hukuka uygun revizyonizmin örneği sayar.", "Montreux was signed on 20 July 1936 and restored Turkish sovereignty over the Straits. The book treats it as an example of peaceful, lawful revision."]),
+  S("tarih", 3, ["1939 Türk-İngiliz-Fransız İttifak Antlaşması'nın 2 numaralı protokolü neyi güvence altına alıyordu?", "What did Protocol No. 2 of the 1939 Anglo-French-Turkish Treaty guarantee?"],
+    ["Hatay'ın Türkiye'ye katılmasını", "Boğazların kapatılmasını", "İngiliz kredisini", "Türkiye'nin SSCB ile çatışmaya sürüklenmemesini"],
+    ["Hatay joining Türkiye", "Closure of the Straits", "A British loan", "That Türkiye would not be drawn into conflict with the USSR"],
+    ["2 numaralı protokol, antlaşmanın Türkiye'yi SSCB ile silahlı çatışmaya sokmayacağını öngörüyordu; savaş dışı kalma politikasının hukuki dayanaklarından biriydi.", "Protocol No. 2 provided that the treaty would not drag Türkiye into armed conflict with the USSR; it was a legal basis of non-belligerence."]),
+  S("tarih", 0, ["SSCB'nin 1945'te Türkiye ile 1925 Dostluk ve Tarafsızlık Antlaşması'nı yenilememe kararını bildirdiği tarih hangisidir?", "When did the USSR announce it would not renew the 1925 Treaty of Friendship and Neutrality with Türkiye?"],
+    ["19 Mart 1945", "23 Şubat 1945", "7 Haziran 1945", "8 Ağustos 1946"],
+    ["19 March 1945", "23 February 1945", "7 June 1945", "8 August 1946"],
+    ["19 Mart 1945'teki nota ile başlayan süreç 7 Haziran 1945'te Kars-Ardahan ve Boğazlarda üs talebine dönüştü; Türkiye'nin Batı'ya yönelişini hızlandırdı.", "The note of 19 March 1945 led on 7 June 1945 to demands concerning Kars-Ardahan and bases on the Straits, accelerating Türkiye's turn to the West."]),
+  S("nato", 2, ["Türkiye NATO'ya hangi tarihte resmen katıldı?", "When did Türkiye formally join NATO?"],
+    ["4 Nisan 1949", "25 Haziran 1950", "18 Şubat 1952", "9 Mayıs 1955"],
+    ["4 April 1949", "25 June 1950", "18 February 1952", "9 May 1955"],
+    ["Türkiye ve Yunanistan 18 Şubat 1952'de NATO'ya katıldı. Kore Savaşı'na asker gönderilmesi bu üyeliğin yolunu açan etkenlerden biriydi.", "Türkiye and Greece joined NATO on 18 February 1952. Sending troops to Korea helped pave the way."]),
+  S("nato", 1, ["1964 Johnson Mektubu hangi konuyla ilgiliydi?", "What was the 1964 Johnson letter about?"],
+    ["Jüpiter füzelerinin sökülmesi", "Türkiye'nin Kıbrıs'a müdahale etmemesi", "Haşhaş ekiminin yasaklanması", "Ortak Pazar başvurusu"],
+    ["Removal of the Jupiter missiles", "Türkiye not intervening in Cyprus", "A ban on opium poppy cultivation", "Application to the Common Market"],
+    ["ABD Başkanı Johnson Haziran 1964'te İnönü'yü Kıbrıs'a müdahale konusunda sert biçimde uyardı. Mektup Türk kamuoyunda ABD'ye bakışı değiştirdi ve çok yönlü dış politika arayışını hızlandırdı.", "In June 1964 President Johnson sternly warned İnönü against intervening in Cyprus. The letter changed Turkish views of the US and accelerated the search for a multi-dimensional policy."]),
+  S("kibris", 3, ["Kıbrıs Cumhuriyeti'ni kuran antlaşmalar hangi yıllarda imzalandı?", "In which years were the treaties establishing the Republic of Cyprus signed?"],
+    ["1955–1956", "1963–1964", "1974–1975", "1959–1960"],
+    ["1955–1956", "1963–1964", "1974–1975", "1959–1960"],
+    ["Zürih (Şubat 1959) ve Londra (Şubat 1959) görüşmeleri Kuruluş, Garanti ve İttifak antlaşmalarına dönüştü; cumhuriyet 16 Ağustos 1960'ta kuruldu.", "The Zurich and London talks (February 1959) produced the Treaties of Establishment, Guarantee and Alliance; the republic was founded on 16 August 1960."]),
+  S("kibris", 0, ["1974 Kıbrıs harekâtının hukuki dayanağı olarak Türkiye hangi belgeyi gösterdi?", "Which document did Türkiye cite as the legal basis for the 1974 Cyprus operation?"],
+    ["Garanti Antlaşması'nın 4. maddesi", "BM Şartı'nın 51. maddesi", "Lozan Antlaşması", "NATO Antlaşması'nın 5. maddesi"],
+    ["Article IV of the Treaty of Guarantee", "Article 51 of the UN Charter", "The Treaty of Lausanne", "Article 5 of the North Atlantic Treaty"],
+    ["Garanti Antlaşması'nın 4. maddesi, ortak hareket mümkün olmazsa garantör devletlere tek başına harekete geçme hakkı tanır. Harekât 20 Temmuz 1974'te, 15 Temmuz darbesinin ardından başladı.", "Article IV of the Treaty of Guarantee lets a guarantor act alone if joint action is not possible. The operation began on 20 July 1974, after the coup of 15 July."]),
+  S("tarih", 2, ["Türkiye ile AET arasındaki Ankara Anlaşması hangi yıl imzalandı?", "In which year was the Ankara Agreement between Türkiye and the EEC signed?"],
+    ["1959", "1970", "1963", "1987"],
+    ["1959", "1970", "1963", "1987"],
+    ["Türkiye 1959'da başvurdu; Ankara Anlaşması 12 Eylül 1963'te imzalandı. Katma Protokol 1970'te imzalandı, 1987'de ise tam üyelik başvurusu yapıldı.", "Türkiye applied in 1959; the Ankara Agreement was signed on 12 September 1963. The Additional Protocol followed in 1970, and the membership application in 1987."]),
+  S("tarih", 1, ["Türkiye İsrail'i hangi yıl tanıdı?", "In which year did Türkiye recognise Israel?"],
+    ["1948", "1949", "1956", "1967"],
+    ["1948", "1949", "1956", "1967"],
+    ["Türkiye İsrail'i Mart 1949'da tanıdı; böylece İsrail'i tanıyan ilk Müslüman çoğunluklu ülke oldu. 1956 Süveyş krizinden sonra ilişkilerin düzeyi düşürüldü.", "Türkiye recognised Israel in March 1949, the first Muslim-majority country to do so. After the 1956 Suez crisis the level of relations was lowered."]),
+  S("tarih", 3, ["Bağdat Paktı 1959'da Irak'ın ayrılmasından sonra hangi adı aldı?", "What was the Baghdad Pact renamed after Iraq left in 1959?"],
+    ["SEATO", "RCD", "Balkan Paktı", "CENTO"],
+    ["SEATO", "RCD", "The Balkan Pact", "CENTO"],
+    ["Örgüt Ağustos 1959'da Merkezî Antlaşma Teşkilatı (CENTO) adını aldı ve 1979 İran Devrimi'nden sonra fiilen dağıldı. RCD (1964) ise Türkiye, İran ve Pakistan'ın ekonomik işbirliği örgütüdür.", "In August 1959 it became the Central Treaty Organization (CENTO) and effectively dissolved after the 1979 Iranian Revolution. The RCD (1964) was an economic body of Türkiye, Iran and Pakistan."]),
+  S("tarih", 0, ["Ege'de Türkiye ile Yunanistan arasındaki kıta sahanlığı uyuşmazlığı hangi olayla 1973–1974'te gündeme geldi?", "What event brought the Aegean continental shelf dispute to the fore in 1973–1974?"],
+    ["Türkiye'nin TPAO'ya Ege'de arama ruhsatı vermesi", "Yunanistan'ın NATO'dan çekilmesi", "İmia/Kardak krizi", "Lozan'ın feshi"],
+    ["Türkiye granting exploration licences in the Aegean to TPAO", "Greece leaving NATO", "The Imia/Kardak crisis", "Abrogation of Lausanne"],
+    ["Türkiye Kasım 1973'te TPAO'ya Ege'de arama ruhsatları verdi; Yunanistan buna itiraz etti. 1976'daki Sismik krizi ve Kasım 1976 Bern Deklarasyonu bu sürecin devamıdır. Kardak krizi 1996'dadır.", "In November 1973 Türkiye granted exploration licences in the Aegean to TPAO, which Greece contested. The 1976 Sismik crisis and the Bern Declaration of November 1976 followed. Kardak came in 1996."])
+);

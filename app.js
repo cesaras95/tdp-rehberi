@@ -139,9 +139,11 @@ function tarihCiz() {
           ${d.olaylar.map(o => `
             <div class="olay">
               <div class="olay-yil">${guvenli(yilYaz(o.yil))}</div>
-              <div><p><strong>${guvenli(t(o.olay))}</strong></p><p class="onem">${guvenli(t(o.onem))}</p></div>
+              <div><p><strong>${guvenli(t(o.olay))}</strong></p><p class="onem">${guvenli(t(o.onem))}${o.s ? ` <span class="sayfa">(${a("sayfaKisa")} ${guvenli(o.s)})</span>` : ""}</p></div>
             </div>`).join("")}
+          ${d.deger ? `<div class="donem-deger"><h4>${a("donemDeger")}</h4><p>${guvenli(t(d.deger))}</p></div>` : ""}
           <div class="kavramlar">${kavramCiz(d.kavramlar)}</div>
+          ${d.kaynak ? `<p class="donem-kaynak">${a("donemKaynak")}: ${guvenli(dil === "en" ? d.kaynak.replace("TDP Cilt I, s.", "Türk Dış Politikası vol. I, pp.") : d.kaynak.replace("TDP Cilt I", "Türk Dış Politikası Cilt I"))}</p>` : ""}
         </div>
       </details>
     </article>

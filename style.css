@@ -277,6 +277,12 @@ main { padding-top: 32px; padding-bottom: 48px; min-height: 70vh; }
 .olay-yil { font-weight: 700; font-size: .9rem; }
 .olay p { margin: 0; }
 .olay .onem { color: var(--soluk); font-size: .95rem; margin-top: 2px; }
+.olay .sayfa { font-size: .8rem; color: var(--soluk); white-space: nowrap; }
+.donem-deger { margin: 14px 0 6px; padding: 12px 14px; border-left: 3px solid var(--analiz); background: var(--analiz-acik); border-radius: 6px; }
+.donem-deger h4 { margin: 0 0 6px; font-size: .95rem; }
+.donem-deger p { margin: 0; line-height: 1.55; }
+.donem-kaynak { font-size: .82rem; color: var(--soluk); margin-top: 8px; }
+
 
 /* ---------- POLİTİKA KARTLARI ---------- */
 .kart-izgara { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
