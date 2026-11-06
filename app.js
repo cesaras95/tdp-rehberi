@@ -1938,10 +1938,47 @@ function hepsiniCiz() {
   baglantiDurumu();
 }
 
+// Dil değişince okunan yerde kal.
+// Benzetme: Kitabın çevirisine geçerken parmağını okuduğun satırda tutmak. Önce ekranın
+// üstündeki öğenin "adresini" (bölüm içindeki sıra numaraları) ve konumunu not alırız;
+// sayfa yeni dilde çizilince aynı öğeyi bulup aynı yere kaydırırız. Açık kutular da açık kalır.
+function okumaYeriAl() {
+  const bolum = document.querySelector(".sekme:not([hidden])");
+  if (!bolum) return null;
+  const acik = [...bolum.querySelectorAll("details")].map(d => d.open);
+  // Yapışkan üst bandın altında görünen ilk metin bloğu = okuduğun yer
+  const ustBant = document.querySelector(".ust");
+  const sinir = ustBant ? ustBant.getBoundingClientRect().bottom : 0;
+  const hedef = [...bolum.querySelectorAll(".olay, .izlek-oge, summary, p, li, h1, h2, h3, h4, .bakan-satir")]
+    .find(el => {
+      // Kapalı bir açılır kutunun (details) içindeki görünmez metni atla
+      const kapali = el.closest("details:not([open])");
+      if (kapali && el.parentElement !== kapali) return false;
+      const r = el.getBoundingClientRect();
+      return r.height > 0 && r.top >= sinir - 2;
+    }) || null;
+  if (!hedef) return { bolum, acik };
+  const yol = [];
+  for (let el = hedef; el !== bolum; el = el.parentElement) yol.unshift([...el.parentElement.children].indexOf(el));
+  return { bolum, acik, yol, ust: hedef.getBoundingClientRect().top };
+}
+function okumaYerineDon(yer) {
+  if (!yer) return;
+  const detaylar = yer.bolum.querySelectorAll("details");
+  if (detaylar.length === yer.acik.length) detaylar.forEach((d, i) => { d.open = yer.acik[i]; });
+  if (!yer.yol) return;
+  let el = yer.bolum;
+  for (const i of yer.yol) { if (!el.children[i]) break; el = el.children[i]; }
+  if (el === yer.bolum) return;
+  window.scrollBy({ top: el.getBoundingClientRect().top - yer.ust, behavior: "instant" });
+}
+
 document.getElementById("dil-dugme").onclick = () => {
+  const yer = okumaYeriAl();
   dil = dil === "tr" ? "en" : "tr";
   try { localStorage.setItem("tdp-dil", dil); } catch (e) { /* kaydedemezse sorun değil */ }
   hepsiniCiz();
+  okumaYerineDon(yer);
 };
 
 // ---------- BAŞLANGIÇ: sayfa açılınca ----------
