@@ -36,7 +36,7 @@ QUIZ.push(
   S("kuram", 2, ["BM Şartı'nda kuvvet kullanma ve kuvvet kullanma tehdidi yasağı hangi maddede düzenlenir?", "Which article of the UN Charter prohibits the threat or use of force?"],
     ["md. 1", "md. 2(1)", "md. 2(4)", "md. 51"],
     ["Art. 1", "Art. 2(1)", "Art. 2(4)", "Art. 51"],
-    ["md. 2(4) kuvvet kullanma yasağını, md. 51 bu yasağın istisnası olan meşru müdafaa hakkını, md. 2(1) egemen eşitliği düzenler.", "Art. 2(4) sets the prohibition on the use of force, Art. 51 the right of self-defence as an exception to it, and Art. 2(1) sovereign equality."]),
+    ["md. 2(4) kuvvet kullanma yasağını, md. 51 bu yasağın istisnası olan meşru müdafaa hakkını, md. 2(1) egemen eşitliği düzenler.", "Art. 2(4) sets the prohibition on the use of force, Art. 51 the right of legitimate defence (self-defence) as an exception to it, and Art. 2(1) sovereign equality."]),
   S("kuram", 3, ["1933 Montevideo Sözleşmesi'ne göre aşağıdakilerden hangisi devletin unsurlarından biri değildir?", "Under the 1933 Montevideo Convention, which of the following is not an element of statehood?"],
     ["Sürekli bir nüfus", "Belirli bir ülke", "Hükümet", "Diğer devletlerce tanınma"],
     ["A permanent population", "A defined territory", "A government", "Recognition by other states"],
@@ -60,7 +60,7 @@ QUIZ.push(
   S("kuram", 3, ["Güvenlik ikilemi en iyi hangisiyle tanımlanır?", "Which best defines the security dilemma?"],
     ["Bir ittifaktan çıkmanın maliyeti", "Nükleer silahların yayılmasının önlenmesi", "Ekonomik yaptırımların etkisizliği", "Bir devletin güvenliği için attığı adımların diğerlerince tehdit algılanıp karşılıklı silahlanmaya yol açması"],
     ["The cost of leaving an alliance", "Preventing the spread of nuclear weapons", "The ineffectiveness of economic sanctions", "Steps a state takes for its security being seen as a threat by others, leading to mutual arming"],
-    ["Kavram John Herz'e (1950) aittir; sorunun özü niyet belirsizliğidir. Güven artırıcı önlemler ikilemi hafifletir.", "The concept is John Herz's (1950); the core of the problem is uncertainty of intentions. Confidence-building measures ease the dilemma."]),
+    ["Kavram John Herz'e (1950) aittir; sorunun özü niyet belirsizliğidir. Güven artırıcı önlemler ikilemi hafifletir.", "The concept is John Herz's (1950); the core of the problem is uncertainty of intentions. Confidence building measures ease the dilemma."]),
 
   // ---------- BALKANLAR ----------
   S("balkan", 1, ["Türkiye-Bosna-Hersek-Sırbistan ve Türkiye-Bosna-Hersek-Hırvatistan Üçlü Danışma Mekanizmaları hangi dönemde kuruldu?", "When were the Türkiye–Bosnia and Herzegovina–Serbia and Türkiye–Bosnia and Herzegovina–Croatia Trilateral Consultation Mechanisms set up?"],

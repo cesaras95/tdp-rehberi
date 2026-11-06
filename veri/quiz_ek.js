@@ -369,7 +369,7 @@ QUIZ.push(
     ["1961 Viyana Diplomatik İlişkiler Sözleşmesi", "1963 Viyana Konsolosluk İlişkileri Sözleşmesi", "1982 BM Deniz Hukuku Sözleşmesi (UNCLOS)", "1951 Mülteciler Sözleşmesi"],
     ["1961 Vienna Convention on Diplomatic Relations", "1963 Vienna Convention on Consular Relations", "1982 UN Convention on the Law of the Sea (UNCLOS)", "1951 Refugee Convention"],
     ["Türkiye, adalar rejimi ve yarı kapalı denizlere ilişkin hükümler nedeniyle UNCLOS'a taraf olmadı. 1951 Sözleşmesi'ne ise coğrafi sınırlamayla taraftır.", "Türkiye did not join UNCLOS because of its provisions on the regime of islands and semi-enclosed seas. It is party to the 1951 Convention with a geographical limitation."]),
-  S("hukuk", 0, ["Meşru müdafaa hakkını düzenleyen BM Şartı maddesi hangisidir?", "Which article of the UN Charter governs the right of self-defence?"],
+  S("hukuk", 0, ["Meşru müdafaa hakkını düzenleyen BM Şartı maddesi hangisidir?", "Which article of the UN Charter governs the right of legitimate defence (self-defence)?"],
     ["Madde 51", "Madde 2(4)", "Madde 33", "Madde 99"],
     ["Article 51", "Article 2(4)", "Article 33", "Article 99"],
     ["51. madde meşru müdafaayı, 2(4) kuvvet kullanma yasağını, 33. madde ise uyuşmazlıkların barışçıl çözüm yollarını düzenler.", "Article 51 covers self-defence, Article 2(4) the prohibition on the use of force, and Article 33 the means of peaceful settlement of disputes."]),

@@ -27,7 +27,7 @@ const POLITIKALAR = [
     olgular: [
       { tr: "1960: Kıbrıs Cumhuriyeti, Zürih ve Londra Antlaşmalarıyla iki toplumun ortaklığına dayalı olarak kuruldu. Garantörler: Türkiye, Yunanistan, Birleşik Krallık.", en: "1960: The Republic of Cyprus was established under the Zurich and London Agreements as a partnership of the two communities. Guarantors: Türkiye, Greece, the United Kingdom." },
       { tr: "21 Aralık 1963: Kıbrıslı Türklere yönelik saldırılar başladı (\"Kanlı Noel\"). Bakanlığa göre yaklaşık 30.000 Kıbrıslı Türk 103 köyü terk etti.", en: "21 December 1963: Attacks on Turkish Cypriots began (\"Bloody Christmas\"). According to the Ministry, some 30,000 Turkish Cypriots left 103 villages." },
-      { tr: "4 Mart 1964: BMGK'nın 186 sayılı kararıyla BM Barış Gücü (UNFICYP) kuruldu.", en: "4 March 1964: UN Security Council Resolution 186 established the UN peacekeeping force (UNFICYP)." },
+      { tr: "4 Mart 1964: BMGK'nın 186 sayılı kararıyla BM Barış Gücü (UNFICYP) kuruldu.", en: "4 March 1964: UN Security Council Resolution 186 established the UN Peace-keeping Force (UNFICYP)." },
       { tr: "15 Temmuz 1974 darbesinin ardından 20 Temmuz 1974'te Türkiye garantörlük hakkına dayanarak Barış Harekâtı'nı başlattı.", en: "After the coup of 15 July 1974, Türkiye launched the Peace Operation on 20 July 1974, invoking its rights as a guarantor state." },
       { tr: "15 Kasım 1983: KKTC ilan edildi. KKTC'yi yalnızca Türkiye tanıyor; Türk Devletleri Teşkilatı'nda 2022'den beri gözlemci.", en: "15 November 1983: The TRNC was proclaimed. Only Türkiye recognises it; it has been an observer in the Organization of Turkic States since 2022." },
       { tr: "24 Nisan 2004 Annan Planı referandumu: Kıbrıslı Türklerin %64,91'i \"evet\", Kıbrıslı Rumların %75,83'ü \"hayır\" dedi. Rum yönetimi 1 Mayıs 2004'te AB'ye üye oldu.", en: "24 April 2004 Annan Plan referendums: 64.91% of Turkish Cypriots voted yes, 75.83% of Greek Cypriots voted no. The Greek Cypriot administration joined the EU on 1 May 2004." },
@@ -49,7 +49,7 @@ const POLITIKALAR = [
     kavramlar: [{ tr: "Egemen eşitlik", en: "Sovereign equality" }, { tr: "Garantör ülke", en: "Guarantor state" }, { tr: "Güven artırıcı önlemler", en: "Confidence building measures (CBMs)" }, { tr: "Tanımama siyaseti", en: "Non-recognition policy" }],
     soru: {
       tr: "Kıbrıs meselesinde federasyon modelinden iki devletli çözüm vizyonuna geçişin Türkiye-AB ilişkilerine etkilerini değerlendiriniz.",
-      en: "Assess the impact on Türkiye–EU relations of the shift from the federation model to a two-state vision in the Cyprus question."
+      en: "Assess the impact on Türkiye–EU relations of the shift from the federation model to a two-state vision in the Cyprus issue."
     }
   },
   {

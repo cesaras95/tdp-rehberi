@@ -26,7 +26,7 @@ const DUNYA = [
   {
     tarih: "2026-10-30",
     bolge: { tr: "Küresel", en: "Global" },
-    baslik: { tr: "BM Genel Sekreteri seçimi: 7. yoklama oylaması", en: "UN Secretary-General selection: 7th straw poll" },
+    baslik: { tr: "BM Genel Sekreteri seçimi: 7. yoklama oylaması", en: "Secretary General of the UN selection: 7th straw poll" },
     ozet: {
       tr: "Güvenlik Konseyi 30 Ekim'de yedinci gayriresmî yoklama oylamasını yaptı. Senegal'in eski Cumhurbaşkanı Sall 17 Ekim'de yarıştan çekilmişti; BAE'nin adayı Lana Nusseibeh ise yarışa yeni katıldı. Basına yansıyan sonuçlara göre UNCTAD Genel Sekreteri Grynspan önde, UAEA Genel Direktörü Grossi ikinci sırada.",
       en: "The Security Council held its seventh informal straw poll on 30 October. Former Senegalese President Sall had withdrawn on 17 October, while the UAE's candidate Lana Nusseibeh recently entered the race. According to results reported in the press, UNCTAD Secretary-General Grynspan leads, with IAEA Director General Grossi second."
@@ -138,7 +138,7 @@ const DUNYA = [
   {
     tarih: "2026-10-16",
     bolge: { tr: "Küresel", en: "Global" },
-    baslik: { tr: "BM Genel Sekreteri seçimi: Güvenlik Konseyi'nde 6. yoklama oylaması", en: "UN Secretary-General selection: 6th straw poll in the Security Council" },
+    baslik: { tr: "BM Genel Sekreteri seçimi: Güvenlik Konseyi'nde 6. yoklama oylaması", en: "Secretary General of the UN selection: 6th straw poll in the Security Council" },
     ozet: {
       tr: "Güvenlik Konseyi yedi aday arasında altıncı gayriresmî yoklama oylamasını yaptı. Adaylar arasında UAEA Genel Direktörü Grossi, UNCTAD Genel Sekreteri Grynspan ve Senegal'in eski Cumhurbaşkanı Sall bulunuyor. Guterres'in görev süresi yıl sonunda doluyor; yeni Genel Sekreter 1 Ocak 2027'de göreve başlayacak.",
       en: "The Security Council held its sixth informal straw poll among seven candidates, including IAEA Director General Grossi, UNCTAD Secretary-General Grynspan and former Senegalese President Sall. Guterres's term ends at the end of the year; the new Secretary-General takes office on 1 January 2027."
@@ -201,5 +201,5 @@ const DUNYA_TAKVIM = [
   { tarih: "2026-11-18", baslik: { tr: "APEC Liderler Zirvesi — Shenzhen (18-19 Kasım); Trump-Xi görüşmesi bekleniyor", en: "APEC Leaders' Meeting — Shenzhen (18–19 November); a Trump–Xi meeting is expected" }, kaynak: "https://mdbriefing.substack.com/p/md-weekly-briefing-week-of-26-october" },
   { tarih: "2026-11-26", baslik: { tr: "AB olağanüstü zirvesi (bütçe)", en: "Special European Council (budget)" }, kaynak: "https://www.euronews.com/2026/10/16/budget-ukraine-migration-five-takeaways-from-the-eu-leaders-summit" },
   { tarih: "2026-12-01", tarihMetin: { tr: "Aralık 2026", en: "December 2026" }, baslik: { tr: "G20 Zirvesi — Miami", en: "G20 Summit — Miami" }, kaynak: "https://www.roic.ai/news/trump-sets-november-apec-and-december-g20-meetings-with-xi-as-trade-truce-faces-january-deadline-09-25-2026" },
-  { tarih: "2027-01-01", baslik: { tr: "Yeni BM Genel Sekreteri göreve başlıyor", en: "New UN Secretary-General takes office" }, kaynak: "https://news.cgtn.com/news/2026-10-17/UNSC-holds-6th-straw-poll-on-secretary-general-candidates-1RjhPtMoRCo/share_amp.html" }
+  { tarih: "2027-01-01", baslik: { tr: "Yeni BM Genel Sekreteri göreve başlıyor", en: "New Secretary General of the UN takes office" }, kaynak: "https://news.cgtn.com/news/2026-10-17/UNSC-holds-6th-straw-poll-on-secretary-general-candidates-1RjhPtMoRCo/share_amp.html" }
 ];

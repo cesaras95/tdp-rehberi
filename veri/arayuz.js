@@ -98,7 +98,7 @@ const ARAYUZ = {
     polDosyaAc: "Open file →", polGeri: "← All topics", polOlgular: "Facts and figures", polBelgeler: "Key documents and sources",
     polKarsiTez: "Counter-argument: other actors' view", polIpucu: "Exam tip", polKavram: "Key terms", polSoru: "Sample exam question", polYaz: "Practise this question in Written Practice →",
     ilerlemeBaslik: "Your progress", ilerlemeAcik: "Saved in this browser only; not visible on other devices.", ilerlemeQuiz: "Quiz accuracy (by topic)", ilerlemeKart: "Cards known", ilerlemeSifirla: "Reset", ilerlemeYok: "You haven't taken a quiz yet.",
-    kartBildim: "Got it ✓", kartTekrar: "Again ↺", kartSadece: "Only cards I don't know", kartHepsiBilindi: "You know all the cards. Turn off the filter to review them again.",
+    kartBildim: "Got it ✓", kartTekrar: "Again ↺", kartSadece: "Only cards I do not know", kartHepsiBilindi: "You know all the cards. Turn off the filter to review them again.",
     yaziliBaslik: "Written Practice", yaziliGiris: "The written stage includes compositions and a translation from Turkish into a foreign language. Practise both here against the clock.",
     modKompozisyon: "Composition", modCeviri: "Translation (TR → EN)",
     kompSec: "Choose a question", kompCerceve: "Thinking framework", kompIpuclari: "Points to cover", kompIpucuGoster: "Show points to cover", kompYaz: "Write your text here (your draft is saved in this browser)",
@@ -243,7 +243,7 @@ Object.assign(ARAYUZ.en, {
   mNasil4: "<b>Little and often:</b> 10–15 minutes a day, 4–5 days a week. Rate yourself after each session; My progress shows your weak spot.",
   mIskeletler: "Answer frameworks", mIskeletAcik: "When a question comes, first identify its type (policy, personal, scenario or pressure), then answer with that framework.",
   mAcilis: "Opening line",
-  mKurtarici: "Rescue phrases", mKurtariciAcik: "Use them when you get stuck, don't know the answer or feel tense. Turkish and English side by side.",
+  mKurtarici: "Rescue phrases", mKurtariciAcik: "Use them when you get stuck, do not know the answer or feel tense. Turkish and English side by side.",
   mListe: "Interview day checklist",
   mNefes: "One minute before the interview", mNefesAcik: "While waiting at the door: breathe in for 4 seconds, hold for 4, breathe out for 6. A long exhale helps reduce tension.",
   mNefesHazir: "Ready", mNefesBasla: "Start (1 min)", mNefesAl: "Breathe in", mNefesTut: "Hold", mNefesVer: "Breathe out slowly", mNefesBitti: "You're ready",
@@ -374,7 +374,7 @@ Object.assign(ARAYUZ.en, {
   bilHazirDegil: "Notifications are still being set up and will open soon.",
   bilReddedildi: "Notification permission was denied. Allow it for this app in your phone's Settings → Notifications and try again.",
   bilAboneOldun: "This device is subscribed. Last step: copy the code below and add it as a new line to the PUSH_ABONELER secret on GitHub.",
-  bilKodNot: "This code only lets the robot send notifications to this device; it is not a password, but still don't paste it anywhere public.",
+  bilKodNot: "This code only lets the robot send notifications to this device; it is not a password, but still do not paste it anywhere public.",
   bilKapandi: "Notifications turned off on this device.", bilHata: "Could not subscribe: {hata}",
   bilKopyalandi: "Copied ✓"
 });

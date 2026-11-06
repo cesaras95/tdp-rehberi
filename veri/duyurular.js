@@ -40,7 +40,7 @@ const DUYURULAR = [
   },
   {
     tarih: "2026-10-30",
-    baslik: { tr: "Türkiye, Sinirlioğlu'nu BM Genel Sekreterliğine aday gösterdi", en: "Türkiye nominates Sinirlioğlu for UN Secretary-General" },
+    baslik: { tr: "Türkiye, Sinirlioğlu'nu BM Genel Sekreterliğine aday gösterdi", en: "Türkiye nominates Sinirlioğlu for Secretary General of the UN" },
     ozet: {
       tr: "Cumhurbaşkanı Erdoğan'ın imzasını taşıyan aday mektubu, BM Daimi Temsilcisi aracılığıyla Genel Kurul ve Güvenlik Konseyi başkanlarına iletildi. Aday, AGİT Genel Sekreteri ve eski Dışişleri Bakanı Feridun Sinirlioğlu. Bakan Fidan adaylığı, seçim sürecindeki tıkanıklığı aşmaya yönelik diplomatik bir katkı olarak nitelendirdi.",
       en: "A nomination letter signed by President Erdoğan was transmitted by Türkiye's Permanent Representative to the Presidents of the General Assembly and the Security Council. The candidate is Feridun Sinirlioğlu, OSCE Secretary-General and former Minister of Foreign Affairs. Minister Fidan described the candidacy as a diplomatic contribution to overcoming the deadlock in the selection process."
@@ -155,7 +155,7 @@ const DUYURULAR = [
     baslik: { tr: "Kıbrıs: BM çatısında liderler görüşmesi", en: "Cyprus: leaders' meeting under UN auspices" },
     ozet: {
       tr: "KKTC Cumhurbaşkanı Erhürman ile Rum lider Hristodulidis Lefkoşa'da görüştü. Güven artırıcı önlemlerde ve yeni geçiş noktalarında uzlaşı sağlanamadı; liderler BM Genel Sekreteri'ne bilgi verdi.",
-      en: "TRNC President Erhürman and Greek Cypriot leader Christodoulides met in Nicosia. No agreement was reached on confidence building measures or new crossing points; the leaders briefed the UN Secretary-General."
+      en: "TRNC President Erhürman and Greek Cypriot leader Christodoulides met in Nicosia. No agreement was reached on confidence building measures or new crossing points; the leaders briefed the Secretary General of the UN."
     },
     sinavNotu: {
       tr: "Güven artırıcı önlemler (CBMs) kavramı ve müzakerelerin bugünkü durumu. Rum tarafının İsrail ile yakınlaşması Kıbrıslı Türklerce güveni zedeleyen adım olarak görülüyor.",

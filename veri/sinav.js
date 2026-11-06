@@ -63,7 +63,7 @@ const CERCEVE = [
 ];
 
 const KOMPOZISYON = [
-  { konu: "kibris", soru: { tr: "Kıbrıs meselesinde 2017 sonrası yaşanan yaklaşım değişikliğini, Türkiye'nin tezleri ve uluslararası toplumun tutumu çerçevesinde değerlendiriniz.", en: "Assess the change of approach on the Cyprus question since 2017 in the light of Türkiye's positions and the stance of the international community." },
+  { konu: "kibris", soru: { tr: "Kıbrıs meselesinde 2017 sonrası yaşanan yaklaşım değişikliğini, Türkiye'nin tezleri ve uluslararası toplumun tutumu çerçevesinde değerlendiriniz.", en: "Assess the change of approach on the Cyprus issue since 2017 in the light of Türkiye's positions and the stance of the international community." },
     ipuclari: { tr: ["1960 antlaşmaları ve garantörlük", "Annan Planı 2004 sonuçları", "Crans-Montana 2017 ve Cenevre 2021", "Egemen eşitlik ve eşit uluslararası statü", "BMGK kararları ve AB boyutu"], en: ["The 1960 treaties and guarantorship", "Results of the 2004 Annan Plan", "Crans-Montana 2017 and Geneva 2021", "Sovereign equality and equal international status", "UNSC resolutions and the EU dimension"] } },
   { konu: "rusya-ukrayna", soru: { tr: "Montrö Sözleşmesi'nin Karadeniz güvenliğindeki rolünü Rusya-Ukrayna savaşı örneği üzerinden tartışınız.", en: "Discuss the role of the Montreux Convention in Black Sea security, using the example of the Russia–Ukraine war." },
     ipuclari: { tr: ["Tonaj ve süre sınırları", "19. maddenin 2022'de uygulanması", "Karadeniz'in bölgesel sahipliği tezi", "Tahıl Girişimi", "Batı'nın eleştirileri"], en: ["Tonnage and time limits", "Application of Article 19 in 2022", "The regional ownership thesis", "The Grain Initiative", "Western criticism"] } },
