@@ -126,7 +126,7 @@ function tarihCiz() {
     <article class="donem">
       <details class="kutu">
         <summary data-goster="${guvenli(a("olaylariGoster"))}" data-gizle="${guvenli(a("gizle"))}">
-          <span class="donem-yil">${guvenli(d.donem)}</span>
+          <span class="donem-yil">${guvenli(d.donem)}</span>${d.etiket ? `<span class="donem-etiket" title="${guvenli(a("etiketAcik"))}">${guvenli(t(d.etiket))}</span>` : ""}
           <h3>${guvenli(t(d.baslik))}</h3>
           <p>${guvenli(t(d.ozet))}</p>
         </summary>
@@ -139,7 +139,7 @@ function tarihCiz() {
           ${d.olaylar.map(o => `
             <div class="olay">
               <div class="olay-yil">${guvenli(yilYaz(o.yil))}</div>
-              <div><p><strong>${guvenli(t(o.olay))}</strong></p><p class="onem">${guvenli(t(o.onem))}${o.s ? ` <span class="sayfa">(${a("sayfaKisa")} ${guvenli(o.s)})</span>` : ""}</p></div>
+              <div><p><strong>${guvenli(t(o.olay))}</strong></p><p class="onem">${guvenli(t(o.onem))}${o.s ? ` <span class="sayfa">(${a("sayfaKisa")} ${guvenli(o.s)})</span>` : ""}</p>${o.bakis ? `<details class="iki-bakis"><summary>${a("ikiBakis")}</summary><div class="bakis-izgara"><div class="bakis resmi-bakis"><h5>${a("bakisResmi")}</h5><p>${guvenli(t(o.bakis.resmi))}</p></div><div class="bakis karsi-bakis"><h5>${a("bakisKarsi")}</h5><p>${guvenli(t(o.bakis.karsi))}</p></div></div>${o.bakis.cevap ? `<p class="bakis-cevap"><b>${a("bakisCevap")}</b> ${guvenli(t(o.bakis.cevap))}</p>` : ""}</details>` : ""}</div>
             </div>`).join("")}
           ${d.deger ? `<div class="donem-deger"><h4>${a("donemDeger")}</h4><p>${guvenli(t(d.deger))}</p></div>` : ""}
           <div class="kavramlar">${kavramCiz(d.kavramlar)}</div>
