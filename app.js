@@ -143,7 +143,7 @@ function tarihCiz() {
             </div>`).join("")}
           ${d.deger ? `<div class="donem-deger"><h4>${a("donemDeger")}</h4><p>${guvenli(t(d.deger))}</p></div>` : ""}
           <div class="kavramlar">${kavramCiz(d.kavramlar)}</div>
-          ${d.kaynak ? `<p class="donem-kaynak">${a("donemKaynak")}: ${guvenli(dil === "en" ? d.kaynak.replace("TDP Cilt I, s.", "Türk Dış Politikası vol. I, pp.") : d.kaynak.replace("TDP Cilt I", "Türk Dış Politikası Cilt I"))}</p>` : ""}
+          ${d.kaynak ? `<p class="donem-kaynak">${a("donemKaynak")}: ${guvenli(dil === "en" ? d.kaynak.replace(/TDP Cilt (I+), s\./g, "Türk Dış Politikası vol. $1, pp.").replace(" olayları)", " events)") : d.kaynak.replace(/TDP Cilt /g, "Türk Dış Politikası Cilt "))}</p>` : ""}
         </div>
       </details>
     </article>
