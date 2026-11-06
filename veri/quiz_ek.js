@@ -295,7 +295,7 @@ QUIZ.push(
     ["5,4 milyar dolar", "12 milyar dolar", "75 milyar dolar", "34,5 milyar dolar"],
     ["$5.4 billion", "$12 billion", "$75 billion", "$34.5 billion"],
     ["Bakanlık verisine göre 2003'te 5,4, 2021 sonunda 34,5 milyar dolar.", "According to the Ministry, $5.4 billion in 2003 and $34.5 billion at the end of 2021."]),
-  S("afrika", 2, ["Türkiye'nin Afrika açılımının başlangıç belgesi olarak kabul edilen plan hangi yıla aittir?", "In which year was the plan regarded as the starting point of Türkiye's Africa opening adopted?"],
+  S("afrika", 2, ["Türkiye'nin Afrika açılımının başlangıç belgesi olarak kabul edilen plan hangi yıla aittir?", "In which year was the Africa Action Plan, regarded as the starting point of Türkiye's Africa opening, adopted?"],
     ["1991", "2002", "1998", "2005"],
     ["1991", "2002", "1998", "2005"],
     ["1998 Afrika Eylem Planı başlangıç noktası kabul edilir. 2005 ise Türkiye'de \"Afrika Yılı\" ilan edilmiştir.", "The 1998 Africa Action Plan is considered the starting point. 2005 was declared the 'Year of Africa' in Türkiye."]),

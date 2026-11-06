@@ -88,7 +88,7 @@ QUIZ.push(
   S("tarih", 0, ["Ege'de Türkiye ile Yunanistan arasındaki kıta sahanlığı uyuşmazlığı hangi olayla 1973–1974'te gündeme geldi?", "What event brought the Aegean continental shelf dispute to the fore in 1973–1974?"],
     ["Türkiye'nin TPAO'ya Ege'de arama ruhsatı vermesi", "Yunanistan'ın NATO'dan çekilmesi", "İmia/Kardak krizi", "Lozan'ın feshi"],
     ["Türkiye granting exploration licences in the Aegean to TPAO", "Greece leaving NATO", "The Imia/Kardak crisis", "Abrogation of Lausanne"],
-    ["Türkiye Kasım 1973'te TPAO'ya Ege'de arama ruhsatları verdi; Yunanistan buna itiraz etti. 1976'daki Sismik krizi ve Kasım 1976 Bern Deklarasyonu bu sürecin devamıdır. Kardak krizi 1996'dadır.", "In November 1973 Türkiye granted exploration licences in the Aegean to TPAO, which Greece contested. The 1976 Sismik crisis and the Bern Declaration of November 1976 followed. Kardak came in 1996."]),
+    ["Türkiye Kasım 1973'te TPAO'ya Ege'de arama ruhsatları verdi; Yunanistan buna itiraz etti. 1976'daki Sismik krizi ve Kasım 1976 Bern Deklarasyonu bu sürecin devamıdır. Kardak krizi 1996'dadır.", "In November 1973 Türkiye granted exploration licences in the Aegean to TPAO, which Greece contested. The 1976 Sismik crisis and the Bern Declaration of November 1976 followed. The Kardak crisis occurred in 1996."]),
   // ---------- 1980–2012 (Cilt II ve III) ----------
   S("tarih", 1, ["Türkiye Avrupa Topluluğu'na tam üyelik başvurusunu hangi tarihte yaptı?", "When did Türkiye apply for full membership of the European Community?"],
     ["12 Eylül 1963", "14 Nisan 1987", "6 Mart 1995", "11 Aralık 1999"],

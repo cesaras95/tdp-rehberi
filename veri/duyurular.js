@@ -15,7 +15,7 @@ const DUYURULAR = [
     baslik: { tr: "Zelenski'nin İstanbul ziyareti", en: "Zelenskyy's visit to Istanbul" },
     ozet: {
       tr: "Cumhurbaşkanı Erdoğan, Ukrayna Devlet Başkanı Zelenski'yi Dolmabahçe'de kabul etti. Görüşmede Ukrayna'da barış çabaları ve Karadeniz'deki seyrüsefer güvenliği ele alındı; Erdoğan sivil gemilere yönelik saldırıların kabul edilemez olduğunu söyledi. Zelenski, Kasım'ın ilk yarısında ABD-Rusya-Ukrayna üçlü görüşmelerine hazırlanıldığını ve Türkiye'nin ev sahipliği seçeneğinin de konuşulduğunu belirtti.",
-      en: "President Erdoğan received Ukrainian President Zelenskyy at Dolmabahçe. The talks covered peace efforts in Ukraine and navigation safety in the Black Sea; Erdoğan said attacks on civilian vessels were unacceptable. Zelenskyy said a trilateral US–Russia–Ukraine round was being prepared for the first half of November and that the option of Türkiye as host had also been discussed."
+      en: "President Erdoğan received Ukrainian President Zelenskyy at Dolmabahçe. The talks covered peace efforts in Ukraine and safety of navigation in the Black Sea; Erdoğan said attacks on civilian vessels were unacceptable. Zelenskyy said a trilateral US–Russia–Ukraine round was being prepared for the first half of November and that the option of Türkiye as host had also been discussed."
     },
     sinavNotu: {
       tr: "Türkiye'nin Montrö Sözleşmesi'nden gelen Karadeniz sorumluluğu ve 2022 Tahıl Koridoru deneyimi. Müzakere yeri Körfez'e kaysa da Türkiye kolaylaştırıcı rolünü canlı tutmaya çalışıyor.",

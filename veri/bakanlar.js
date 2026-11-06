@@ -45,7 +45,7 @@ const BAKANLAR = [
   { ad: "İhsan Sabri Çağlayangil", bas: "27.10.1965", son: "12.03.1971", donem: "cumhuriyet",
     not: { tr: "Batı ittifakı içinde kalırken dış politikayı çeşitlendirme arayışı dönemi. Üç ayrı dönemde görev yaptı.", en: "A period of seeking to diversify foreign policy while remaining in the Western alliance. Served in three separate terms." } },
   { ad: "Osman Olcay", bas: "26.03.1971", son: "03.12.1971", donem: "cumhuriyet",
-    not: { tr: "12 Mart sonrası Erim hükümetinde; eski NATO daimi temsilcisiydi. Haşhaş ekimi yasağı (Haziran 1971) bu dönemde.", en: "In the post-12 March Erim government; a former permanent representative to NATO. The ban on poppy cultivation (June 1971) came during his term." } },
+    not: { tr: "12 Mart sonrası Erim hükümetinde; eski NATO daimi temsilcisiydi. Haşhaş ekimi yasağı (Haziran 1971) bu dönemde.", en: "In the post-12 March Erim government; a former permanent representative to NATO. The ban on poppy cultivation (June 1971) was imposed during his term." } },
   { ad: "Ümit Haluk Bayülken", bas: "11.12.1971", son: "25.01.1974", donem: "cumhuriyet",
     not: { tr: "AET Katma Protokolü'nün değiştirilmesi için Avrupa başkentlerini dolaştı; 1973'te Mısır'ı ziyaret etti.", en: "Toured European capitals to seek changes to the EEC Additional Protocol; visited Egypt in 1973." } },
   { ad: "Turan Güneş", bas: "26.01.1974", son: "17.11.1974", donem: "cumhuriyet",
