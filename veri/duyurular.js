@@ -29,7 +29,7 @@ const DUYURULAR = [
     baslik: { tr: "Türk Devletleri Teşkilatı 13. Zirvesi — Ankara", en: "13th Summit of the Organization of Turkic States — Ankara" },
     ozet: {
       tr: "Ankara'daki zirvede dönem başkanlığı Azerbaycan'dan Türkiye'ye geçti ve 163 maddelik Ankara Beyannamesi kabul edildi. Beyanname savunma sanayii, siber güvenlik, Orta Koridor ve enerji hatlarında işbirliğini öngörüyor; Kıbrıs Türklerinin eşit haklarına destek de yer aldı. Özbekistan'dan Mirvohid Azimov yeni Genel Sekreter oldu; Azerbaycan zirvede Dışişleri Bakanı Bayramov düzeyinde temsil edildi.",
-      en: "At the Ankara summit, the chairmanship passed from Azerbaijan to Türkiye and the 163-point Ankara Declaration was adopted. The declaration provides for cooperation on the defence industry, cybersecurity, the Middle Corridor and energy routes, and includes support for the equal rights of Turkish Cypriots. Mirvokhid Azimov of Uzbekistan became the new Secretary-General; Azerbaijan was represented by Foreign Minister Bayramov."
+      en: "At the Ankara summit, the chairmanship passed from Azerbaijan to Türkiye and the 163-point Ankara Declaration was adopted. The declaration provides for cooperation on the defence industry, cybersecurity, the Middle Corridor and energy routes, and includes support for the equal rights of Turkish Cypriots. Mirvokhid Azimov of Uzbekistan became the new Secretary-General; Azerbaijan was represented by Minister of Foreign Affairs Bayramov."
     },
     sinavNotu: {
       tr: "TDT'nin yapısı: 5 üye (Türkiye, Azerbaycan, Kazakistan, Kırgızistan, Özbekistan), gözlemciler (Macaristan, Türkmenistan, KKTC). Orta Koridor ve Zengezur bağlantıları sık sorulur. 2027 zirvesi Özbekistan'da.",
@@ -43,7 +43,7 @@ const DUYURULAR = [
     baslik: { tr: "Türkiye, Sinirlioğlu'nu BM Genel Sekreterliğine aday gösterdi", en: "Türkiye nominates Sinirlioğlu for UN Secretary-General" },
     ozet: {
       tr: "Cumhurbaşkanı Erdoğan'ın imzasını taşıyan aday mektubu, BM Daimi Temsilcisi aracılığıyla Genel Kurul ve Güvenlik Konseyi başkanlarına iletildi. Aday, AGİT Genel Sekreteri ve eski Dışişleri Bakanı Feridun Sinirlioğlu. Bakan Fidan adaylığı, seçim sürecindeki tıkanıklığı aşmaya yönelik diplomatik bir katkı olarak nitelendirdi.",
-      en: "A nomination letter signed by President Erdoğan was transmitted by Türkiye's Permanent Representative to the Presidents of the General Assembly and the Security Council. The candidate is Feridun Sinirlioğlu, OSCE Secretary-General and former Foreign Minister. Minister Fidan described the candidacy as a diplomatic contribution to overcoming the deadlock in the selection process."
+      en: "A nomination letter signed by President Erdoğan was transmitted by Türkiye's Permanent Representative to the Presidents of the General Assembly and the Security Council. The candidate is Feridun Sinirlioğlu, OSCE Secretary-General and former Minister of Foreign Affairs. Minister Fidan described the candidacy as a diplomatic contribution to overcoming the deadlock in the selection process."
     },
     sinavNotu: {
       tr: "Genel Sekreter seçimi: Güvenlik Konseyi tavsiyesi (en az 9 oy, daimi üyelerin vetosu yok) + Genel Kurul ataması. Bölgesel rotasyon geleneği ve Güvenlik Konseyi'nin seçilmiş üyelerinin (ör. Yunanistan) tutumu belirleyici olabilir.",
@@ -57,7 +57,7 @@ const DUYURULAR = [
     baslik: { tr: "G20 Dışişleri Bakanları Toplantısı ve Türkiye–ABD temasları", en: "G20 Foreign Ministers' Meeting and Türkiye–US contacts" },
     ozet: {
       tr: "Bakan Fidan, 30-31 Ekim'de Atlanta'daki G20 Dışişleri Bakanları Toplantısı'na katıldı ve ABD, Almanya, Japonya, Endonezya ve Meksika dışişleri bakanlarıyla görüştü. ABD Dışişleri Bakanlığına göre Fidan ile Rubio, Aralık'taki G20 Liderler Zirvesi öncesinde ikili ilişkileri ilerletmenin yollarını ele aldı. Bundan iki gün önce Cumhurbaşkanı Erdoğan ile Başkan Trump telefonda Ukrayna, Yemen ve Hürmüz Boğazı'ndaki gelişmeleri görüştü.",
-      en: "Minister Fidan attended the G20 Foreign Ministers' Meeting in Atlanta on 30–31 October and met the foreign ministers of the US, Germany, Japan, Indonesia and Mexico. According to the US State Department, Fidan and Rubio discussed ways to advance bilateral ties ahead of the G20 Leaders' Summit in December. Two days earlier, President Erdoğan and President Trump discussed Ukraine, Yemen and the Strait of Hormuz by telephone."
+      en: "Minister Fidan attended the G20 Foreign Ministers' Meeting in Atlanta on 30–31 October and met the ministers of foreign affairs of the US, Germany, Japan, Indonesia and Mexico. According to the US State Department, Fidan and Rubio discussed ways to advance bilateral ties ahead of the G20 Leaders' Summit in December. Two days earlier, President Erdoğan and President Trump discussed Ukraine, Yemen and the Strait of Hormuz by telephone."
     },
     sinavNotu: {
       tr: "Türkiye G20'nin kurucu üyesi. Bakanlar toplantısı ortak bildiri olmadan bitti (bkz. Dünya Gündemi); bu, çok taraflı forumlarda uzlaşı zorluğunun güncel bir örneği.",
@@ -82,7 +82,7 @@ const DUYURULAR = [
   },
   {
     tarih: "2026-10-23",
-    baslik: { tr: "İstanbul'da R4 ve R4+E3 dışişleri bakanları toplantıları", en: "R4 and R4+E3 foreign ministers' meetings in Istanbul" },
+    baslik: { tr: "İstanbul'da R4 ve R4+E3 dışişleri bakanları toplantıları", en: "R4 and R4+E3 meetings of ministers of foreign affairs in Istanbul" },
     ozet: {
       tr: "Bakan Fidan, R4 (Türkiye, Mısır, Pakistan, Suudi Arabistan) ve R4+E3 (Almanya, Birleşik Krallık, Fransa) formatındaki toplantılara ev sahipliği yaptı. Basına yansıyan bilgilere göre gündemde Filistin, Yemen, Hürmüz Boğazı ve Rusya-Ukrayna vardı; tarafların düzenli toplanma kararı aldığı bildirildi.",
       en: "Minister Fidan hosted meetings in the R4 (Türkiye, Egypt, Pakistan, Saudi Arabia) and R4+E3 (Germany, the UK, France) formats. According to press reports, the agenda covered Palestine, Yemen, the Strait of Hormuz and Russia–Ukraine, and the parties agreed to meet regularly."
@@ -166,10 +166,10 @@ const DUYURULAR = [
   },
   {
     tarih: "2026-09-13",
-    baslik: { tr: "Dışişleri Bakanı Fidan'ın Şam ziyareti", en: "Foreign Minister Fidan's visit to Damascus" },
+    baslik: { tr: "Dışişleri Bakanı Fidan'ın Şam ziyareti", en: "Minister of Foreign Affairs Fidan's visit to Damascus" },
     ozet: {
       tr: "Bakan Fidan 13-14 Eylül'de Şam'da Suriye Dışişleri Bakanı Şeybani ile görüştü ve Cumhurbaşkanı Şara tarafından kabul edildi. Suriye İçişleri Bakanı ile üçlü bir toplantı yapıldı, Suriye Türkmen Meclisi heyetiyle de bir araya gelindi.",
-      en: "On 13–14 September in Damascus, Minister Fidan met Syrian Foreign Minister al-Shaibani and was received by President al-Sharaa. A trilateral meeting was held with the Syrian Interior Minister, and he also met a delegation of the Syrian Turkmen Assembly."
+      en: "On 13–14 September in Damascus, Minister Fidan met Syrian Minister of Foreign Affairs al-Shaibani and was received by President al-Sharaa. A trilateral meeting was held with the Syrian Interior Minister, and he also met a delegation of the Syrian Turkmen Assembly."
     },
     sinavNotu: {
       tr: "Yeni Suriye yönetimiyle güvenlik dâhil çok boyutlu işbirliği. Suriye, Fidan'ın 2026 öncelik listesinde birinci sırada.",

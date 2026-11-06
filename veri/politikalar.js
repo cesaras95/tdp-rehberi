@@ -22,7 +22,7 @@ const POLITIKALAR = [
     },
     analiz: {
       tr: "Türkiye'nin tezi, BM parametrelerine dayanan iki toplumlu, iki bölgeli federasyon modelinden 2021'den itibaren açıkça uzaklaştı. Bu değişim Crans-Montana'nın (2017) başarısızlığına bir yanıt olarak okunabilir. Ancak BM Güvenlik Konseyi kararları federasyon çerçevesini korumaya devam ediyor; AB ise Kıbrıs Cumhuriyeti üzerinden meseleye taraf. Bu nedenle Kıbrıs, AB katılım sürecindeki fasıl blokajlarından Doğu Akdeniz enerji denklemine kadar birçok dosyayı doğrudan etkiliyor.",
-      en: "Since 2021, Türkiye's position has openly moved away from the bizonal, bicommunal federation model based on UN parameters. The shift can be read as a response to the failure of Crans-Montana (2017). Yet UN Security Council resolutions still uphold the federal framework, and the EU is a party to the issue through the Republic of Cyprus. Cyprus therefore directly affects many files, from blocked chapters in the EU accession process to the Eastern Mediterranean energy equation."
+      en: "Since 2021, Türkiye's position has clearly moved away from the bizonal, bicommunal federation model based on UN parameters. The shift can be understood as a response to the failure of the Crans-Montana Conference (2017). UN Security Council resolutions, however, continue to uphold the federal framework, and the EU is a party to the issue through the Republic of Cyprus. Cyprus therefore directly affects many files, from blocked chapters in the EU accession process to the Eastern Mediterranean energy equation."
     },
     olgular: [
       { tr: "1960: Kıbrıs Cumhuriyeti, Zürih ve Londra Antlaşmalarıyla iki toplumun ortaklığına dayalı olarak kuruldu. Garantörler: Türkiye, Yunanistan, Birleşik Krallık.", en: "1960: The Republic of Cyprus was established under the Zurich and London Agreements as a partnership of the two communities. Guarantors: Türkiye, Greece, the United Kingdom." },
@@ -44,7 +44,7 @@ const POLITIKALAR = [
     },
     sinavIpucu: {
       tr: "\"Kıbrıs Cumhuriyeti\" yerine Bakanlık dilinde \"GKRY\" ya da \"Kıbrıslı Rumlar\" kullanılır; resmî tutum yazarken bu terminolojiye dikkat et. 1963'ü atlamak sık yapılan bir hatadır: Türkiye'nin anlatısında sorunun başlangıcı 1974 değil 1963'tür.",
-      en: "In the Ministry's language, \"Greek Cypriot Administration\" or \"Greek Cypriots\" is used instead of \"Republic of Cyprus\"; keep to this terminology when stating the official position. Skipping 1963 is a common mistake: in Türkiye's narrative, the problem begins in 1963, not 1974."
+      en: "In Ministry usage, \"Greek Cypriot Administration\" or \"Greek Cypriots\" is used instead of \"Republic of Cyprus\"; keep to this terminology when stating the official position. Overlooking 1963 is a common error: in Türkiye's narrative, the problem begins in 1963, not 1974."
     },
     kavramlar: [{ tr: "Egemen eşitlik", en: "Sovereign equality" }, { tr: "Garantör ülke", en: "Guarantor state" }, { tr: "Güven artırıcı önlemler", en: "Confidence building measures (CBMs)" }, { tr: "Tanımama siyaseti", en: "Non-recognition policy" }],
     soru: {
@@ -63,7 +63,7 @@ const POLITIKALAR = [
     },
     analiz: {
       tr: "Ege'de sorunların çoğu kesin sınır çizilmemesinden kaynaklanıyor: ne kıta sahanlığı ne de karasuları dışındaki deniz alanları sınırlandırılmış durumda. Türkiye BM Deniz Hukuku Sözleşmesi'ne (UNCLOS) taraf değil ve hakkaniyet ilkesini uluslararası içtihada dayandırıyor. 2023 sonrası Atina Beyannamesi ve \"pozitif gündem\" gerilimi azalttı ama özü çözmedi. Ekim 2026'da Doğu Libya'nın 2019 mutabakatını onaylaması Türkiye'nin pozisyonunu güçlendirirken, Yunanistan-Mısır ekseninde karşı hamle tartışmasını başlattı.",
-      en: "Most Aegean issues stem from the absence of agreed boundaries: neither the continental shelf nor maritime areas beyond territorial waters have been delimited. Türkiye is not a party to UNCLOS and bases the principle of equity on international case law. The Athens Declaration and the 'positive agenda' after 2023 reduced tension but did not resolve the substance. Eastern Libya's ratification of the 2019 memorandum in October 2026 strengthened Türkiye's position while prompting talk of a counter-move by Greece and Egypt."
+      en: "Most Aegean issues stem from the absence of agreed boundaries: neither the continental shelf nor maritime areas beyond territorial waters have been delimited. Türkiye is not a party to UNCLOS and bases the principle of equity on international case law. The Athens Declaration and the 'positive agenda' pursued since 2023 eased tensions but did not resolve the substantive issues. Eastern Libya's ratification of the 2019 memorandum in October 2026 strengthened Türkiye's position, while prompting speculation about a response by Greece and Egypt."
     },
     olgular: [
       { tr: "Karasuları: İki ülke de Ege'de 6 deniz mili uyguluyor. Bakanlığa göre 12 mile genişleme Yunanistan'ın payını yaklaşık %40'tan %70'e çıkarır, açık denizi %51'den %19'a düşürür, Türkiye'ye %10'dan az alan bırakır.", en: "Territorial waters: Both countries apply 6 nautical miles in the Aegean. According to the Ministry, an extension to 12 miles would raise Greece's share from about 40% to 70%, cut high seas from 51% to 19% and leave Türkiye less than 10%." },
@@ -103,7 +103,7 @@ const POLITIKALAR = [
     },
     analiz: {
       tr: "Müzakereler hukuken sürüyor ama fiilen duruyor: AB Konseyi Haziran 2018 sonuçlarında yeni fasıl açılmasının öngörülmediğini kaydetti. 35 fasıldan 14'ünün siyasi gerekçelerle bloke olması, sorunun teknik değil Kıbrıs merkezli siyasi bir düğüm olduğunu gösteriyor. Bu nedenle ilişki giderek göç, ticaret, enerji ve savunma gibi \"işlevsel\" alanlarda yürüyor. Rusya tehdidi ve SAFE tartışması, Türkiye'nin değerini savunma ekseninde yeniden gündeme taşıdı.",
-      en: "Negotiations continue legally but have stalled in practice: in its June 2018 conclusions the EU Council noted that no further chapters could be considered for opening. The political blocking of 14 of the 35 chapters shows that the problem is not technical but a political knot centred on Cyprus. The relationship therefore increasingly runs through 'functional' areas such as migration, trade, energy and defence. The Russian threat and the SAFE debate have brought Türkiye's value back onto the agenda in the defence dimension."
+      en: "Negotiations remain formally open but have stalled in practice: in its June 2018 conclusions the EU Council noted that no further chapters could be considered for opening. The political blocking of 14 of the 35 chapters shows that the problem is not technical but a political impasse centred on the Cyprus issue. The relationship is therefore increasingly conducted through 'functional' areas such as migration, trade, energy and defence. The Russian threat and the SAFE debate have brought Türkiye's value back onto the agenda in the defence dimension."
     },
     olgular: [
       { tr: "Kilometre taşları: 1959 ortaklık başvurusu; 12 Eylül 1963 Ankara Antlaşması; 1970 Katma Protokol; 14 Nisan 1987 tam üyelik başvurusu; 1 Ocak 1996 Gümrük Birliği (1/95 sayılı Ortaklık Konseyi Kararı); Aralık 1999 Helsinki'de adaylık; 3 Ekim 2005 müzakerelerin açılışı.", en: "Milestones: 1959 application for association; 12 September 1963 Ankara Agreement; 1970 Additional Protocol; 14 April 1987 application for full membership; 1 January 1996 Customs Union (Association Council Decision 1/95); December 1999 candidacy at Helsinki; 3 October 2005 opening of negotiations." },
@@ -111,7 +111,7 @@ const POLITIKALAR = [
       { tr: "Blokajlar: AB Konseyi 11 Aralık 2006'da Ankara Protokolü'nün GKRY'ye uygulanmaması gerekçesiyle 8 faslı askıya aldı; GKRY tek taraflı olarak 6 faslı bloke ediyor. Toplam 14 fasıl bloke.", en: "Blockages: On 11 December 2006 the EU Council suspended 8 chapters over the non-application of the Ankara Protocol to the Greek Cypriot Administration, which unilaterally blocks 6 more. A total of 14 chapters are blocked." },
       { tr: "18 Mart 2016 Türkiye-AB Mutabakatı: düzensiz göçle mücadele, geri kabul ve AB'nin sığınmacılar için mali desteği.", en: "18 March 2016 Türkiye–EU Statement: combating irregular migration, readmission and EU financial support for refugees." },
       { tr: "Vize serbestisi: 72 kriterin 66'sı karşılandı, 6'sı kaldı (Temmuz 2025). AB, Temmuz 2025'te Türk vatandaşları için kademeli çok girişli vize uygulamasını başlattı.", en: "Visa liberalisation: 66 of 72 benchmarks met, 6 remaining (July 2025). In July 2025 the EU introduced a cascade multiple-entry visa regime for Turkish citizens." },
-      { tr: "SAFE: AB Konseyi Mayıs 2025'te ortak savunma alımları için 150 milyar avroluk kredi aracını kabul etti. Üçüncü ülke katılımı ikili anlaşmaya bağlı; Türkiye'nin katılımı tartışılıyor.", en: "SAFE: In May 2025 the EU Council adopted a €150 billion loan instrument for joint defence procurement. Third-country participation depends on a bilateral agreement; Türkiye's participation is under discussion." }
+      { tr: "SAFE: AB Konseyi Mayıs 2025'te ortak savunma alımları için 150 milyar avroluk kredi aracını kabul etti. Üçüncü ülke katılımı ikili anlaşmaya bağlı; Türkiye'nin katılımı tartışılıyor.", en: "SAFE: In May 2025 the EU Council adopted a €150 billion loan instrument for joint defence procurement. Third country participation depends on a bilateral agreement; Türkiye's participation is under discussion." }
     ],
     belgeler: [
       { ad: { tr: "Türkiye-AB İlişkilerine Genel Bakış (Bakanlık)", en: "Overview of Türkiye–EU Relations (Ministry, Turkish)" }, url: "https://www.mfa.gov.tr/turkiye-ab-iliskilerine-genel-bakis.tr.mfa" },
@@ -120,11 +120,11 @@ const POLITIKALAR = [
     ],
     karsiTez: {
       tr: "AB kurumları ve bazı üye devletler, müzakerelerin durmasını Türkiye'deki hukukun üstünlüğü, yargı bağımsızlığı ve temel haklar alanındaki gerilemeye bağlar; ilerlemeyi Kopenhag kriterlerine ve Ankara Protokolü'nün tüm üye devletlere uygulanmasına şartlar. Bazı çevreler tam üyelik yerine \"imtiyazlı ortaklık\" modelini savunur.",
-      en: "EU institutions and some member states attribute the standstill to backsliding in Türkiye on the rule of law, judicial independence and fundamental rights; they make progress conditional on the Copenhagen criteria and the application of the Ankara Protocol to all member states. Some circles advocate a 'privileged partnership' instead of full membership."
+      en: "EU institutions and some member states attribute the standstill to backsliding in Türkiye on the supremacy of law, judicial independence and fundamental rights; they make progress conditional on the Copenhagen criteria and the application of the Ankara Protocol to all member states. Some circles advocate a 'privileged partnership' instead of full membership."
     },
     sinavIpucu: {
       tr: "Fasıl sayılarını karıştırma: açılan 16, kapanan 1, bloke 14 (8 Konsey + 6 GKRY). Gümrük Birliği'nin tarımı, hizmetleri ve kamu alımlarını kapsamadığını ve Türkiye'nin AB'nin üçüncü ülkelerle yaptığı STA'lara karar sürecinde katılmadan uymak zorunda kaldığı \"asimetri\" sorununu bil.",
-      en: "Don't mix up the chapter numbers: 16 opened, 1 closed, 14 blocked (8 by the Council + 6 by the Greek Cypriot side). Know that the Customs Union excludes agriculture, services and public procurement, and the 'asymmetry' problem whereby Türkiye must follow the EU's FTAs with third countries without a say in them."
+      en: "Do not confuse the chapter figures: 16 opened, 1 closed, 14 blocked (8 by the Council + 6 by the Greek Cypriot side). Note that the Customs Union excludes agriculture, services and public procurement, and the 'asymmetry' problem whereby Türkiye must follow the EU's FTAs with third countries without a say in them."
     },
     kavramlar: [{ tr: "Gümrük Birliği", en: "Customs Union" }, { tr: "Vize serbestisi diyaloğu", en: "Visa liberalisation dialogue" }, { tr: "Katılım müzakereleri", en: "Accession negotiations" }, { tr: "AB müktesebatı", en: "Acquis communautaire" }, { tr: "Aday ülke", en: "Candidate country" }],
     soru: {
@@ -139,11 +139,11 @@ const POLITIKALAR = [
     oncelik: "yuksek",
     resmi: {
       tr: "Türkiye NATO'yu Avrupa-Atlantik güvenliğinin temeli olarak görür ve ittifakın en büyük ordularından birine sahip bir müttefik olarak katkısını vurgular. Terörle mücadelede müttefiklerden dayanışma bekler. ABD ile ilişkileri stratejik ortaklık çerçevesinde ele alır; F-35 programına dönüş ve CAATSA yaptırımlarının kaldırılması gibi sorunların çözümünü ister.",
-      en: "Türkiye regards NATO as the cornerstone of Euro-Atlantic security and stresses its contribution as an ally with one of the largest armed forces in the Alliance. It expects solidarity from allies in counter-terrorism. It approaches relations with the US within a strategic partnership framework and seeks solutions to issues such as returning to the F-35 programme and lifting the CAATSA sanctions."
+      en: "Türkiye regards NATO as the cornerstone of Euro-Atlantic security and stresses its contribution as an ally with one of the largest armed forces in the Alliance. It expects Allied solidarity in antiterrorism efforts. It approaches relations with the US within a strategic partnership framework and seeks solutions to issues such as returning to the F-35 programme and lifting the CAATSA sanctions."
     },
     analiz: {
       tr: "Türkiye-NATO ilişkisi \"vazgeçilmez ama sorunlu\" bir ilişki olarak tanımlanabilir. Coğrafya (Karadeniz, Boğazlar, Orta Doğu'ya açılan kanat) Türkiye'yi vazgeçilmez kılıyor; S-400 alımı ve Suriye'de YPG'ye verilen destek ise güveni zedeledi. 2026'da İran füzelerinin NATO sistemlerince engellenmesi ve Ankara Zirvesi, ittifakın Türkiye için somut değerini ve Türkiye'nin ittifaktaki ağırlığını birlikte gösterdi. İsveç ve Finlandiya'nın üyelik süreçleri, Türkiye'nin onay yetkisini pazarlık gücüne çevirebildiğini ortaya koydu.",
-      en: "Türkiye–NATO relations can be described as 'indispensable but troubled'. Geography (the Black Sea, the Straits, the flank facing the Middle East) makes Türkiye indispensable, while the S-400 purchase and US support for the YPG in Syria damaged trust. In 2026, the interception of Iranian missiles by NATO systems and the Ankara Summit showed both the Alliance's tangible value for Türkiye and Türkiye's weight within it. The Swedish and Finnish accession processes showed that Türkiye could turn its ratification power into leverage."
+      en: "Türkiye–NATO relations can be described as 'indispensable but troubled'. Geography (the Black Sea, the Straits, the flank facing the Middle East) makes Türkiye indispensable, while the S-400 purchase and US support for the YPG in Syria damaged trust. In 2026, the interception of Iranian missiles by NATO systems and the Ankara Summit showed both the Alliance's tangible value for Türkiye and Türkiye's weight within it. The Swedish and Finnish accession processes demonstrated the weight of Türkiye's ratification in Alliance decision-making."
     },
     olgular: [
       { tr: "18 Şubat 1952: Türkiye ve Yunanistan NATO'ya katıldı. Türkiye, Kore Savaşı'na (1950) asker göndermişti.", en: "18 February 1952: Türkiye and Greece joined NATO. Türkiye had sent troops to the Korean War (1950)." },
@@ -155,7 +155,7 @@ const POLITIKALAR = [
     ],
     belgeler: [
       { ad: { tr: "NATO Lahey Zirvesi Bildirisi (2025)", en: "The Hague Summit Declaration (2025)" }, url: "https://www.ncia.nato.int/newsroom/news/the-hague-summit-declaration" },
-      { ad: { tr: "Bakan Fidan: Ankara Zirvesi değerlendirmesi", en: "FM Fidan on the Ankara Summit" }, url: "https://en.yenisafak.com/turkiye/turkish-fm-nato-ankara-summit-concluded-successfully-3720598" }
+      { ad: { tr: "Bakan Fidan: Ankara Zirvesi değerlendirmesi", en: "Minister of Foreign Affairs Fidan on the Ankara Summit" }, url: "https://en.yenisafak.com/turkiye/turkish-fm-nato-ankara-summit-concluded-successfully-3720598" }
     ],
     karsiTez: {
       tr: "ABD ve bazı müttefikler, S-400'ün NATO sistemleriyle uyumsuz olduğunu ve F-35 teknolojisini riske attığını savunur. Türkiye'nin Rusya'ya yaptırımlara katılmaması ve İsveç/Finlandiya sürecini geciktirmesi, bazı başkentlerde ittifak dayanışmasına aykırı bulunmuştur. ABD, YPG'yi DEAŞ'la mücadelede ortak olarak görmüştür.",
@@ -163,7 +163,7 @@ const POLITIKALAR = [
     },
     sinavIpucu: {
       tr: "NATO'yu sadece \"ittifak\" olarak değil, Türkiye'nin Batı'ya kurumsal bağı olarak anlat. Madde 5'in yanında Madde 4 istişarelerini de bil: Türkiye 2003-2020 arasında beş kez (2003, 2012'de iki kez, 2015 ve 2020) Madde 4 istişaresi talep etti; bu maddeye en sık başvuran müttefik Türkiye'dir.",
-      en: "Present NATO not just as an 'alliance' but as Türkiye's institutional anchor in the West. Besides Article 5, know Article 4 consultations: Türkiye requested Article 4 consultations five times between 2003 and 2020 (2003, twice in 2012, 2015 and 2020), more than any other ally."
+      en: "Present NATO not just as an 'alliance' but as Türkiye's institutional anchor in the West. In addition to Article 5, be familiar with Article 4 consultations: Türkiye requested Article 4 consultations five times between 2003 and 2020 (2003, twice in 2012, 2015 and 2020), more than any other ally."
     },
     kavramlar: [{ tr: "Kolektif savunma (Madde 5)", en: "Collective defence (Article 5)" }, { tr: "Yük paylaşımı", en: "Burden sharing" }, { tr: "Caydırıcılık", en: "Deterrence" }, { tr: "İttifak", en: "Alliance" }],
     soru: {
@@ -218,11 +218,11 @@ const POLITIKALAR = [
     oncelik: "yuksek",
     resmi: {
       tr: "Türkiye Suriye'nin toprak bütünlüğünü, birliğini ve istikrarını destekler. Yeni Suriye yönetimiyle siyasi, ekonomik ve güvenlik alanlarında kapsamlı işbirliği yürütür. Terör örgütlerinin (PKK/YPG, DEAŞ) Suriye'de yer bulmamasını ve sığınmacıların gönüllü, güvenli ve onurlu dönüşünü öncelik olarak görür; İsrail'in Suriye topraklarındaki ihlallerini kınar.",
-      en: "Türkiye supports Syria's territorial integrity, unity and stability. It pursues comprehensive cooperation with the new Syrian administration in the political, economic and security fields. Its priorities are that terrorist organisations (PKK/YPG, DAESH) find no place in Syria and the voluntary, safe and dignified return of asylum seekers; it condemns Israel's violations on Syrian territory."
+      en: "Türkiye supports Syria's territorial integrity, unity and stability. It pursues comprehensive cooperation with the new Syrian administration in the political, economic and security fields. Its priorities are that terrorist organisations (PKK/YPG, DAESH) are denied any foothold in Syria and the voluntary, safe and dignified return of asylum seekers; it condemns Israel's violations on Syrian territory."
     },
     analiz: {
       tr: "Esad rejiminin Aralık 2024'te çöküşü, Türkiye'yi Suriye'de 13 yıllık savunmacı pozisyondan en etkili dış aktör konumuna taşıdı. Ancak üç kısıt sürüyor: SDG'nin yeni orduya entegrasyonu, İsrail'in güneyde fiilî oldubittiler yaratması ve ülkenin yeniden inşası için gereken finansman. Dışişleri Bakanı Fidan'ın Suriye'yi 2026'nın birinci önceliği sayması, bu dosyanın \"Terörsüz Türkiye\" süreciyle iç politikaya da bağlanmasından kaynaklanıyor.",
-      en: "The fall of the Assad regime in December 2024 moved Türkiye from a 13-year defensive posture to being the most influential external actor in Syria. Three constraints remain, however: integrating the SDF into the new army, Israel's creation of facts on the ground in the south, and financing reconstruction. Foreign Minister Fidan's ranking of Syria as the top priority for 2026 reflects the file's link to domestic politics through the 'Terror-free Türkiye' process."
+      en: "The fall of the Assad regime in December 2024 moved Türkiye from a 13-year defensive posture to being the most influential external actor in Syria. Three constraints remain, however: integrating the SDF into the new army, Israel's attempts to create faits accomplis in the south, and financing reconstruction. Minister of Foreign Affairs Fidan's ranking of Syria as the top priority for 2026 reflects the file's link to domestic politics through the 'Terror-free Türkiye' process."
     },
     olgular: [
       { tr: "20 Ekim 1998 Adana Mutabakatı: Suriye PKK'ya desteğini kesmeyi ve Öcalan'ı ülkeden çıkarmayı taahhüt etti.", en: "20 October 1998 Adana Agreement: Syria undertook to end its support for the PKK and to expel Öcalan." },
@@ -232,7 +232,7 @@ const POLITIKALAR = [
       { tr: "Ağustos 2026: ABD Suriye'yi terörü destekleyen ülkeler listesinden çıkardı; Eylül 2026: UAEA Suriye'nin nükleer dosyasını kapattı. Türkiye her iki kararı da memnuniyetle karşıladı.", en: "August 2026: The US removed Syria from the list of state sponsors of terrorism; September 2026: the IAEA closed Syria's nuclear file. Türkiye welcomed both decisions." }
     ],
     belgeler: [
-      { ad: { tr: "Bakan Fidan'ın Şam ziyareti (13-14 Eylül 2026)", en: "FM Fidan's visit to Damascus (13–14 September 2026)" }, url: "https://www.mfa.gov.tr/sayin-bakanimizin-suriye-yi-ziyareti--13-14-eylul-2026--sam.en.mfa" },
+      { ad: { tr: "Bakan Fidan'ın Şam ziyareti (13-14 Eylül 2026)", en: "Minister of Foreign Affairs Fidan's visit to Damascus (13–14 September 2026)" }, url: "https://www.mfa.gov.tr/sayin-bakanimizin-suriye-yi-ziyareti--13-14-eylul-2026--sam.en.mfa" },
       { ad: { tr: "No: 190 — İsrail'in Suriye topraklarındaki ihlalleri (5 Ekim 2026)", en: "No: 190 — Israel's violations on Syrian territory (5 October 2026, Turkish)" }, url: "https://www.mfa.gov.tr/no_-190_-israil-in-suriye-topraklarindaki-ihlalleri-hk.tr.mfa" },
       { ad: { tr: "Fidan'ın 2026 öncelikleri (Yetkin Report)", en: "Fidan's 2026 priorities (Yetkin Report, Turkish)" }, url: "https://yetkinreport.com/2026/01/16/hakan-fidana-gore-2026da-onem-sirasiyla-turkiyenin-onundeki-3-kriz/" }
     ],
@@ -261,7 +261,7 @@ const POLITIKALAR = [
     },
     analiz: {
       tr: "Gazze savaşı Türkiye-İsrail ilişkilerini diplomatik, ticari ve hukuki düzlemde kopma noktasına getirdi: ticaretin kesilmesi ve UAD davasına müdahil olunması, Türkiye'nin söylemden somut araçlara geçtiğini gösteriyor. Ekim 2025 ateşkesinde garantörler arasında yer almak sahaya dönük bir rol açtı; ancak İsrail'in Türkiye'nin istikrar gücüne katılımına itirazı belirleyici bir kısıt. Fidan'ın değerlendirmesine göre Gazze dosyası özünde bölgedeki Türkiye-İsrail rekabetinin bir parçası.",
-      en: "The Gaza war brought Türkiye–Israel relations to breaking point on the diplomatic, trade and legal levels: halting trade and intervening in the ICJ case show that Türkiye moved from rhetoric to concrete instruments. Being among the guarantors of the October 2025 ceasefire opened a role on the ground, but Israel's objection to Turkish participation in the stabilisation force is a decisive constraint. In Fidan's assessment, the Gaza file is essentially part of the Türkiye–Israel rivalry in the region."
+      en: "The Gaza war brought Türkiye–Israel relations to breaking point on the diplomatic, trade and legal levels: halting trade and intervening in the ICJ case show that Türkiye moved from rhetoric to concrete instruments. Being among the guarantors of the October 2025 ceasefire created a role on the ground, but Israel's objection to Turkish participation in the stabilisation force is a decisive constraint. In Fidan's assessment, the Gaza file is essentially part of the Türkiye–Israel rivalry in the region."
     },
     olgular: [
       { tr: "15 Kasım 1988: Türkiye, Filistin Devleti'nin ilanını aynı gün tanıyan ülkeler arasında yer aldı.", en: "15 November 1988: Türkiye was among the countries that recognised the proclaimed State of Palestine on the same day." },
@@ -277,7 +277,7 @@ const POLITIKALAR = [
     ],
     karsiTez: {
       tr: "İsrail, Türkiye'nin Hamas'la temasını gerekçe göstererek Türkiye'nin Gazze'de rol almasına karşı çıkar ve askerî operasyonlarını meşru müdafaa olarak tanımlar. Bazı Batılı hükümetler UAD davasının esasına ilişkin karar verilmeden \"soykırım\" nitelemesi yapılmasını erken bulur.",
-      en: "Israel opposes any Turkish role in Gaza, citing Türkiye's contacts with Hamas, and describes its military operations as self-defence. Some Western governments consider it premature to use the term 'genocide' before the ICJ rules on the merits."
+      en: "Israel opposes any Turkish role in Gaza, citing Türkiye's contacts with Hamas, and describes its military operations as legitimate defence (self-defence). Some Western governments consider it premature to use the term 'genocide' before the ICJ rules on the merits."
     },
     sinavIpucu: {
       tr: "İki devletli çözümü yazarken dört unsuru eksiksiz say: 1967 sınırları, Doğu Kudüs başkent, bağımsız-egemen, coğrafi bütünlük. UAD'de \"dava açmak\" ile \"davaya müdahil olmak\" farklıdır: Türkiye davacı değil, 63. madde kapsamında müdahildir.",
@@ -300,7 +300,7 @@ const POLITIKALAR = [
     },
     analiz: {
       tr: "Türkiye-İran ilişkisi tarihsel olarak \"rekabet içinde istikrar\" üzerine kurulu: 1639'dan beri büyük ölçüde değişmeyen sınır, karşılıklı enerji ve ticaret bağımlılığı, Suriye ve Irak'ta ise rekabet. 2026 İran savaşı bu dengeyi zorladı: Türkiye bir yandan NATO hava savunmasına dayandı, öte yandan savaşa taraf olmaktan kaçındı. Mekke ve \"Badr\" savunma düzenlemeleri, Körfez'de ABD şemsiyesinin güvenilirliği sorgulanırken bölgesel güvenlik mimarisinde Türkiye'ye yeni bir rol açıyor; ancak bu düzenlemelerin NATO yükümlülükleriyle ilişkisi henüz tanımlanmış değil.",
-      en: "Türkiye–Iran relations have historically rested on 'stability within rivalry': a border largely unchanged since 1639, mutual dependence in energy and trade, and competition in Syria and Iraq. The 2026 Iran war strained this balance: Türkiye relied on NATO air defence while avoiding becoming a party to the war. The Mecca and 'Badr' defence arrangements open a new role for Türkiye in the regional security architecture as the reliability of the US umbrella in the Gulf is questioned, though their relationship to NATO obligations is not yet defined."
+      en: "Türkiye–Iran relations have historically rested on 'stability within rivalry': a border largely unchanged since 1639, interdependence in energy and trade, and competition in Syria and Iraq. The 2026 Iran war strained this balance: Türkiye relied on NATO air defence while avoiding becoming a party to the war. The Mecca and 'Badr' defence arrangements open a new role for Türkiye in the regional security architecture as the reliability of the US umbrella in the Gulf is questioned, though their relationship to NATO obligations is not yet defined."
     },
     olgular: [
       { tr: "1639 Kasr-ı Şirin Antlaşması: Bugünkü Türkiye-İran sınırının ana hatlarını belirledi.", en: "1639 Treaty of Qasr-e Shirin: set the main lines of today's Türkiye–Iran border." },
@@ -421,7 +421,7 @@ const POLITIKALAR = [
       { tr: "BM Genel Kurulu'nun arabuluculuk kararları: A/65/283 (2011, ilk karar), A/66/291 (2012), A/68/303 (2014), A/70/304 (2016).", en: "UN General Assembly resolutions on mediation: A/65/283 (2011, the first), A/66/291 (2012), A/68/303 (2014), A/70/304 (2016)." },
       { tr: "2014: AGİT Arabuluculuk Dostlar Grubu (Türkiye, Finlandiya, İsviçre). 24 Eylül 2018: İİT Arabuluculuk Temas Grubu.", en: "2014: OSCE Group of Friends of Mediation (Türkiye, Finland, Switzerland). 24 September 2018: OIC Mediation Contact Group." },
       { tr: "İstanbul Arabuluculuk Konferansları 2012'den beri düzenleniyor; 9.'su 23-24 Ekim 2026'da yapıldı.", en: "The Istanbul Mediation Conferences have been held since 2012; the 9th took place on 23–24 October 2026." },
-      { tr: "23 Ekim 2026: İstanbul'da R4 (Türkiye, Mısır, Pakistan, Suudi Arabistan) ve R4+E3 (Almanya, Birleşik Krallık, Fransa) dışişleri bakanları toplantıları.", en: "23 October 2026: R4 (Türkiye, Egypt, Pakistan, Saudi Arabia) and R4+E3 (Germany, the UK, France) foreign ministers' meetings in Istanbul." }
+      { tr: "23 Ekim 2026: İstanbul'da R4 (Türkiye, Mısır, Pakistan, Suudi Arabistan) ve R4+E3 (Almanya, Birleşik Krallık, Fransa) dışişleri bakanları toplantıları.", en: "23 October 2026: R4 (Türkiye, Egypt, Pakistan, Saudi Arabia) and R4+E3 (Germany, the UK, France) meetings of ministers of foreign affairs in Istanbul." }
     ],
     belgeler: [
       { ad: { tr: "Uyuşmazlıkların Barışçıl Çözümü ve Arabuluculuk (Bakanlık)", en: "Peaceful Settlement of Disputes and Mediation (Ministry, Turkish)" }, url: "https://www.mfa.gov.tr/uyusmazliklarin-cozumu-ve-arabuluculuk.tr.mfa" },
@@ -434,7 +434,7 @@ const POLITIKALAR = [
     },
     sinavIpucu: {
       tr: "Arabuluculuk (mediation), kolaylaştırıcılık (facilitation) ve iyi niyet hizmetlerini (good offices) birbirinden ayır. Örnekleri bu kavramlara göre sınıflandırmak analitik puan kazandırır.",
-      en: "Distinguish mediation, facilitation and good offices. Classifying examples according to these concepts earns analytical credit."
+      en: "Distinguish mediation, facilitation and good offices. Classifying examples according to these concepts strengthens the analysis."
     },
     kavramlar: [{ tr: "Arabuluculuk", en: "Mediation" }, { tr: "Kolaylaştırıcılık", en: "Facilitation" }, { tr: "Önleyici diplomasi", en: "Preventive diplomacy" }, { tr: "Çok taraflı diplomasi", en: "Multilateral diplomacy" }],
     soru: {
@@ -537,7 +537,7 @@ const POLITIKALAR = [
       { tr: "1971: Türkiye ile Çin Halk Cumhuriyeti arasında diplomatik ilişkiler kuruldu (2026, ilişkilerin 55. yılı). 2010: ilişkiler \"Stratejik İşbirliği\" düzeyine yükseltildi.", en: "1971: diplomatic relations were established between Türkiye and the People's Republic of China (2026 marks the 55th anniversary). 2010: relations were raised to the level of 'Strategic Cooperation'." },
       { tr: "Kasım 2015: Kuşak ve Yol Girişimi ile Orta Koridor'un uyumlaştırılmasına ilişkin mutabakat zaptı imzalandı.", en: "November 2015: a memorandum of understanding on aligning the Belt and Road Initiative with the Middle Corridor was signed." },
       { tr: "2025: TÜİK verilerine göre Çin, 49,6 milyar dolarla Türkiye'nin en çok ithalat yaptığı ülke oldu; Türkiye'nin Çin'e ihracatı bunun çok altında kaldığı için ikili ticarette büyük bir açık var.", en: "2025: according to TurkStat, China was Türkiye's largest source of imports at $49.6 billion; because Türkiye's exports to China were far lower, bilateral trade shows a large deficit." },
-      { tr: "Haziran 2024: Dışişleri Bakanı Çin'i ziyaret etti; Pekin'in yanı sıra Urumçi ve Kaşgar'da temaslarda bulundu. 31 Ağustos 2025: Cumhurbaşkanı ile Xi Jinping ŞİÖ Tianjin Zirvesi marjında görüştü.", en: "June 2024: the Foreign Minister visited China, holding contacts in Urumqi and Kashgar as well as Beijing. 31 August 2025: the President met Xi Jinping on the margins of the SCO Tianjin Summit." },
+      { tr: "Haziran 2024: Dışişleri Bakanı Çin'i ziyaret etti; Pekin'in yanı sıra Urumçi ve Kaşgar'da temaslarda bulundu. 31 Ağustos 2025: Cumhurbaşkanı ile Xi Jinping ŞİÖ Tianjin Zirvesi marjında görüştü.", en: "June 2024: the Minister of Foreign Affairs visited China, holding contacts in Urumqi and Kashgar as well as Beijing. 31 August 2025: the President met Xi Jinping on the margins of the SCO Tianjin Summit." },
       { tr: "Ağustos 2019: \"Yeniden Asya\" Girişimi açıklandı. Aralık 2025 itibarıyla Türkiye'nin girişim coğrafyasında 30 büyükelçiliği ve 26 başkonsolosluğu var. 2017: Türkiye ASEAN'ın sektörel diyalog ortağı oldu.", en: "August 2019: the 'Asia Anew' Initiative was announced. As of December 2025, Türkiye has 30 embassies and 26 consulates general in the initiative's geography. 2017: Türkiye became an ASEAN Sectoral Dialogue Partner." }
     ],
     belgeler: [
@@ -551,7 +551,7 @@ const POLITIKALAR = [
     },
     sinavIpucu: {
       tr: "Ekonomik karşılıklı bağımlılık ile değer temelli konular (Uygur Türkleri) arasındaki dengeyi açıkça kur. \"Yeniden Asya\"yı sadece Çin'e indirgeme; Japonya, Güney Kore, Hindistan ve ASEAN'ı da an. Orta Koridor'u bu dosyayla Türk Dünyası dosyası arasında bir köprü olarak kullan.",
-      en: "Clearly balance economic interdependence against value-based issues (the Uyghur Turks). Don't reduce 'Asia Anew' to China; mention Japan, South Korea, India and ASEAN too. Use the Middle Corridor as a bridge between this file and the Turkic World file."
+      en: "Clearly balance economic interdependence against value-based issues (the Uyghur Turks). Do not reduce 'Asia Anew' to China; mention Japan, South Korea, India and ASEAN too. Use the Middle Corridor as a bridge between this file and the Turkic World file."
     },
     kavramlar: [{ tr: "Stratejik işbirliği", en: "Strategic cooperation" }, { tr: "Orta Koridor", en: "Middle Corridor" }, { tr: "Kuşak ve Yol Girişimi", en: "Belt and Road Initiative" }, { tr: "Diyalog ortağı", en: "Dialogue partner" }],
     soru: {
@@ -566,7 +566,7 @@ const POLITIKALAR = [
     oncelik: "dusuk",
     resmi: {
       tr: "Türkiye, Latin Amerika ve Karayipler ile ilişkilerini 1998'de hazırlanıp 2006'da güncellenen Eylem Planı çerçevesinde geliştirir. Siyasi istişare mekanizmaları, bölgesel örgütlerdeki gözlemcilik statüleri, ticaret ve serbest ticaret anlaşmaları, kalkınma işbirliği (TİKA), burslar ve ulaştırma bağlantıları ile bölgedeki varlığını kalıcı ve çok boyutlu hâle getirmeyi amaçlar.",
-      en: "Türkiye develops its relations with Latin America and the Caribbean within the framework of the Action Plan prepared in 1998 and updated in 2006. It aims to make its presence in the region lasting and multidimensional through political consultation mechanisms, observer status in regional organisations, trade and free trade agreements, development cooperation (TİKA), scholarships and transport links."
+      en: "Türkiye develops its relations with Latin America and the Caribbean within the framework of the Action Plan prepared in 1998 and updated in 2006. It aims to make its presence in the region lasting and multi-dimensional through political consultation mechanisms, observer status in regional organisations, trade and free trade agreements, development cooperation (TİKA), scholarships and transport links."
     },
     analiz: {
       tr: "Latin Amerika, Türkiye'nin küresel aktör olma ve dış politikasını coğrafi olarak çeşitlendirme hedefinin sınama alanıdır. Coğrafi uzaklık ve tarihsel bağların sınırlılığı nedeniyle ilişkiler daha çok ekonomi, diplomasi ağı ve çok taraflı forumlarda (G20, BM) işbirliğine dayanıyor. Brezilya ve Meksika gibi G20 ortaklarıyla \"orta güç\" ortak noktası öne çıkıyor; ancak ticaret hacmi bölge dışı büyük oyunculara kıyasla mütevazı ve ticaret dengesi Türkiye aleyhine.",

@@ -115,7 +115,7 @@ const QUIZ = [
     secenekler: { tr: ["18 Mart 2016", "15 Temmuz 2016", "3 Ekim 2005", "1 Mayıs 2004"], en: ["18 March 2016", "15 July 2016", "3 October 2005", "1 May 2004"] },
     aciklama: { tr: "18 Mart 2016 mutabakatı düzensiz göçle mücadele ve AB mali desteğini kapsıyor.", en: "The 18 March 2016 Statement covers combating irregular migration and EU financial support." } },
   { konu: "guncel", dogru: 2,
-    soru: { tr: "Dışişleri Bakanı Fidan'a göre 2026'da Türkiye'nin önündeki en önemli kriz hangisi?", en: "According to Foreign Minister Fidan, what is the most important crisis facing Türkiye in 2026?" },
+    soru: { tr: "Dışişleri Bakanı Fidan'a göre 2026'da Türkiye'nin önündeki en önemli kriz hangisi?", en: "According to Minister of Foreign Affairs Fidan, what is the most important crisis facing Türkiye in 2026?" },
     secenekler: { tr: ["Rusya-Ukrayna", "Gazze", "Suriye", "İran"], en: ["Russia–Ukraine", "Gaza", "Syria", "Iran"] },
     aciklama: { tr: "Fidan'ın Ocak 2026 sıralaması: 1) Suriye, 2) Gazze, 3) Rusya-Ukrayna. İran bu üçlüde yer almadı.", en: "Fidan's January 2026 ranking: 1) Syria, 2) Gaza, 3) Russia–Ukraine. Iran was not in the top three." } }
 ];

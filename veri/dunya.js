@@ -12,10 +12,10 @@ const DUNYA = [
   {
     tarih: "2026-10-31",
     bolge: { tr: "Küresel", en: "Global" },
-    baslik: { tr: "G20 Dışişleri Bakanları Atlanta'da uzlaşısız ayrıldı", en: "G20 foreign ministers part in Atlanta without consensus" },
+    baslik: { tr: "G20 Dışişleri Bakanları Atlanta'da uzlaşısız ayrıldı", en: "G20 ministers of foreign affairs part in Atlanta without consensus" },
     ozet: {
       tr: "ABD dönem başkanlığında yapılan iki günlük toplantı ortak bildiri çıkmadan sona erdi; yalnızca bir dönem başkanlığı açıklaması yayımlandı. Avrupalı bakanların Rus Dışişleri Bakanı Lavrov ile aynı karede yer almaya itiraz etmesi üzerine geleneksel aile fotoğrafı iptal edildi. Ukrayna savaşı, Polonya'nın G20 üyeliği ve Güney Afrika'nın davet edilmemesi tartışmalı başlıklar arasındaydı.",
-      en: "The two-day meeting under the US presidency ended without a joint communiqué; only a chair's statement was issued. The traditional family photo was cancelled after European ministers objected to appearing alongside Russian Foreign Minister Lavrov. The war in Ukraine, Poland's G20 membership and South Africa not being invited were among the contested issues."
+      en: "The two-day meeting under the US presidency ended without a joint communiqué; only a chair's statement was issued. The traditional family photo was cancelled after European ministers objected to appearing alongside Russian Minister of Foreign Affairs Lavrov. The war in Ukraine, Poland's G20 membership and South Africa not being invited were among the contested issues."
     },
     baglanti: {
       tr: "Türkiye G20 üyesi; Bakan Fidan toplantıya katıldı. Aralık'ta Miami'de yapılacak Liderler Zirvesi öncesinde ittifak içi ve Batı-Rusya ayrışmalarının göstergesi.",

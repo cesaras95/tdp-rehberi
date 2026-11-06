@@ -31,7 +31,7 @@ QUIZ.push(
     ["1793", "1835", "1856", "1876"],
     ["1793", "1835", "1856", "1876"],
     ["Reisülküttaplık 1835'te Hariciye Nezaretine dönüştürüldü. TBMM Hükümeti'nin Hariciye Vekâleti ise 1920'de kuruldu.", "The office of Reisülküttap became the Ministry of Foreign Affairs in 1835. The Grand National Assembly's Commissariat for Foreign Affairs followed in 1920."]),
-  S("temeller", 3, ["Cumhuriyet döneminde en uzun süre görev yapan dışişleri bakanı kimdir?", "Who was the longest-serving foreign minister of the Republic?"],
+  S("temeller", 3, ["Cumhuriyet döneminde en uzun süre görev yapan dışişleri bakanı kimdir?", "Who was the longest-serving Minister of Foreign Affairs of the Republic?"],
     ["İsmet İnönü", "Fatin Rüştü Zorlu", "İhsan Sabri Çağlayangil", "Tevfik Rüştü Aras"],
     ["İsmet İnönü", "Fatin Rüştü Zorlu", "İhsan Sabri Çağlayangil", "Tevfik Rüştü Aras"],
     ["Tevfik Rüştü Aras 1925'ten 1938'e kadar yaklaşık 13 yıl görev yaptı; Montrö ve Balkan Antantı onun dönemindedir.", "Tevfik Rüştü Aras served from 1925 to 1938, about 13 years; Montreux and the Balkan Entente fall in his term."]),
