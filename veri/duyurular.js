@@ -7,9 +7,65 @@
 // konu: politikalar.js'deki bir id (ilgili karta link verir)
 // =============================================================
 
-const SON_GUNCELLEME = { tr: "2 Kasım 2026", en: "2 November 2026" };
+const SON_GUNCELLEME = { tr: "9 Kasım 2026", en: "9 November 2026" };
 
 const DUYURULAR = [
+  {
+    tarih: "2026-11-09",
+    baslik: { tr: "COP31 İklim Konferansı Antalya'da başladı", en: "COP31 Climate Change Conference opens in Antalya" },
+    ozet: {
+      tr: "BM İklim Değişikliği Konferansı (COP31), 9-20 Kasım tarihlerinde Antalya Expo Merkezi'nde toplanıyor. COP Başkanı Çevre, Şehircilik ve İklim Değişikliği Bakanı Murat Kurum; COP30'da varılan uzlaşı gereği müzakerelere Avustralya başkanlık ediyor. Dünya Liderleri Zirvesi 11-12 Kasım'da yapılacak; gündemde ulusal iklim planlarının yetersizliği, uyum finansmanı ve kayıp ve zarar fonu öne çıkıyor.",
+      en: "The UN Climate Change Conference (COP31) meets at the Antalya Expo Centre on 9–20 November. The COP President is Minister of Environment, Urbanisation and Climate Change Murat Kurum; under the arrangement agreed at COP30, Australia presides over the negotiations. The World Leaders' Summit is on 11–12 November; the agenda is led by insufficient national climate plans, adaptation finance and the loss and damage fund."
+    },
+    sinavNotu: {
+      tr: "Türkiye ile Avustralya arasındaki ev sahipliği/başkanlık paylaşımı COP tarihinde alışılmadık bir model. Türkiye'nin Paris Anlaşması'nı 2021'de onaylaması ve 2053 net sıfır hedefi sorulabilir. Katılımın önceki COP'lara göre düşük kalması, iklim diplomasisindeki genel yavaşlama olarak yorumlanıyor.",
+      en: "The hosting/presidency split between Türkiye and Australia is an unusual model in COP history. Türkiye's ratification of the Paris Agreement in 2021 and its 2053 net zero target are likely questions. Lower attendance than at previous COPs is read as a broader slowdown in climate diplomacy."
+    },
+    konu: "enerji-iklim", tur: "haber",
+    kaynak: "https://www.climateandcapitalmedia.com/cop31-antalya-preview/"
+  },
+  {
+    tarih: "2026-11-08",
+    baslik: { tr: "Erdoğan, Karabağ Zaferi'nin 6. yılında Şuşa'da", en: "Erdoğan in Shusha on the 6th anniversary of the Karabakh victory" },
+    ozet: {
+      tr: "Cumhurbaşkanı Erdoğan, 8 Kasım Zafer Günü dolayısıyla Azerbaycan'ı ziyaret etti ve Şuşa'da Cumhurbaşkanı Aliyev tarafından resmî törenle karşılandı. İki lider ortak basın toplantısında 'tek millet, iki devlet' anlayışını ve 2021 Şuşa Beyannamesi'ni vurguladı; Erdoğan Güney Kafkasya'nın artık işbirliği ve kalkınma alanı olarak anıldığını söyledi.",
+      en: "President Erdoğan visited Azerbaijan for Victory Day on 8 November and was received by President Aliyev with an official ceremony in Shusha. At a joint press conference, the two leaders stressed the 'one nation, two states' principle and the 2021 Shusha Declaration; Erdoğan said the South Caucasus is now described as an area of cooperation and development."
+    },
+    sinavNotu: {
+      tr: "Şuşa Beyannamesi (15 Haziran 2021) karşılıklı yardım hükmü içeren bir müttefiklik belgesi. Ziyaret, Aliyev'in Ankara'daki TDT Zirvesi'ne katılmamasının ardından yapıldı; ilişkilerin üst düzeyde teyidi olarak okunabilir.",
+      en: "The Shusha Declaration (15 June 2021) is an alliance document with a mutual assistance clause. The visit came after Aliyev did not attend the OTS Summit in Ankara and can be read as a reaffirmation of ties at the highest level."
+    },
+    konu: "turk-dunyasi", tur: "haber",
+    kaynak: "https://www.hurriyet.com.tr/gundem/karabag-zaferi-cumhurbaskani-erdogan-azerbaycana-gitti-43370174"
+  },
+  {
+    tarih: "2026-11-07",
+    baslik: { tr: "Fidan, TRT World Forum'da bağlantısallık ve deniz yollarını anlattı", en: "Fidan on connectivity and sea routes at the TRT World Forum" },
+    ozet: {
+      tr: "Bakan Fidan, İstanbul'daki TRT World Forum 2026'da deniz yolları, dar geçitler ve koridorlar oturumunda konuştu. Fidan, Karadeniz'deki seyrüsefer koridorlarının ve boru hatlarının çatışma ve baskı aracına dönüşebileceği uyarısında bulundu, bölgesel kapasitelerin güçlendirilmesi ve 'birden fazla sorumluluk merkezi' oluşturulması çağrısı yaptı. Orta Koridor'u ve Irak üzerinden Körfez'i Avrupa'ya bağlayacak hattı örnek gösterdi.",
+      en: "Minister Fidan spoke at a session on sea routes, chokepoints and corridors at the TRT World Forum 2026 in Istanbul. He warned that Black Sea shipping corridors and pipelines could become instruments of conflict and pressure, and called for stronger regional capacities and 'multiple centres of responsibility'. He cited the Middle Corridor and the planned route linking the Gulf to Europe via Iraq as examples."
+    },
+    sinavNotu: {
+      tr: "Bölgesel sahiplenme ('bölge sorunlarına bölgesel çözüm') Fidan döneminin ana temalarından. Kalkınma Yolu Projesi ve Orta Koridor, Hürmüz krizi ortamında alternatif ulaştırma hatları olarak sık soruluyor. Fidan aynı konuşmada Türkiye, Suudi Arabistan ve Pakistan'ı bir araya getiren Mekke savunma ittifakına da değindi.",
+      en: "Regional ownership ('regional solutions to regional problems') is a key theme of Fidan's tenure. The Development Road Project and the Middle Corridor are frequently asked about as alternative transport routes amid the Hormuz crisis. In the same speech Fidan also referred to the Mecca defence alliance bringing together Türkiye, Saudi Arabia and Pakistan."
+    },
+    konu: "iran-korfez", tur: "haber",
+    kaynak: "https://www.milliyet.com.tr/dunya/son-dakika-disisleri-bakani-hakan-fidan-turkiye-surdurulebilir-diplomasiyi-saglamaya-calisiyor-7696204"
+  },
+  {
+    tarih: "2026-11-04",
+    baslik: { tr: "Avrupa Komisyonu 2026 Türkiye Raporu ve Dışişleri Bakanlığının tepkisi", en: "European Commission's 2026 Türkiye Report and the Ministry of Foreign Affairs' response" },
+    ozet: {
+      tr: "Komisyon, genişleme paketi kapsamında yayımladığı raporda katılım müzakerelerinin 2018'den beri durma noktasında olduğunu belirtti; demokrasi, hukukun üstünlüğü, yargı bağımsızlığı ve temel haklarda gerilemeye dikkat çekti, ekonomiyi ve Türkiye'nin Avrupa güvenliğindeki rolünü ise olumlu değerlendirdi. Dışişleri Bakanlığı yazılı açıklamasında siyasi kriterler, yargı ve temel haklara ilişkin iddiaları mesnetsiz bularak reddetti ve raporu çifte standartla eleştirdi. Bakanlık ekonomiye ve savunma rolüne dair tespitleri memnuniyetle karşıladı ve Gümrük Birliği'nin güncellenmesi çağrısını yineledi.",
+      en: "In its report, published as part of the enlargement package, the Commission said accession negotiations have been at a standstill since 2018; it pointed to backsliding on democracy, the rule of law, judicial independence and fundamental rights, while assessing the economy and Türkiye's role in European security positively. In a written statement, the Ministry of Foreign Affairs rejected the claims on political criteria, the judiciary and fundamental rights as unfounded and criticised the report for double standards. The Ministry welcomed the findings on the economy and the defence role and renewed its call to modernise the Customs Union."
+    },
+    sinavNotu: {
+      tr: "Yıllık ilerleme raporlarının yapısı: siyasi kriterler, ekonomik kriterler ve fasıllar (ör. 23. Fasıl Yargı ve Temel Haklar, 31. Fasıl Dış, Güvenlik ve Savunma Politikası). Rapora göre Türkiye 2025'te AB'nin beşinci büyük ticaret ortağı. Bakanlık ayrıca Kıbrıs ve Doğu Akdeniz değerlendirmelerini reddetti; 'AB'nin Kıbrıs'ta taraf tutması' Türkiye'nin yerleşik eleştirisi.",
+      en: "Structure of the annual reports: political criteria, economic criteria and chapters (e.g. Chapter 23 Judiciary and Fundamental Rights, Chapter 31 Foreign, Security and Defence Policy). According to the report, Türkiye was the EU's fifth-largest trading partner in 2025. The Ministry also rejected the assessments on Cyprus and the Eastern Mediterranean; 'the EU taking sides on Cyprus' is a long-standing Turkish criticism."
+    },
+    konu: "ab", tur: "haber",
+    kaynak: "https://enlargement.ec.europa.eu/turkiye-report-2026_en"
+  },
   {
     tarih: "2026-10-31",
     baslik: { tr: "Zelenski'nin İstanbul ziyareti", en: "Zelenskyy's visit to Istanbul" },
@@ -163,48 +219,6 @@ const DUYURULAR = [
     },
     konu: "kibris", tur: "haber",
     kaynak: "https://www.dailysabah.com/politics/turkish-cypriot-leader-warns-of-trust-erosion-after-cyprus-talks/news"
-  },
-  {
-    tarih: "2026-09-13",
-    baslik: { tr: "Dışişleri Bakanı Fidan'ın Şam ziyareti", en: "Minister of Foreign Affairs Fidan's visit to Damascus" },
-    ozet: {
-      tr: "Bakan Fidan 13-14 Eylül'de Şam'da Suriye Dışişleri Bakanı Şeybani ile görüştü ve Cumhurbaşkanı Şara tarafından kabul edildi. Suriye İçişleri Bakanı ile üçlü bir toplantı yapıldı, Suriye Türkmen Meclisi heyetiyle de bir araya gelindi.",
-      en: "On 13–14 September in Damascus, Minister Fidan met Syrian Minister of Foreign Affairs al-Shaibani and was received by President al-Sharaa. A trilateral meeting was held with the Syrian Interior Minister, and he also met a delegation of the Syrian Turkmen Assembly."
-    },
-    sinavNotu: {
-      tr: "Yeni Suriye yönetimiyle güvenlik dâhil çok boyutlu işbirliği. Suriye, Fidan'ın 2026 öncelik listesinde birinci sırada.",
-      en: "Multi-dimensional cooperation with the new Syrian administration, including on security. Syria tops Fidan's 2026 priority list."
-    },
-    konu: "suriye", tur: "resmi",
-    kaynak: "https://www.mfa.gov.tr/sayin-bakanimizin-suriye-yi-ziyareti--13-14-eylul-2026--sam.en.mfa"
-  },
-  {
-    tarih: "2026-07-07",
-    baslik: { tr: "NATO Ankara Zirvesi", en: "NATO Ankara Summit" },
-    ozet: {
-      tr: "7-8 Temmuz'da Ankara'da yapıldı. Türkiye 2004 İstanbul Zirvesi'nden sonra ikinci kez NATO liderler zirvesine ev sahipliği yaptı. Bakan Fidan zirveyi 'NATO 3.0' vizyonu ve 'güçlü NATO içinde güçlü Avrupa' çerçevesinde değerlendirdi.",
-      en: "Held in Ankara on 7–8 July. Türkiye hosted a NATO leaders' summit for the second time, after the 2004 Istanbul Summit. Minister Fidan framed it in terms of the 'NATO 3.0' vision and 'a stronger Europe within a stronger NATO'."
-    },
-    sinavNotu: {
-      tr: "Türkiye'nin ittifaktaki ağırlığı ve yük paylaşımı tartışmaları. Mülakatta sık gelebilecek bir başlık.",
-      en: "Türkiye's weight in the Alliance and the burden sharing debate. A likely interview topic."
-    },
-    konu: "nato-abd", tur: "haber",
-    kaynak: "https://en.yenisafak.com/turkiye/turkish-fm-nato-ankara-summit-concluded-successfully-3720598"
-  },
-  {
-    tarih: "2026-03-04",
-    baslik: { tr: "İran füzeleri Türk hava sahasında engellendi", en: "Iranian missiles intercepted in Turkish airspace" },
-    ozet: {
-      tr: "İran savaşı sırasında Türk hava sahasına giren dört balistik füze Mart ayında NATO hava ve füze savunma sistemlerince düşürüldü. Türkiye İran Büyükelçisini Dışişleri'ne çağırdı ve ihlallerin kabul edilemez olduğunu açıkladı.",
-      en: "During the Iran war, four ballistic missiles that entered Turkish airspace in March were shot down by NATO air and missile defence systems. Türkiye summoned the Iranian Ambassador and declared the violations unacceptable."
-    },
-    sinavNotu: {
-      tr: "NATO hava savunmasının somut işlevi ve 'büyükelçinin Bakanlığa çağrılması' diplomatik pratiği. Türkiye'nin İran'la ilişkisinde denge arayışı.",
-      en: "The tangible function of NATO air defence and the diplomatic practice of summoning an ambassador. Türkiye's search for balance in its relations with Iran."
-    },
-    konu: "iran-korfez", tur: "haber",
-    kaynak: "https://en.wikipedia.org/wiki/2026_interceptions_of_Iranian_missiles_in_Turkey"
   }
 ];
 

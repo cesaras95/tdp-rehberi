@@ -6,9 +6,65 @@
 // baglanti: Bu gelişmenin Türkiye ile ilgisi (sınavda "Türkiye perspektifi" için)
 // =============================================================
 
-const DUNYA_GUNCELLEME = { tr: "2 Kasım 2026", en: "2 November 2026" };
+const DUNYA_GUNCELLEME = { tr: "9 Kasım 2026", en: "9 November 2026" };
 
 const DUNYA = [
+  {
+    tarih: "2026-11-08",
+    bolge: { tr: "Avrasya", en: "Eurasia" },
+    baslik: { tr: "Ukrayna: Abu Dabi'de ABD arabuluculuğunda yeni tur, Avrupalılar da katılacak", en: "Ukraine: new US-mediated round in Abu Dhabi, with European participation" },
+    ozet: {
+      tr: "ABD özel temsilcisi Witkoff, Ukrayna ve Rusya heyetlerinin 10-11 Kasım'da Abu Dabi'de teknik düzeyde bir araya geleceğini açıkladı; Kremlin katılımı doğruladı. Bu, ABD arabuluculuğundaki son turun yapıldığı Şubat'tan bu yana ilk görüşme olacak. Fransa Dışişleri Bakanı Barrot Avrupalıların da masada temsil edileceğini söyledi; toprak ve güvenlik güvenceleri konusundaki ayrılıklar sürüyor.",
+      en: "US envoy Witkoff announced that Ukrainian and Russian delegations would meet at technical level in Abu Dhabi on 10–11 November; the Kremlin confirmed its participation. It will be the first US-mediated round since February. French Minister of Foreign Affairs Barrot said the Europeans would be represented at the table; differences over territory and security guarantees remain."
+    },
+    baglanti: {
+      tr: "Türkiye, Zelenski'nin 31 Ekim ziyaretinde ev sahipliği seçeneğini gündeme getirmişti; müzakerelerin Körfez'de sürmesi Türkiye'nin kolaylaştırıcı rolü açısından izlenmeli. Karadeniz seyrüsefer güvenliği Türkiye için öncelikli başlık.",
+      en: "Türkiye raised the option of hosting during Zelenskyy's 31 October visit; the continuation of talks in the Gulf is worth following for Türkiye's facilitation role. Safety of navigation in the Black Sea is a priority issue for Türkiye."
+    },
+    kaynak: "https://www.investing.com/news/world-news/europeans-will-join-ukraine-talks-in-abu-dhabi-french-minister-says-5010393"
+  },
+  {
+    tarih: "2026-11-07",
+    bolge: { tr: "Orta Doğu", en: "Middle East" },
+    baslik: { tr: "ABD, Hürmüz'deki Keşm Adası'na sınırlı saldırı düzenledi", en: "US carries out limited strikes on Qeshm Island in the Strait of Hormuz" },
+    ozet: {
+      tr: "Başkan Trump, İran devlet medyasının Keşm Adası'na füze isabet ettiğini bildirmesinin ardından ABD'nin İran'a 'küçük' saldırılar düzenlediğini doğruladı; saldırıların İran hava savunma unsurlarını hedef aldığı bildirildi. İran Hürmüz Boğazı'ndaki ablukasını, ABD de İran limanlarına karşı ablukasını sürdürüyor. Taraflar arasında arabulucular aracılığıyla temaslar devam ediyor, ancak ABD Dışişleri Bakanı Rubio bir atılımın yakın olmadığını söyledi.",
+      en: "President Trump confirmed that the US had carried out 'minor' strikes on Iran after Iranian state media reported missiles hitting Qeshm Island; the strikes were reported to target Iranian air defence assets. Iran maintains its blockade of the Strait of Hormuz, and the US its counter-blockade of Iranian ports. Contacts continue through mediators, but US Secretary of State Rubio said a breakthrough was not imminent."
+    },
+    baglanti: {
+      tr: "Enerji güvenliği ve petrol fiyatları; Türkiye'nin 'savaşın yayılmaması' ve diplomatik çözüm çağrısı. Fidan'ın TRT World Forum'da dar geçitlerin baskı aracına dönüşmesine ilişkin uyarısıyla bağlantılı (bkz. Türkiye Gündemi).",
+      en: "Energy security and oil prices; Türkiye's call to prevent the war from spreading and for a diplomatic solution. Linked to Fidan's warning at the TRT World Forum about chokepoints becoming instruments of pressure (see Türkiye Agenda)."
+    },
+    kaynak: "https://www.cbsnews.com/live-updates/iran-war-trump-us-strait-hormuz-persian-gulf/"
+  },
+  {
+    tarih: "2026-11-04",
+    bolge: { tr: "Amerika", en: "Americas" },
+    baslik: { tr: "ABD ara seçimleri: Demokratlar Kongre'nin iki kanadını da kazandı", en: "US midterms: Democrats win both chambers of Congress" },
+    ozet: {
+      tr: "3 Kasım ara seçimlerinde Demokrat Parti hem Temsilciler Meclisi'nde hem de Senato'da çoğunluğu elde etti. AP'nin 4 Kasım itibarıyla açıkladığı sonuçlara göre Demokratlar Meclis'te 218 eşiğini aşarak 225, Senato'da 54 sandalyeye ulaştı; bazı yarışların sonucu henüz kesinleşmedi. Cumhuriyetçilerin elindeki en az yedi Senato koltuğu Demokratlara geçti.",
+      en: "In the 3 November midterm elections, the Democratic Party won majorities in both the House of Representatives and the Senate. According to AP results as of 4 November, Democrats passed the 218 threshold with 225 House seats and reached 54 seats in the Senate; some races have yet to be called. At least seven Republican-held Senate seats flipped to the Democrats."
+    },
+    baglanti: {
+      tr: "Silah satışlarında Kongre onayı (ör. F-16, F-35 dosyaları) ve CAATSA yaptırımları Türkiye-ABD ilişkilerinde Kongre'yi belirleyici kılıyor. Bölünmüş yönetim, Trump yönetiminin dış politika kararları üzerinde Kongre denetimini artırabilir.",
+      en: "Congressional approval of arms sales (e.g. the F-16 and F-35 files) and CAATSA sanctions make Congress a decisive actor in Türkiye–US relations. Divided government may increase congressional oversight of the Trump administration's foreign policy decisions."
+    },
+    kaynak: "https://www.illawarramercury.com.au/story/9386125/democrats-take-full-control-of-congress-in-midterms/"
+  },
+  {
+    tarih: "2026-11-04",
+    bolge: { tr: "Avrupa", en: "Europe" },
+    baslik: { tr: "Avrupa Komisyonu 2026 Genişleme Paketi'ni açıkladı", en: "European Commission presents the 2026 Enlargement Package" },
+    ozet: {
+      tr: "Genişlemeden Sorumlu Komisyon Üyesi Marta Kos'un sunduğu paket, genişleme politikasına ilişkin bir bildirim ile on ülkenin raporlarını içeriyor: Karadağ, Arnavutluk, Ukrayna, Moldova, Sırbistan, Kuzey Makedonya, Bosna-Hersek, Kosova, Türkiye ve Gürcistan. Raporlar 1 Eylül 2025 - 1 Eylül 2026 dönemini kapsıyor.",
+      en: "Presented by Commissioner for Enlargement Marta Kos, the package comprises a communication on enlargement policy and reports on ten countries: Montenegro, Albania, Ukraine, Moldova, Serbia, North Macedonia, Bosnia and Herzegovina, Kosovo, Türkiye and Georgia. The reports cover the period from 1 September 2025 to 1 September 2026."
+    },
+    baglanti: {
+      tr: "Türkiye 1999'dan beri aday ülke, katılım müzakereleri 2005'te başladı ve 2018'den beri fiilen donmuş durumda. Türkiye raporu ve Bakanlığın tepkisi için bkz. Türkiye Gündemi.",
+      en: "Türkiye has been a candidate country since 1999; accession negotiations began in 2005 and have been effectively frozen since 2018. See Türkiye Agenda for the Türkiye report and the Ministry's response."
+    },
+    kaynak: "https://www.interpressnews.ge/en/article/150641-european-commission-to-present-2026-enlargement-package-today-which-includes-a-report-on-candidate-countries-including-georgia/"
+  },
   {
     tarih: "2026-10-31",
     bolge: { tr: "Küresel", en: "Global" },
@@ -137,20 +193,6 @@ const DUNYA = [
   },
   {
     tarih: "2026-10-16",
-    bolge: { tr: "Küresel", en: "Global" },
-    baslik: { tr: "BM Genel Sekreteri seçimi: Güvenlik Konseyi'nde 6. yoklama oylaması", en: "Secretary General of the UN selection: 6th straw poll in the Security Council" },
-    ozet: {
-      tr: "Güvenlik Konseyi yedi aday arasında altıncı gayriresmî yoklama oylamasını yaptı. Adaylar arasında UAEA Genel Direktörü Grossi, UNCTAD Genel Sekreteri Grynspan ve Senegal'in eski Cumhurbaşkanı Sall bulunuyor. Guterres'in görev süresi yıl sonunda doluyor; yeni Genel Sekreter 1 Ocak 2027'de göreve başlayacak.",
-      en: "The Security Council held its sixth informal straw poll among seven candidates, including IAEA Director General Grossi, UNCTAD Secretary-General Grynspan and former Senegalese President Sall. Guterres's term ends at the end of the year; the new Secretary-General takes office on 1 January 2027."
-    },
-    baglanti: {
-      tr: "Türkiye'nin BM reformu tutumu ('Dünya beşten büyüktür') ve çok taraflı sistemdeki rolü.",
-      en: "Türkiye's position on UN reform ('The world is bigger than five') and its role in the multilateral system."
-    },
-    kaynak: "https://news.cgtn.com/news/2026-10-17/UNSC-holds-6th-straw-poll-on-secretary-general-candidates-1RjhPtMoRCo/share_amp.html"
-  },
-  {
-    tarih: "2026-10-16",
     bolge: { tr: "Avrupa", en: "Europe" },
     baslik: { tr: "AB Liderler Zirvesi: Ukrayna'ya destek, bütçede uzlaşı yok", en: "European Council: support for Ukraine, no deal on the budget" },
     ozet: {
@@ -162,20 +204,6 @@ const DUNYA = [
       en: "Linked to migration, defence (SAFE) and enlargement debates in Türkiye–EU relations."
     },
     kaynak: "https://www.euronews.com/2026/10/16/budget-ukraine-migration-five-takeaways-from-the-eu-leaders-summit"
-  },
-  {
-    tarih: "2026-10-16",
-    bolge: { tr: "Amerika", en: "Americas" },
-    baslik: { tr: "ABD, Rusya'ya yönelik yeni yaptırımların çoğunu askıya aldı", en: "US waives most new sanctions on Russia" },
-    ozet: {
-      tr: "Başkan Trump, Graham Yasası kapsamındaki yeni Rusya yaptırımlarının çoğundan muafiyet tanıdı ve Rus dizel alımlarını onayladı. AB zirvesinde Bulgaristan bu anlaşma nedeniyle diğer üyelerden ayrıştı.",
-      en: "President Trump waived most of the new Russia sanctions under the Graham Act and approved purchases of Russian diesel. At the EU summit, Bulgaria broke ranks over this deal."
-    },
-    baglanti: {
-      tr: "Türkiye'nin Rusya'ya yaptırımlara katılmama politikasına yönelik Batılı baskıların seyri açısından önemli.",
-      en: "Relevant to the course of Western pressure on Türkiye's policy of not joining sanctions on Russia."
-    },
-    kaynak: "https://mdbriefing.substack.com/p/md-weekly-briefing-week-of-26-october"
   },
   {
     tarih: "2026-10-24",
@@ -195,10 +223,10 @@ const DUNYA = [
 
 // DÜNYA TAKVİMİ — yaklaşan önemli uluslararası tarihler
 const DUNYA_TAKVIM = [
-  { tarih: "2026-11-03", baslik: { tr: "ABD ara seçimleri", en: "US midterm elections" }, kaynak: "https://mdbriefing.substack.com/p/md-weekly-briefing-week-of-26-october" },
-  { tarih: "2026-11-05", tarihMetin: { tr: "Kasım 2026 (ilk yarı, tarih kesinleşmedi)", en: "November 2026 (first half, date not confirmed)" }, baslik: { tr: "ABD-Rusya-Ukrayna üçlü görüşmeleri — Abu Dabi", en: "US–Russia–Ukraine trilateral talks — Abu Dhabi" }, kaynak: "https://meduza.io/en/news/2026/10/29/kremlin-says-u-s-russia-ukraine-peace-talks-will-take-place-in-abu-dhabi-after-november-4-depending-on-battlefield-conditions" },
+  { tarih: "2026-11-10", baslik: { tr: "ABD arabuluculuğunda Ukrayna-Rusya görüşmeleri — Abu Dabi (10-11 Kasım)", en: "US-mediated Ukraine–Russia talks — Abu Dhabi (10–11 November)" }, kaynak: "https://lavocedinewyork.com/en/news/2026/11/03/ukraine-russia-talks-to-resume-in-abu-dhabi-nov-10-11-with-u-s-mediation/" },
   { tarih: "2026-11-11", baslik: { tr: "COP31 Dünya Liderleri Zirvesi — Antalya (11-12 Kasım)", en: "COP31 World Leaders' Summit — Antalya (11–12 November)" }, kaynak: "https://en.wikipedia.org/wiki/2026_United_Nations_Climate_Change_Conference" },
   { tarih: "2026-11-18", baslik: { tr: "APEC Liderler Zirvesi — Shenzhen (18-19 Kasım); Trump-Xi görüşmesi bekleniyor", en: "APEC Leaders' Meeting — Shenzhen (18–19 November); a Trump–Xi meeting is expected" }, kaynak: "https://mdbriefing.substack.com/p/md-weekly-briefing-week-of-26-october" },
+  { tarih: "2026-11-20", baslik: { tr: "COP31 sona eriyor — Antalya", en: "COP31 closes — Antalya" }, kaynak: "https://www.climateandcapitalmedia.com/cop31-antalya-preview/" },
   { tarih: "2026-11-26", baslik: { tr: "AB olağanüstü zirvesi (bütçe)", en: "Special European Council (budget)" }, kaynak: "https://www.euronews.com/2026/10/16/budget-ukraine-migration-five-takeaways-from-the-eu-leaders-summit" },
   { tarih: "2026-12-01", tarihMetin: { tr: "Aralık 2026", en: "December 2026" }, baslik: { tr: "G20 Zirvesi — Miami", en: "G20 Summit — Miami" }, kaynak: "https://www.roic.ai/news/trump-sets-november-apec-and-december-g20-meetings-with-xi-as-trade-truce-faces-january-deadline-09-25-2026" },
   { tarih: "2027-01-01", baslik: { tr: "Yeni BM Genel Sekreteri göreve başlıyor", en: "New Secretary General of the UN takes office" }, kaynak: "https://news.cgtn.com/news/2026-10-17/UNSC-holds-6th-straw-poll-on-secretary-general-candidates-1RjhPtMoRCo/share_amp.html" }
