@@ -928,3 +928,12 @@ body.panel-acik { overflow: hidden; }
 
 /* Telefonda uzun seçenekli açılır listeler ekrandan taşmasın */
 .secim-satir select, label > select { max-width: 100%; }
+
+/* Yanlışlarım defteri ve ilerleme yedeği */
+.yanlis-cip { position: relative; }
+.yanlis-cip small { opacity: .75; }
+.rozet { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 6px; padding: 0 5px; border-radius: 9px; background: var(--vurgu); color: #fff; font-size: .72rem; font-weight: 700; }
+.defter-notu { margin: 6px 0 0; font-size: .88rem; color: var(--soluk); }
+.yedek-satir { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; margin: 12px 0 0; font-size: .9rem; }
+.yedek-yukle { cursor: pointer; }
+#yedek-durum { color: var(--soluk); }

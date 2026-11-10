@@ -154,12 +154,12 @@ const TARIH_CILT = ["I", "I", "I", "I", "I", "II", "II", "III", "III"];
     karsi: { tr: "Rusya, uçağın Suriye hava sahasında olduğunu ileri sürdü ve olayı ağır biçimde kınayarak Türkiye'ye ekonomik yaptırımlar uyguladı.", en: "Russia claimed that the aircraft had been within Syrian airspace, strongly condemned the incident and imposed economic sanctions on Türkiye." },
     cevap: { tr: "Krizden Haziran 2016'da normalleşmeye ve ardından Astana sürecine geçişi, iki ülkenin 'rekabet içinde işbirliği' modeline örnek olarak sun.", en: "Present the shift from the crisis to normalisation in June 2016 and then to the Astana process as an example of the two countries' model of 'cooperation amid competition'." }
   }],
-  [9, 1, {
+  [9, 3, {
     resmi: { tr: "Türkiye, hava savunma ihtiyacını müttefiklerinden uygun koşullarla karşılayamayınca S-400 sistemini satın aldı; bunu egemenlik yetkisi kapsamında bir savunma tedariki kararı olarak görür ve F-35 programından çıkarılmayı haksız bulur.", en: "Having been unable to meet its air defence requirements from its Allies on suitable terms, Türkiye purchased the S-400 system; it regards this as a defence procurement decision within its sovereign competence and considers its removal from the F-35 programme unjustified." },
     karsi: { tr: "ABD, sistemin NATO altyapısıyla uyumsuz olduğunu ve F-35'in güvenliğini tehlikeye atacağını savundu; Aralık 2020'de CAATSA kapsamında Savunma Sanayii Başkanlığı'na yaptırım uyguladı.", en: "The United States argued that the system was incompatible with NATO infrastructure and would jeopardise the security of the F-35; in December 2020 it imposed sanctions on the Presidency of Defence Industries under CAATSA." },
     cevap: { tr: "Konuyu ittifak içi bir anlaşmazlık olarak çerçevele; çözüm için teknik çalışma grubu önerisini ve F-16 sürecini an.", en: "Frame the issue as an intra-Alliance disagreement and mention the proposal for a technical working group and the F-16 process as avenues for resolution." }
   }],
-  [9, 2, {
+  [9, 6, {
     resmi: { tr: "Mutabakat, iki kıyıdaş devlet arasında hakkaniyet ilkesine göre yapılmış bir sınırlandırmadır. Türkiye'ye göre ana karaya göre ters tarafta kalan adalar kıta sahanlığı ve münhasır ekonomik bölge sınırlandırmasında tam etki doğuramaz.", en: "The Memorandum is a delimitation between two coastal states effected in accordance with equitable principles. In Türkiye's view, islands lying on the wrong side of the median line in relation to the mainland cannot generate full effect in the delimitation of the continental shelf and the exclusive economic zone." },
     karsi: { tr: "Yunanistan ve Mısır, mutabakatın Girit'in deniz yetki alanlarını yok saydığını ve BM Deniz Hukuku Sözleşmesi'nin 121. maddesine aykırı olduğunu savundu; Ağustos 2020'de kendi aralarında kısmi bir sınırlandırma anlaşması imzaladılar.", en: "Greece and Egypt argued that the Memorandum disregards Crete's maritime jurisdiction areas and contravenes Article 121 of the UN Convention on the Law of the Sea; in August 2020 they signed a partial delimitation agreement between themselves." },
     cevap: { tr: "Türkiye'nin UNCLOS'a taraf olmadığını ama hakkaniyet ilkesinin uluslararası yargı kararlarıyla desteklendiğini belirt; 2011 Türkiye-KKTC anlaşmasıyla bağlantı kur.", en: "Note that Türkiye is not a party to UNCLOS but that the principle of equity is supported by international jurisprudence, and link it to the 2011 Türkiye–TRNC agreement." }
@@ -170,27 +170,27 @@ const TARIH_CILT = ["I", "I", "I", "I", "I", "II", "II", "III", "III"];
 // Her konu: [dönem, olay] referansları. Olaylar TARIH'ten okunur; böylece metin tek yerde kalır.
 const IZLEK = [
   { id: "bogazlar", ad: { tr: "Boğazlar ve Montrö", en: "The Straits and Montreux" },
-    olaylar: [[0, 3], [0, 11], [1, 6], [2, 8], [2, 11], [3, 1], [3, 2], [9, 5]] },
+    olaylar: [[0, 3], [0, 11], [1, 6], [2, 8], [2, 11], [3, 1], [3, 2], [9, 14]] },
   { id: "kibris", ad: { tr: "Kıbrıs", en: "Cyprus" },
-    olaylar: [[3, 9], [3, 11], [4, 2], [4, 3], [4, 6], [4, 10], [4, 11], [4, 13], [5, 4], [7, 3], [8, 3], [10, 5]] },
+    olaylar: [[3, 9], [3, 11], [4, 2], [4, 3], [4, 6], [4, 10], [4, 11], [4, 13], [5, 4], [7, 3], [8, 3], [10, 13]] },
   { id: "yunanistan", ad: { tr: "Yunanistan ve Ege", en: "Greece and the Aegean" },
-    olaylar: [[0, 1], [0, 11], [1, 3], [1, 5], [3, 7], [4, 4], [4, 12], [5, 0], [5, 7], [5, 11], [6, 7], [6, 9], [6, 12], [9, 2]] },
+    olaylar: [[0, 1], [0, 11], [1, 3], [1, 5], [3, 7], [4, 4], [4, 12], [5, 0], [5, 7], [5, 11], [6, 7], [6, 9], [6, 12], [9, 6], [9, 9], [10, 3]] },
   { id: "ab", ad: { tr: "Avrupa ve AB", en: "Europe and the EU" },
     olaylar: [[3, 12], [4, 1], [4, 14], [5, 8], [5, 9], [6, 6], [6, 10], [6, 14], [7, 0], [7, 5], [8, 6]] },
   { id: "abd-nato", ad: { tr: "ABD ve NATO", en: "The US and NATO" },
-    olaylar: [[3, 0], [3, 2], [3, 3], [3, 5], [3, 6], [3, 13], [4, 0], [4, 3], [4, 8], [4, 9], [4, 11], [5, 1], [5, 14], [7, 2], [7, 4], [7, 16], [9, 1], [10, 1], [11, 0], [11, 1]] },
+    olaylar: [[3, 0], [3, 2], [3, 3], [3, 5], [3, 6], [3, 13], [4, 0], [4, 3], [4, 8], [4, 9], [4, 11], [5, 1], [5, 14], [7, 2], [7, 4], [7, 16], [9, 3], [10, 4], [11, 0], [11, 1], [9, 15], [10, 1], [10, 2]] },
   { id: "rusya", ad: { tr: "Rusya / SSCB", en: "Russia / USSR" },
-    olaylar: [[0, 6], [0, 7], [0, 8], [1, 0], [2, 0], [2, 11], [3, 1], [4, 5], [5, 5], [7, 9], [8, 5], [9, 0], [9, 1], [9, 5], [10, 3]] },
+    olaylar: [[0, 6], [0, 7], [0, 8], [1, 0], [2, 0], [2, 11], [3, 1], [4, 5], [5, 5], [7, 9], [8, 5], [9, 0], [9, 3], [9, 14], [10, 11], [9, 2], [9, 7], [9, 8]] },
   { id: "ortadogu", ad: { tr: "Orta Doğu: Irak ve Suriye", en: "The Middle East: Iraq and Syria" },
-    olaylar: [[1, 1], [1, 7], [1, 8], [1, 9], [3, 8], [3, 10], [5, 6], [5, 10], [5, 14], [6, 11], [7, 1], [7, 2], [7, 8], [8, 0], [8, 4], [8, 8], [9, 0], [10, 2]] },
+    olaylar: [[1, 1], [1, 7], [1, 8], [1, 9], [3, 8], [3, 10], [5, 6], [5, 10], [5, 14], [6, 11], [7, 1], [7, 2], [7, 8], [8, 0], [8, 4], [8, 8], [9, 0], [10, 9], [9, 1], [9, 5], [9, 8], [10, 5]] },
   { id: "filistin", ad: { tr: "Filistin ve İsrail", en: "Palestine and Israel" },
-    olaylar: [[3, 4], [4, 7], [5, 2], [5, 12], [6, 8], [7, 15], [8, 2], [10, 4]] },
+    olaylar: [[3, 4], [4, 7], [5, 2], [5, 12], [6, 8], [7, 15], [8, 2], [10, 12], [10, 6]] },
   { id: "kafkasya", ad: { tr: "Kafkasya ve Türk dünyası", en: "The Caucasus and the Turkic world" },
-    olaylar: [[0, 4], [0, 8], [6, 0], [6, 3], [6, 4], [6, 13], [7, 9], [7, 11], [7, 12], [9, 3], [9, 4]] },
+    olaylar: [[0, 4], [0, 8], [6, 0], [6, 3], [6, 4], [6, 13], [7, 9], [7, 11], [7, 12], [9, 10], [9, 11], [9, 12]] },
   { id: "balkanlar", ad: { tr: "Balkanlar", en: "The Balkans" },
     olaylar: [[1, 5], [3, 7], [5, 13], [6, 1], [6, 5]] },
   { id: "cok-tarafli", ad: { tr: "Çok taraflı diplomasi ve BM", en: "Multilateral diplomacy and the UN" },
-    olaylar: [[1, 4], [1, 8], [3, 5], [6, 2], [6, 13], [7, 6], [7, 7], [7, 10], [7, 14], [8, 1], [9, 5], [11, 2], [11, 3]] }
+    olaylar: [[1, 4], [1, 8], [3, 5], [6, 2], [6, 13], [7, 6], [7, 7], [7, 10], [7, 14], [8, 1], [9, 14], [11, 2], [11, 3], [10, 7], [10, 10]] }
 ];
 
 // ---------- 5) KARAR ANI SENARYOLARI ----------
@@ -266,7 +266,7 @@ const KARAR = [
     ], gercek: 1,
     sonuc: { tr: "Tezkere 264 kabul, 250 ret ve 19 çekimser oyla, Anayasa'nın aradığı salt çoğunluğa ulaşamadığı için kabul edilmedi. ABD kuzey cephesini açamadı; ilişkilerde bir süre gerginlik yaşandı. Türkiye daha sonra hava sahasının kullanımına izin verdi.", en: "The motion received 264 votes in favour, 250 against and 19 abstentions; as it failed to reach the absolute majority required by the Constitution, it was not adopted. The United States was unable to open the northern front, and relations were strained for some time. Türkiye later permitted the use of its airspace." },
     neden: { tr: "Karar, dış politika kararlarında TBMM'nin anayasal rolünü ve demokratik meşruiyetin önemini öne çıkardı. Uluslararası hukuki zeminin zayıflığı ve bölgesel istikrara ilişkin kaygılar belirleyici oldu.", en: "The decision highlighted the constitutional role of the Grand National Assembly in foreign policy decisions and the importance of democratic legitimacy. Concerns over the weakness of the legal basis under international law and over regional stability proved decisive." } },
-  { ref: [9, 5], yil: "2022",
+  { ref: [9, 14], yil: "2022",
     baslik: { tr: "Boğazlar ve Ukrayna savaşı", en: "The Straits and the war in Ukraine" },
     durum: { tr: "24 Şubat 2022'de Rusya Ukrayna'ya saldırır. Ukrayna Boğazların Rus savaş gemilerine kapatılmasını ister; bazı Batılı çevreler ise NATO gemilerinin Karadeniz'e girebilmesini tartışır. Montrö'nün uygulanması Türkiye'nin elindedir.", en: "On 24 February 2022 Russia attacks Ukraine. Ukraine asks for the Straits to be closed to Russian warships, while some Western circles discuss allowing NATO vessels into the Black Sea. The implementation of Montreux rests with Türkiye." },
     secenekler: [
@@ -324,7 +324,7 @@ const ANTLASMALAR = {
       not: { tr: "Onikiadalar İtalya'dan Yunanistan'a, silahsızlandırılmış statüyle devredildi. Türkiye taraf değildir.", en: "The Dodecanese were transferred from Italy to Greece with demilitarised status. Türkiye is not a party." } },
     { yil: "1959–60", ad: { tr: "Zürih ve Londra Antlaşmaları", en: "Zurich and London Agreements" }, x: 585.1, y: 120.8, ref: [3, 11],
       not: { tr: "Kıbrıs Cumhuriyeti; Türkiye garantör devlet.", en: "The Republic of Cyprus; Türkiye a guarantor power." } },
-    { yil: "2019", ad: { tr: "Türkiye-Libya Deniz Yetki Alanları Mutabakatı", en: "Türkiye–Libya Memorandum on Maritime Jurisdiction Areas" }, x: 568.1, y: 125.4, ref: [9, 2],
+    { yil: "2019", ad: { tr: "Türkiye-Libya Deniz Yetki Alanları Mutabakatı", en: "Türkiye–Libya Memorandum on Maritime Jurisdiction Areas" }, x: 568.1, y: 125.4, ref: [9, 6],
       not: { tr: "Doğu Akdeniz'de kıta sahanlığı ve MEB sınırlandırması.", en: "Delimitation of the continental shelf and EEZ in the Eastern Mediterranean." } }
   ]
 };

@@ -31,7 +31,7 @@ Görevin davranışını değiştirmek istersen bu dosyayı düzenlemen yeterli.
 
 ## Yayınlamadan önce
 
-1. `node --check veri/duyurular.js veri/dunya.js` hatasız geçmeli.
+1. `node robot/denetim.mjs` hatasız geçmeli ("✓ Denetim geçti" yazmalı). Bu denetim GitHub'da yayından önce de otomatik çalışır; hata varsa yeni sürüm yayınlanmaz.
 2. Her yeni maddede `tr` ve `en` dolu, `kaynak` bir `https://` adresi olmalı.
 3. Site tarayıcıda açılabiliyorsa Türkiye Gündemi ve Dünya Gündemi sekmelerini iki dilde kontrol et.
 4. Commit mesajı: `Haftalık güncelleme: <tarih>` ve kısa bir madde listesi.

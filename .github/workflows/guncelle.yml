@@ -34,6 +34,11 @@ jobs:
       - name: Haber başlıklarını topla
         run: python3 robot/basliklari_cek.py
 
+      # Yayın öncesi emniyet kontrolü: ciddi bir hata varsa burada durur,
+      # yeni sürüm yayınlanmaz ve site son sağlam hâliyle kalır.
+      - name: Yayın öncesi denetim
+        run: node robot/denetim.mjs
+
       - name: Pages ayarlarını hazırla
         uses: actions/configure-pages@v5
 

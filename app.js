@@ -357,18 +357,21 @@ const quiz = { sorular: [], sira: 0, dogru: 0, cevaplandi: false, konu: "hepsi" 
 
 function quizFiltreCiz() {
   const konular = ["hepsi", ...new Set(QUIZ.map(q => q.konu))];
+  const defter = yanlisListesi();
+  const zamani = defter.filter(q => ilerleme.yanlis[soruId(q)].s <= Date.now()).length;
   document.getElementById("quiz-filtre").innerHTML = konular.map(k =>
     `<button class="cip ${k === quiz.konu ? "aktif" : ""}" data-konu="${k}">${k === "hepsi" ? a("filtreHepsi") : guvenli(t(KONULAR[k]))}</button>`
-  ).join("");
+  ).join("") + `<button class="cip yanlis-cip ${quiz.konu === "yanlis" ? "aktif" : ""}" data-konu="yanlis" title="${guvenli(a("yanlisAcik"))}">${a("yanlisDefter")} <small>${defter.length}</small>${zamani ? `<span class="rozet" aria-label="${guvenli(a("yanlisZamani"))}">${zamani}</span>` : ""}</button>`;
 }
 
 function quizBaslat(konu) {
   quiz.konu = konu;
-  const havuz = konu === "hepsi" ? QUIZ : QUIZ.filter(q => q.konu === konu);
+  // "yanlis": Yanlışlarım defteri. Tekrar zamanı en eski olan soru en önce gelir.
+  const havuz = konu === "hepsi" ? QUIZ : konu === "yanlis" ? yanlisListesi() : QUIZ.filter(q => q.konu === konu);
   // Soruları ve her sorunun şıklarını karıştır. Böylece doğru cevap hep aynı harfte durmaz
   // (şıkkın yerini ezberlemek yerine bilgiyi hatırlarsın). Veri dosyasına dokunmuyoruz: "dizilis"
   // sadece bu turdaki sırayı tutar; örn. [2,0,3,1] = ekrandaki ilk şık, verideki 3. şıktır.
-  quiz.sorular = karistir(havuz).slice(0, 10).map(q => ({ ...q, dizilis: karistir(q.secenekler.tr.map((_, i) => i)) }));
+  quiz.sorular = (konu === "yanlis" ? havuz : karistir(havuz)).slice(0, 10).map(q => ({ ...q, dizilis: karistir(q.secenekler.tr.map((_, i) => i)) }));
   quiz.sira = 0;
   quiz.dogru = 0;
   quizFiltreCiz();
@@ -378,6 +381,13 @@ function quizBaslat(konu) {
 function soruCiz() {
   const alan = document.getElementById("quiz-alan");
   const toplam = quiz.sorular.length;
+
+  // Yanlışlarım defteri boşsa
+  if (!toplam) {
+    alan.innerHTML = `<div class="sonuc"><p>${a("yanlisBos")}</p><button class="dugme" id="quiz-tekrar">${a("yeniTur")}</button></div>`;
+    document.getElementById("quiz-tekrar").onclick = () => quizBaslat("hepsi");
+    return;
+  }
 
   // Sorular bittiyse sonucu göster
   if (quiz.sira >= toplam) {
@@ -417,10 +427,13 @@ document.getElementById("quiz-alan").addEventListener("click", e => {
   butonlar.forEach(b => b.disabled = true);
   butonlar[q.dizilis.indexOf(q.dogru)].classList.add("dogru");
   if (secilen === q.dogru) { quiz.dogru++; } else { btn.classList.add("yanlis"); }
+  const defterNotu = yanlisKaydet(q, secilen === q.dogru);
   ilerlemeQuizKaydet(q.konu, secilen === q.dogru);
+  quizFiltreCiz();
   const son = quiz.sira + 1 >= quiz.sorular.length;
   document.getElementById("quiz-geri-bildirim").innerHTML = `
     <p class="aciklama"><strong>${secilen === q.dogru ? a("dogru") : a("yanlis")}</strong> ${guvenli(t(q.aciklama))}</p>
+    ${defterNotu ? `<p class="defter-notu">${defterNotu}</p>` : ""}
     <button class="dugme" id="quiz-sonraki">${son ? a("sonucuGor") : a("sonrakiSoru")}</button>`;
   document.getElementById("quiz-sonraki").onclick = () => { quiz.sira++; soruCiz(); };
 });
@@ -998,6 +1011,63 @@ mulakatBolum.addEventListener("click", e => {
 let ilerleme = { quiz: {}, kartlar: [] };
 try { ilerleme = Object.assign(ilerleme, JSON.parse(localStorage.getItem("tdp-ilerleme") || "{}")); } catch (e) { /* okunamazsa boş başla */ }
 function ilerlemeKaydet() { try { localStorage.setItem("tdp-ilerleme", JSON.stringify(ilerleme)); } catch (e) { /* kaydedemezse sorun değil */ } }
+
+// ---------- YANLIŞLARIM DEFTERİ ve ARALIKLI TEKRAR (spaced repetition) ----------
+// Benzetme: Kutulu kart sistemi (Leitner). Yanlış yaptığın soru 1. kutuya girer ve ertesi gün
+// yeniden sorulur. Zamanı gelince doğru bilirsen bir sonraki kutuya geçer; kutular arası
+// bekleme uzar (1, 3, 7, 14 gün). Son kutuyu da geçen soru "öğrenildi" sayılıp defterden çıkar.
+// Yanlış yaparsan soru ilk kutuya döner. Kayıt: ilerleme.yanlis = { soru metni: { k: kutu, s: sıradaki tekrar zamanı } }
+const TEKRAR_GUN = [1, 3, 7, 14];
+const GUN_MS = 864e5;
+const soruId = q => q.soru.tr;
+function yanlisListesi() {
+  if (!ilerleme.yanlis || typeof ilerleme.yanlis !== "object") ilerleme.yanlis = {};
+  return QUIZ.filter(q => ilerleme.yanlis[soruId(q)]).sort((x, y) => ilerleme.yanlis[soruId(x)].s - ilerleme.yanlis[soruId(y)].s);
+}
+// Cevabı deftere işler; kullanıcıya gösterilecek kısa notu döndürür (yoksa "")
+function yanlisKaydet(q, dogruMu) {
+  yanlisListesi(); // defterin var olduğundan emin ol
+  const id = soruId(q), kayit = ilerleme.yanlis[id], simdi = Date.now();
+  if (!dogruMu) {
+    ilerleme.yanlis[id] = { k: 0, s: simdi + TEKRAR_GUN[0] * GUN_MS };
+    return a("defterEklendi");
+  }
+  if (!kayit) return "";
+  if (kayit.s > simdi) return a("defterErken"); // zamanı gelmeden doğru bilmek kutu atlatmaz
+  kayit.k++;
+  if (kayit.k >= TEKRAR_GUN.length) { delete ilerleme.yanlis[id]; return a("defterOgrenildi"); }
+  kayit.s = simdi + TEKRAR_GUN[kayit.k] * GUN_MS;
+  return a("defterIleri").replace("{g}", TEKRAR_GUN[kayit.k]);
+}
+
+// ---------- İLERLEMEYİ YEDEKLEME (dışa / içe aktarma) ----------
+// Benzetme: Oyundaki kayıt dosyasını USB belleğe kopyalamak. İlerleme sadece bu tarayıcıda
+// durduğu için telefon değişince kaybolur; dosyaya alırsan başka cihazda geri yükleyebilirsin.
+const YEDEK_ANAHTARLAR = ["tdp-ilerleme", "tdp-mulakat-liste", "tdp-mulakat-profil"];
+function ilerlemeDisaAktar() {
+  const veri = { uygulama: "tdp-rehberi", surum: 1, tarih: new Date().toISOString(), kayitlar: {} };
+  YEDEK_ANAHTARLAR.forEach(k => { try { const v = localStorage.getItem(k); if (v !== null) veri.kayitlar[k] = v; } catch (e) { /* okunamazsa atla */ } });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([JSON.stringify(veri, null, 2)], { type: "application/json" }));
+  link.download = `tdp-rehberi-ilerleme-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+function ilerlemeIceAktar(dosya, bildir) {
+  const okuyucu = new FileReader();
+  okuyucu.onload = () => {
+    try {
+      const veri = JSON.parse(okuyucu.result);
+      if (veri.uygulama !== "tdp-rehberi" || !veri.kayitlar) throw new Error("biçim");
+      // Sadece tanıdığımız anahtarları ve geçerli JSON olanları al (yabancı dosya bir şey bozamasın)
+      YEDEK_ANAHTARLAR.forEach(k => { if (typeof veri.kayitlar[k] === "string") { JSON.parse(veri.kayitlar[k]); localStorage.setItem(k, veri.kayitlar[k]); } });
+      bildir(a("yedekTamam"));
+      setTimeout(() => location.reload(), 900);
+    } catch (e) { bildir(a("yedekHata")); }
+  };
+  okuyucu.readAsText(dosya);
+}
+
 function ilerlemeQuizKaydet(konu, dogruMu) {
   const k = ilerleme.quiz[konu] || { d: 0, t: 0 };
   k.t++; if (dogruMu) k.d++;
@@ -1009,8 +1079,19 @@ function ilerlemeCiz() {
   const kutu = document.getElementById("ana-ilerleme");
   const konular = Object.keys(ilerleme.quiz);
   const mg = Array.isArray(ilerleme.mulakat) ? ilerleme.mulakat : [];
-  if (!konular.length && !ilerleme.kartlar.length && !mg.length) { kutu.hidden = true; return; }
+  const yedekSatiri = `<p class="yedek-satir"><button class="dugme metin" id="yedek-al">${a("yedekAl")}</button><label class="dugme metin yedek-yukle">${a("yedekYukle")}<input type="file" id="yedek-dosya" accept="application/json,.json" hidden></label><span id="yedek-durum" role="status"></span></p>`;
+  const yedekBagla = () => {
+    document.getElementById("yedek-al").onclick = ilerlemeDisaAktar;
+    document.getElementById("yedek-dosya").onchange = e => { if (e.target.files[0]) ilerlemeIceAktar(e.target.files[0], m => { document.getElementById("yedek-durum").textContent = m; }); };
+  };
   kutu.hidden = false;
+  if (!konular.length && !ilerleme.kartlar.length && !mg.length) {
+    // Henüz ilerleme yok: sadece "yedekten geri yükle" seçeneğini göster
+    kutu.innerHTML = `<div class="oto-ust"><h2>${a("ilerlemeBaslik")}</h2></div><p class="pol-bolge">${a("ilerlemeBos")}</p>${yedekSatiri}`;
+    yedekBagla();
+    return;
+  }
+  const defterSayi = Object.keys(ilerleme.yanlis || {}).length;
   const satirlar = konular.map(k => {
     const v = ilerleme.quiz[k]; const y = Math.round(v.d / v.t * 100);
     return `<div class="cubuk-satir"><span>${guvenli(t(KONULAR[k] || { tr: k, en: k }))}</span>
@@ -1021,10 +1102,13 @@ function ilerlemeCiz() {
     <p class="pol-bolge">${a("ilerlemeAcik")}</p>
     <div class="ilerleme-izgara">
       <div><h3>${a("ilerlemeQuiz")}</h3>${satirlar || `<p class="pol-bolge">${a("ilerlemeYok")}</p>`}</div>
+      <div class="kart-sayi"><h3>${a("yanlisDefter")}</h3><b>${defterSayi}</b><span><a href="#quiz" id="defter-ac">${a("defterAc")}</a></span></div>
       <div class="kart-sayi"><h3>${a("ilerlemeKart")}</h3><b>${ilerleme.kartlar.length}</b><span>/ ${KARTLAR.length}</span></div>
       <div class="kart-sayi"><h3>${a("ilerlemeMulakat")}</h3><b>${mg.length ? mg[mg.length - 1].puan.toFixed(1) : "–"}</b><span>/ 3 · ${mg.length} ${a("ilerlemeOturum")}</span></div>
-    </div>`;
-  document.getElementById("ilerleme-sifirla").onclick = () => { ilerleme = { quiz: {}, kartlar: [] }; ilerlemeKaydet(); ilerlemeCiz(); kartCiz(); };
+    </div>${yedekSatiri}`;
+  yedekBagla();
+  document.getElementById("defter-ac").onclick = () => quizBaslat("yanlis");
+  document.getElementById("ilerleme-sifirla").onclick = () => { if (!confirm(a("sifirlaOnay"))) return; ilerleme = { quiz: {}, kartlar: [], yanlis: {} }; ilerlemeKaydet(); ilerlemeCiz(); kartCiz(); quizFiltreCiz(); };
 }
 
 // ---------- YAPAY ZEKA DEĞERLENDİRME İSTEMİ ----------
