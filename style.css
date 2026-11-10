@@ -925,3 +925,6 @@ body.panel-acik { overflow: hidden; }
 .antlasma-liste p { margin: 2px 0; font-size: .88rem; color: var(--soluk); }
 .antlasma-liste small { color: var(--soluk); }
 .a-no { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--vurgu); color: #fff; font-size: .78rem; font-weight: 700; }
+
+/* Telefonda uzun seçenekli açılır listeler ekrandan taşmasın */
+.secim-satir select, label > select { max-width: 100%; }

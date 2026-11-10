@@ -365,7 +365,10 @@ function quizFiltreCiz() {
 function quizBaslat(konu) {
   quiz.konu = konu;
   const havuz = konu === "hepsi" ? QUIZ : QUIZ.filter(q => q.konu === konu);
-  quiz.sorular = karistir(havuz).slice(0, 10); // her turda en fazla 10 soru
+  // Soruları ve her sorunun şıklarını karıştır. Böylece doğru cevap hep aynı harfte durmaz
+  // (şıkkın yerini ezberlemek yerine bilgiyi hatırlarsın). Veri dosyasına dokunmuyoruz: "dizilis"
+  // sadece bu turdaki sırayı tutar; örn. [2,0,3,1] = ekrandaki ilk şık, verideki 3. şıktır.
+  quiz.sorular = karistir(havuz).slice(0, 10).map(q => ({ ...q, dizilis: karistir(q.secenekler.tr.map((_, i) => i)) }));
   quiz.sira = 0;
   quiz.dogru = 0;
   quizFiltreCiz();
@@ -390,14 +393,16 @@ function soruCiz() {
     return;
   }
 
-  const q = quiz.sorular[quiz.sira];
+  let q = quiz.sorular[quiz.sira];
+  // Aramadan gelen soru gibi dizilişi olmayanlara burada diziliş ver
+  if (!q.dizilis) q = quiz.sorular[quiz.sira] = { ...q, dizilis: karistir(q.secenekler.tr.map((_, i) => i)) };
   quiz.cevaplandi = false;
   alan.innerHTML = `
     <div class="quiz-ilerleme"><div style="width:${(quiz.sira / toplam) * 100}%"></div></div>
     <div class="quiz-bilgi"><span>${a("soru")} ${quiz.sira + 1} / ${toplam} · ${guvenli(t(KONULAR[q.konu]))}</span><span>${a("dogruSayisi")}: ${quiz.dogru}</span></div>
     <p class="quiz-soru">${guvenli(t(q.soru))}</p>
     <div id="secenekler">
-      ${q.secenekler[dil].map((s, i) => `<button class="secenek" data-i="${i}"><b>${"ABCD"[i]}</b>${guvenli(s)}</button>`).join("")}
+      ${q.dizilis.map((asil, i) => `<button class="secenek" data-i="${asil}"><b>${"ABCD"[i]}</b>${guvenli(q.secenekler[dil][asil])}</button>`).join("")}
     </div>
     <div id="quiz-geri-bildirim"></div>`;
 }
@@ -410,7 +415,7 @@ document.getElementById("quiz-alan").addEventListener("click", e => {
   const secilen = Number(btn.dataset.i);
   const butonlar = document.querySelectorAll(".secenek");
   butonlar.forEach(b => b.disabled = true);
-  butonlar[q.dogru].classList.add("dogru");
+  butonlar[q.dizilis.indexOf(q.dogru)].classList.add("dogru");
   if (secilen === q.dogru) { quiz.dogru++; } else { btn.classList.add("yanlis"); }
   ilerlemeQuizKaydet(q.konu, secilen === q.dogru);
   const son = quiz.sira + 1 >= quiz.sorular.length;
@@ -1643,7 +1648,7 @@ function aramaDiziniKur() {
   QUIZ.forEach(q =>
     ekle("menuQuiz", t(q.soru), t(KONULAR[q.konu]), iki(q.soru) + " " + iki(q.aciklama), () => {
       quizBaslat(q.konu);
-      quiz.sorular = [q, ...quiz.sorular.filter(x => x !== q)].slice(0, 10); soruCiz();
+      quiz.sorular = [q, ...quiz.sorular.filter(x => x.soru !== q.soru)].slice(0, 10); soruCiz();
       sekmeyeGit("quiz");
     }));
   KARTLAR.forEach((k, i) =>

@@ -37,7 +37,7 @@ const QUIZ = [
   { konu: "tarih", dogru: 1,
     soru: { tr: "Sadabat Paktı'nın tarafları hangileridir?", en: "Who were the parties to the Saadabad Pact?" },
     secenekler: { tr: ["Türkiye, Yunanistan, Romanya, Yugoslavya", "Türkiye, İran, Irak, Afganistan", "Türkiye, İngiltere, Fransa", "Türkiye, Pakistan, İran"], en: ["Türkiye, Greece, Romania, Yugoslavia", "Türkiye, Iran, Iraq, Afghanistan", "Türkiye, Britain, France", "Türkiye, Pakistan, Iran"] },
-    aciklama: { tr: "1937 Sadabat Paktı doğu sınırında güvenliği hedefledi. A şıkkı 1934 Balkan Antantı'dır.", en: "The 1937 Saadabad Pact aimed at security on the eastern border. Option A is the 1934 Balkan Entente." } },
+    aciklama: { tr: "1937 Sadabat Paktı doğu sınırında güvenliği hedefledi. Balkan devletleriyle yapılan anlaşma ise 1934 Balkan Antantı'dır.", en: "The 1937 Saadabad Pact aimed at security on the eastern border. The pact concluded with the Balkan states is the 1934 Balkan Entente." } },
   { konu: "tarih", dogru: 1,
     soru: { tr: "Türkiye 1945'te Almanya'ya neden savaş ilan etti?", en: "Why did Türkiye declare war on Germany in 1945?" },
     secenekler: { tr: ["Alman saldırısına uğradığı için", "BM'nin kuruluş konferansına katılma şartı nedeniyle", "Sovyetler Birliği'nin baskısıyla", "Balkan Antantı yükümlülüğü nedeniyle"], en: ["Because it was attacked by Germany", "To meet the condition for attending the UN founding conference", "Under pressure from the Soviet Union", "Due to Balkan Entente obligations"] },
