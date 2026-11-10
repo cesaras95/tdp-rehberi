@@ -937,3 +937,8 @@ body.panel-acik { overflow: hidden; }
 .yedek-satir { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; margin: 12px 0 0; font-size: .9rem; }
 .yedek-yukle { cursor: pointer; }
 #yedek-durum { color: var(--soluk); }
+
+/* Ana sayfa: "Bu site hakkında" kutusu */
+.hakkinda { margin-top: 18px; border-left: 4px solid var(--vurgu); }
+.hakkinda h2 { margin-top: 0; font-size: 1.1rem; }
+.hakkinda p { margin: 6px 0; font-size: .93rem; }

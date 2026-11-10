@@ -98,11 +98,14 @@ if (!hatalar.length) {
   else O.kaynaklar.forEach(k => (k.haberler || []).forEach(h => { if (h.link && !/^https?:\/\//.test(h.link)) hata(`OTOMATIK: geçersiz link — ${String(h.link).slice(0, 60)}`); }));
 
   // 8) Uyarılar: tarih sırası, bakan listesindeki boşluklar
-  const yil = s => +((String(s).match(/\b(1[89]\d\d|20\d\d)\b/) || [])[1]);
+  // "1920–1922" gibi aralıklarda son yıl esas alınır (aralık, bittiği yere göre sıralanmış olabilir)
+  const yil = s => Math.max(0, ...(String(s).match(/\b(1[89]\d\d|20\d\d)\b/g) || []).map(Number));
   T.forEach(d => { let onceki = 0; d.olaylar.forEach(o => { const y = yil(o.yil); if (!y) uyari(`TARIH ${d.donem}: yıl okunamadı — ${o.yil}`); else { if (y < onceki) uyari(`TARIH ${d.donem}: sıra bozuk — ${o.yil}`); onceki = y; } }); });
+  // Bakanlığın listesinde yer almayan vekâlet dönemleri (sitede kaynak notunda açıklanıyor)
+  const BILINEN_BOSLUK = new Set(["Numan Menemencioğlu", "Fuat Köprülü"]);
   const gun = s => { const [g, m, y] = s.split(".").map(Number); return new Date(y, m - 1, g); };
   const B = V("BAKANLAR").map(b => ({ ad: b.ad, b: gun(b.bas), s: b.son ? gun(b.son) : null })).sort((x, y) => x.b - y.b);
-  for (let i = 1; i < B.length; i++) { const fark = (B[i].b - (B[i - 1].s || B[i].b)) / 864e5; if (fark > 45) uyari(`BAKANLAR: ${B[i - 1].ad} → ${B[i].ad} arasında ${Math.round(fark)} gün boşluk`); }
+  for (let i = 1; i < B.length; i++) { const fark = (B[i].b - (B[i - 1].s || B[i].b)) / 864e5; if (fark > 45 && !BILINEN_BOSLUK.has(B[i - 1].ad)) uyari(`BAKANLAR: ${B[i - 1].ad} → ${B[i].ad} arasında ${Math.round(fark)} gün boşluk`); }
 
   // 9) Service worker'ın önbellek listesindeki dosyalar gerçekten var mı?
   const sw = fs.readFileSync("sw.js", "utf8");
