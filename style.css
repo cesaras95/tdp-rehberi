@@ -942,3 +942,7 @@ body.panel-acik { overflow: hidden; }
 .hakkinda { margin-top: 18px; border-left: 4px solid var(--vurgu); }
 .hakkinda h2 { margin-top: 0; font-size: 1.1rem; }
 .hakkinda p { margin: 6px 0; font-size: .93rem; }
+
+/* Mülakat kaydı: oynatıcı tam genişlik, indirme bağlantısı */
+.m-kayit { width: 100%; max-width: 640px; display: block; margin: 8px 0; }
+.kayit-indir { margin: 4px 0 12px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; }

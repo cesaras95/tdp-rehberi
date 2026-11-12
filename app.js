@@ -515,6 +515,8 @@ const mulakat = {
   modelAcik: false, ipucuAcik: false, puanlar: {},
   juri: null                // { seviye, liste: [...], sira, bitti }
 };
+// Telefon ya da tablet mi? (iPad masaüstü gibi görünse de dokunmatik + Mac olarak tanınır)
+const TELEFON = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const DESTEK = {
   kayit: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder),
   tanima: !!(window.SpeechRecognition || window.webkitSpeechRecognition)
@@ -558,6 +560,7 @@ function mulakatCiz() {
   else alan.innerHTML = gelisimCiz();
   if (mulakat.uyari) alan.insertAdjacentHTML("afterbegin", `<p class="cevrimdisi">${guvenli(mulakat.uyari)}</p>`);
   medyaOnizlemeBagla();
+  kayitOynaticiHazirla();
 }
 
 function hazirlikCiz() {
@@ -610,7 +613,8 @@ function ayarlarCiz(juriMi) {
         <label>${a("mProfilDeneyim")}<input data-m-profil="deneyim" value="${guvenli(p.deneyim)}" placeholder="${guvenli(a("mProfilDeneyimOrnek"))}"></label>
         <label>${a("mProfilDil")}<input data-m-profil="dil" value="${guvenli(p.dil)}" placeholder="${guvenli(a("mProfilDilOrnek"))}"></label>
       </div></details>
-    ${mulakat.sesTanima ? `<p class="kunye">${a("mTanimaNot")}</p>` : ""}`;
+    ${mulakat.sesTanima ? `<p class="kunye">${a("mTanimaNot")}</p>` : ""}
+    ${mulakat.sesTanima && TELEFON && mulakat.kayitTuru !== "yok" ? `<p class="kunye">${a("mTanimaTelefon")}</p>` : ""}`;
 }
 
 // Zamanlayıcı ve kayıt alanı (tek soru ve jüri ortak)
@@ -678,8 +682,9 @@ function juriCiz() {
 // Cevaptan sonra: kayıt, konuşma istatistikleri, öz değerlendirme, örnek cevap
 function degerlendirmeCiz(liste, tur) {
   const kayit = mulakat.kayitUrl ? (mulakat.kayitVideo
-    ? `<video class="m-kayit" src="${mulakat.kayitUrl}" controls playsinline></video>`
-    : `<audio class="m-kayit" src="${mulakat.kayitUrl}" controls></audio>`) : "";
+    ? `<video class="m-kayit" src="${mulakat.kayitUrl}" controls playsinline preload="metadata"></video>`
+    : `<audio class="m-kayit" src="${mulakat.kayitUrl}" controls preload="metadata"></audio>`) +
+      `<p class="kayit-indir"><a class="dugme metin" href="${mulakat.kayitUrl}" download="mulakat-kaydi-${new Date().toISOString().slice(0, 16).replace(/[T:]/g, "-")}.${mulakat.kayitUzanti || "webm"}">${a("mKayitIndir")}</a> <span class="kunye">${a("mKayitIndirNot")}</span></p>` : "";
   const istatistik = konusmaIstatistik();
   const olcutler = MULAKAT_OLCUT.map(o => `
     <div class="olcut-satir"><span>${guvenli(t(o.ad))}</span>
@@ -813,9 +818,16 @@ async function kayitBaslat() {
     mulakat.kayitVideo = mulakat.kayitTuru === "video";
     mulakat.medya = await navigator.mediaDevices.getUserMedia({ audio: true, video: mulakat.kayitVideo ? { facingMode: "user" } : false });
     mulakat.parcalar = [];
-    mulakat.kaydedici = new MediaRecorder(mulakat.medya);
-    mulakat.kaydedici.ondataavailable = e => { if (e.data.size) mulakat.parcalar.push(e.data); };
-    mulakat.kaydedici.start(1000);
+    // Telefonun desteklediği biçimi açıkça seç: iPhone (Safari) mp4, Android/Chrome webm kaydeder.
+    const tur = kayitBicimi(mulakat.kayitVideo);
+    mulakat.kayitTip = tur;
+    mulakat.kaydedici = tur ? new MediaRecorder(mulakat.medya, { mimeType: tur }) : new MediaRecorder(mulakat.medya);
+    mulakat.kaydedici.ondataavailable = e => { if (e.data && e.data.size) mulakat.parcalar.push(e.data); };
+    // Önemli: start()'a süre (ör. 1000 ms) VERMİYORUZ. Kayıt saniyelik parçalara bölününce
+    // iPhone'da birleşen dosyanın yalnızca ilk parçası (≈1 saniye) oynuyordu. Benzetme: bir filmi
+    // her saniye ayrı kasete kaydedip kasetleri uç uca yapıştırmak; oynatıcı ilk kasetten sonrasını göremiyor.
+    // Tek parça kayıt, durdurulunca bütün olarak teslim edilir.
+    mulakat.kaydedici.start();
     return true;
   } catch (e) {
     alanUyari(a("mKayitIzin"));
@@ -828,11 +840,38 @@ function kayitDurdur() {
     const k = mulakat.kaydedici;
     if (!k || k.state === "inactive") { medyaKapat(); coz(); return; }
     k.onstop = () => {
-      const blob = new Blob(mulakat.parcalar, { type: k.mimeType || (mulakat.kayitVideo ? "video/webm" : "audio/webm") });
-      mulakat.kayitUrl = URL.createObjectURL(blob);
+      const tip = (k.mimeType || mulakat.kayitTip || (mulakat.kayitVideo ? "video/webm" : "audio/webm")).split(";")[0];
+      const blob = new Blob(mulakat.parcalar, { type: tip });
+      mulakat.kayitUrl = blob.size ? URL.createObjectURL(blob) : null;
+      mulakat.kayitUzanti = tip.includes("mp4") ? "mp4" : tip.includes("ogg") ? "ogg" : "webm";
       medyaKapat(); coz();
     };
     k.stop();
+  });
+}
+// Tarayıcının kaydedebildiği ilk biçimi bul (bulamazsa tarayıcının varsayılanı kullanılır)
+function kayitBicimi(video) {
+  const adaylar = video
+    ? ["video/mp4", "video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm"]
+    : ["audio/mp4", "audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus"];
+  if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) return "";
+  return adaylar.find(t => { try { return MediaRecorder.isTypeSupported(t); } catch (e) { return false; } }) || "";
+}
+// Chrome'un kaydettiği webm dosyalarında süre bilgisi yazılmaz; oynatıcı süreyi 0, 1 sn ya da
+// "sonsuz" gösterir ve ileri saramazsın. Çözüm: oynatıcıyı bir an dosyanın sonuna gönderip
+// gerçek süreyi hesaplatıyor, sonra başa alıyoruz.
+function kayitOynaticiHazirla() {
+  document.querySelectorAll(".m-kayit").forEach(el => {
+    if (el.dataset.hazir) return;
+    el.dataset.hazir = "1";
+    el.addEventListener("loadedmetadata", () => {
+      if (el.duration === Infinity || isNaN(el.duration) || el.duration < 2) {
+        const geri = () => { el.removeEventListener("timeupdate", geri); el.currentTime = 0; };
+        el.addEventListener("timeupdate", geri);
+        try { el.currentTime = 1e7; } catch (e) { /* bazı tarayıcılar izin vermez; sorun değil */ }
+      }
+    }, { once: true });
+    el.load();
   });
 }
 function medyaKapat() {
@@ -852,6 +891,9 @@ function alanUyari(metin) { mulakat.uyari = metin; }
 // Ses tanıma (isteğe bağlı): konuşmayı yazıya çevirip istatistik çıkarır
 function tanimaBaslat() {
   if (!mulakat.sesTanima || !DESTEK.tanima) return;
+  // Telefonlarda mikrofonu aynı anda yalnızca biri kullanabiliyor: ses tanıma başlarsa kayıt
+  // sessiz kalıyor ya da kesiliyor. Kayıt açıksa telefonda ses tanımayı başlatmıyoruz.
+  if (mulakat.kaydedici && TELEFON) return;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   try {
     const r = new SR();
